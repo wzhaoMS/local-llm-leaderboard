@@ -1,0 +1,112 @@
+/* Task heatmap (#heatmap) - every class starts with hm- */
+.lb-card.hm-card { padding: 20px 22px 24px; }
+
+.hm-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.hm-count { font-size: 13px; color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; padding-right: 2px; }
+
+/* ---------- treemap ---------- */
+.hm-map { position: relative; height: 620px; }
+.hm-tile { position: absolute; display: flex; flex-direction: column; margin: 0; padding: 14px 15px; border: 0; border-radius: 6px;
+  background: #64748b; color: #fff; font: inherit; line-height: 1.25; text-align: left; cursor: pointer; overflow: hidden;
+  -webkit-tap-highlight-color: transparent; transition: filter .15s ease, box-shadow .15s ease; }
+.hm-tile:hover { filter: brightness(1.07) saturate(1.04); }
+.hm-tile:hover .hm-arrow { opacity: 1; }
+.hm-tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hm-tile.on { box-shadow: inset 0 0 0 3px var(--lime); }
+
+.hm-tile-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.hm-tile-name { font-weight: 650; font-size: 13.5px; letter-spacing: -.01em; overflow: hidden; display: -webkit-box;
+  -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.hm-arrow { flex: none; margin-top: 3px; opacity: .72; transition: opacity .15s ease; }
+
+.hm-lead { flex: 1; display: flex; align-items: center; gap: 9px; min-height: 0; padding-top: 6px; }
+.hm-badges { display: flex; flex: none; }
+.hm-badge { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; background: #fff;
+  font-weight: 750; font-size: 13px; letter-spacing: -.04em; line-height: 1; box-shadow: 0 1px 2px rgba(16, 24, 40, .2); }
+.hm-badge.hm-badge-2 { font-size: 10.5px; }
+.hm-badge + .hm-badge { margin-left: -5px; }
+.hm-lead-txt { display: flex; flex-direction: column; min-width: 0; }
+.hm-lead-name { font-weight: 620; font-size: 13px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; }
+.hm-lead-sub { font-size: 11.5px; color: rgba(255, 255, 255, .82); margin-top: 2px; font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* size steps, picked per tile from its pixel size */
+.hm-tile.hm-l { padding: 17px 18px; }
+.hm-l .hm-tile-name { font-size: 15px; }
+.hm-l .hm-lead { gap: 11px; }
+.hm-l .hm-badge { width: 30px; height: 30px; border-radius: 8px; font-size: 15px; }
+.hm-l .hm-badge.hm-badge-2 { font-size: 12px; }
+.hm-l .hm-badge + .hm-badge { margin-left: -6px; }
+.hm-l .hm-lead-name { font-size: 14.5px; }
+.hm-l .hm-lead-sub { font-size: 12px; }
+.hm-tile.hm-s { padding: 10px 11px; }
+.hm-s .hm-tile-name { font-size: 12px; }
+.hm-s .hm-lead { gap: 7px; }
+.hm-s .hm-badge { width: 22px; height: 22px; border-radius: 6px; font-size: 11px; }
+.hm-s .hm-badge.hm-badge-2 { font-size: 9px; }
+.hm-s .hm-lead-name { font-size: 11.5px; }
+.hm-s .hm-lead-sub { font-size: 10.5px; }
+.hm-narrow .hm-lead { flex-direction: column; align-items: flex-start; justify-content: center; gap: 7px; }
+.hm-narrow .hm-lead-txt { max-width: 100%; }
+
+/* no model ran this under the current filter */
+.hm-tile.hm-empty { background: repeating-linear-gradient(135deg, #f4f5f7 0 7px, #eceef1 7px 14px); color: var(--ink-2);
+  box-shadow: inset 0 0 0 1px var(--line); }
+.hm-tile.hm-empty:hover { filter: none; box-shadow: inset 0 0 0 1px #d5d9df; }
+.hm-tile.hm-empty.on { box-shadow: inset 0 0 0 3px var(--lime-2); }
+.hm-none { font-size: 13px; color: var(--faint); font-weight: 500; }
+.hm-s .hm-none { font-size: 11.5px; }
+
+/* narrow screens: a stacked list */
+.hm-map.hm-stack { height: auto; display: grid; gap: 6px; }
+.hm-stack .hm-tile { position: relative; min-height: 82px; padding: 13px 14px; }
+.hm-stack .hm-tile-name { font-size: 14px; }
+.hm-stack .hm-lead { padding-top: 10px; }
+
+/* ---------- selected tile: detail strip + full ranking ---------- */
+.hm-detail { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 16px; }
+.hm-dhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px 32px; }
+.hm-dl { min-width: 0; }
+.hm-dname { font-weight: 650; font-size: 15px; letter-spacing: -.01em; }
+.hm-ddesc { font-size: 13px; color: var(--muted); margin-top: 2px; max-width: 680px; }
+.hm-dr { text-align: right; flex: none; }
+.hm-dlead { font-weight: 600; font-size: 14px; }
+.hm-dlink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.hm-dlink:hover { text-decoration-thickness: 2px; }
+.hm-dtied { margin-left: 6px; font-size: 12.5px; font-weight: 500; color: var(--muted); }
+.hm-dnone { color: var(--faint); font-weight: 500; }
+.hm-dmeta { font-size: 12.5px; color: var(--faint); margin-top: 3px; }
+.hm-rank { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 48px; margin-top: 22px; }
+.hm-noruns { padding: 14px 0 0; }
+.hm-more { display: block; width: 100%; margin-top: 16px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 10px;
+  background: #fff; color: var(--ink-2); font-size: 13.5px; font-weight: 550; cursor: pointer; }
+.hm-more:hover { border-color: #cfd4da; color: var(--ink); }
+
+/* stacked list: the ranking opens under the tapped tile */
+.hm-stack .hm-detail { margin: 4px 2px 14px; padding-top: 6px; border-top: 0; }
+.hm-stack .hm-dname { display: none; }
+.hm-stack .hm-rank { grid-template-columns: minmax(0, 1fr); margin-top: 16px; }
+
+/* tooltip rows (inside the shared #lb-tip) */
+.hm-tip-row { display: flex; align-items: center; gap: 8px; min-width: 230px; }
+.hm-tip-row + .hm-tip-row { margin-top: 3px; }
+.hm-tip-rk { flex: none; width: 18px; font-size: 11px; color: #b8c0cc; font-variant-numeric: tabular-nums; }
+.hm-tip-rk.first { color: var(--lime); font-weight: 650; }
+.hm-tip-row i { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+.hm-tip-nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hm-tip-row b { font-variant-numeric: tabular-nums; }
+
+.hm-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 760px) {
+  .hm-rank { grid-template-columns: minmax(0, 1fr); }
+  .hm-dhead { flex-direction: column; }
+  .hm-dr { text-align: left; }
+}
+@media (max-width: 640px) {
+  .lb-card.hm-card { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm-tile, .hm-arrow { transition: none; }
+}

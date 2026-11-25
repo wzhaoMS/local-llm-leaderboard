@@ -1,0 +1,19 @@
+/* Per task: "Best in X" cards. */
+.pt-grid { align-items: stretch; }
+.pt-card { display: flex; flex-direction: column; padding: 22px 26px 24px; }
+.pt-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.pt-head h3 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+.pt-chip { margin-top: 2px; cursor: help; color: var(--ink-2); }
+.pt-list { gap: 15px; }
+.pt-list .lb-row { cursor: default; }
+.pt-card .lb-row .lb-row-sub { margin-top: -5px; }
+.pt-partial { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 5px; background: var(--line-2);
+  color: var(--muted); font-size: 11px; font-weight: 550; line-height: 17px; vertical-align: 1px; }
+.pt-more { margin-top: 14px; padding-left: 42px; font-size: 12.5px; color: var(--faint); cursor: help; align-self: flex-start; }
+.pt-more:hover { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .pt-card { padding: 20px 18px 22px; }
+  .pt-head h3 { font-size: 18px; }
+  .pt-more { padding-left: 0; }
+}
