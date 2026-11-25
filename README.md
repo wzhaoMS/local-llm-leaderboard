@@ -20,6 +20,15 @@ Open `index.html` in a browser. There is no build step and no server, and the pa
 
 `index.html?only=<section-id>` renders a single section. The screenshot tool uses it.
 
+## Check it
+
+```
+uv run tools/smoke.py
+powershell -File tools/shot.ps1 -Only heatmap -Width 390
+```
+
+`smoke.py` serves the repo over http, loads the page in headless Chrome at desktop and phone widths and clicks through every control. It fails on any script error, console error or sideways scroll. `shot.ps1` saves a screenshot of the page or of one section to `.shots/`.
+
 ## Layout
 
 | Path | Contents |
@@ -30,6 +39,7 @@ Open `index.html` in a browser. There is no build step and no server, and the pa
 | `src/sections/*` | One JS and CSS pair per section, registered with `LB.register` |
 | `assets/fonts/` | Geist font (SIL Open Font License 1.1) |
 | `tools/shot.ps1` | Headless Chrome screenshot helper |
+| `tools/smoke.py` | Headless Chrome smoke test: renders every section and exercises the controls |
 | `docs/ARCHITECTURE.md` | Section contract and data schema |
 
 ## Update the data

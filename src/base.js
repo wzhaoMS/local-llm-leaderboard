@@ -292,7 +292,7 @@
         h("div", { class: "lb-foot-bottom" },
           h("span", {}, "Hardware: ", h("b", {}, "RTX PRO 6000 + RTX 5090 · Ryzen 9 9950X3D2 · 128 GB")),
           h("span", {}, D.hardware ? D.hardware.engine : ""),
-          h("span", {}, "Updated: " + (D.generated || "").replace("T", " ")))));
+          h("span", {}, "Updated: " + (D.generated || "").replace("T", " ").replace(/Z$/, " UTC")))));
     }
   }
 
