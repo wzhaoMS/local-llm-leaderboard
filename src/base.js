@@ -53,8 +53,11 @@
     { value: "2gpu", label: "Both GPUs" },
     { value: "offload", label: "GPU + RAM / SSD" },
   ];
-  const PLACEMENT_LABEL = { "1gpu": "Single GPU", "2gpu": "Both GPUs", hybrid: "GPUs + RAM", stream: "GPUs + RAM + SSD", cpu: "CPU only" };
+  const PLACEMENT_LABEL = { "1gpu": "Single GPU", "2gpu": "Both GPUs", hybrid: "GPUs + RAM", stream: "GPUs + RAM + SSD", cpu: "CPU only",
+    cloud: "Cloud reference" };
+  /** Cloud reference models (m.reference) only match the "cloud" filter, so every local ranking leaves them out. */
   function matchPlacement(m, f) {
+    if (m && m.reference) return f === "cloud";
     if (!f || f === "all") return true;
     if (f === "offload") return m.placement === "hybrid" || m.placement === "stream" || m.placement === "cpu";
     return m.placement === f;
@@ -83,6 +86,8 @@
     return D.models.filter((m) => m.scores && isNum(m.scores.textCore) && matchPlacement(m, filter))
       .sort((a, b) => b.scores.textCore - a.scores.textCore);
   }
+  /** Cloud reference models with a text-core score, best first. */
+  function references() { return quality("cloud"); }
   function suite(key) { return D.suites.find((x) => x.key === key); }
   /** Score of a model on a suite key (core suites, or repo_replay / debug / long_horizon). 0-100 or null. */
   function score(m, key) {
@@ -193,7 +198,8 @@
 
   const LB = (window.LB = {
     data: D, h, s, fmt, isNum, PLACEMENTS, PLACEMENT_LABEL, matchPlacement, vendor, mono, byId, label, fullName, quality,
-    suite, score, seg, tabs, select, sectionHead, card, rank, bar, chip, rankRow, tip, modelTip, onResize, register, sections,
+    references, suite, score, seg, tabs, select, sectionHead, card, rank, bar, chip, rankRow, tip, modelTip, onResize,
+    register, sections,
     openCompare: function () { const el = document.getElementById("compare"); if (el) el.scrollIntoView(); },
   });
 
@@ -208,13 +214,21 @@
   }
   function renderChrome(navSecs) {
     const pick = byId((D.verdict || {}).pick);
-    const newest = D.models.filter((m) => !m.speedOnly).length;
+    const newest = D.models.filter((m) => !m.speedOnly && !m.reference).length;
+    const refs = references();
     const ann = document.getElementById("lb-announce");
     if (ann) {
       const inProg = D.models.filter((m) => m.status && m.status !== "done").length;
       ann.className = "lb-announce";
-      ann.append(h("b", {}, "New: "), `${newest} models benchmarked on one workstation; ${inProg} giant-model runs in progress.`,
-        h("a", { href: "#in-progress" }, "See what's running ↗"));
+      if (refs.length) {
+        const names = refs.map((m) => fullName(m));
+        const list = names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names[0];
+        ann.append(h("b", {}, "New: "), `${list} took the same tasks as cloud references.`,
+          h("a", { href: "#overall" }, "See how local compares ↗"));
+      } else {
+        ann.append(h("b", {}, "New: "), `${newest} models benchmarked on one workstation; ${inProg} giant-model runs in progress.`,
+          h("a", { href: "#in-progress" }, "See what's running ↗"));
+      }
     }
     const head = document.getElementById("lb-header");
     if (head) {
@@ -272,6 +286,8 @@
           h("div", {}, h("b", {}, fmt.pct(pick.scores.textCore)), h("span", {}, "text core")),
           h("div", {}, h("b", {}, fmt.tps(pick.speed && pick.speed.decode)), h("span", {}, "tok/s decode")),
           h("div", {}, h("b", {}, fmt.num(pick.speed && pick.speed.taskTime, 1) + " s"), h("span", {}, "per task"))),
+        refs.length ? h("div", { class: "lb-pick-ref" }, mono(refs[0], 20), h("span", {}, "Best cloud reference: ",
+          h("b", {}, fullName(refs[0])), ` · ${fmt.pct(refs[0].scores.textCore)} text core`)) : null,
         h("p", {}, D.verdict.en), h("p", { class: "zh", lang: "zh" }, D.verdict.zh)) : null);
     const main = document.getElementById("lb-main");
     main.before(hero);

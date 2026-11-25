@@ -230,12 +230,45 @@ def main() -> int:
     finally:
         if server:
             server.shutdown()
+        close_chrome(port, profile)
         proc.terminate()
         try:
             proc.wait(timeout=10)
         except subprocess.TimeoutExpired:
             proc.kill()
         shutil.rmtree(profile, ignore_errors=True)
+
+
+def close_chrome(port: int, profile: str) -> None:
+    """On Windows chrome.exe hands off to a browser process tree that outlives the launcher, so terminating the
+    launcher leaves headless Chrome running: close it through DevTools, and kill whatever still uses the profile."""
+    def alive() -> bool:
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{port}/json/version", timeout=2):
+                return True
+        except OSError:
+            return False
+
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/json/version", timeout=3) as r:
+            ws = websocket.create_connection(json.load(r)["webSocketDebuggerUrl"], timeout=10, suppress_origin=True)
+        ws.send(json.dumps({"id": 1, "method": "Browser.close"}))
+        try:
+            ws.recv()
+        except Exception:  # noqa: BLE001 - the connection drops as the browser exits
+            pass
+        ws.close()
+    except Exception:  # noqa: BLE001
+        pass
+    for _ in range(50):
+        if not alive():
+            break
+        time.sleep(0.2)
+    if os.name == "nt":
+        ps = ("Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='msedge.exe'\" | "
+              f"Where-Object {{ $_.CommandLine -like '*{profile}*' }} | "
+              "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }")
+        subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, timeout=60)
 
 
 if __name__ == "__main__":

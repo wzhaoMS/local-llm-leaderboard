@@ -83,10 +83,20 @@
   background: #fff; color: var(--ink-2); font-size: 13.5px; font-weight: 550; cursor: pointer; }
 .hm-more:hover { border-color: #cfd4da; color: var(--ink); }
 
+/* cloud reference models: a muted strip under the local ranking (dashed, like the hero's cloud-reference note) */
+.hm-refs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 22px; padding: 10px 14px;
+  border: 1px dashed #cfd4da; border-radius: 12px; font-size: 13px; color: var(--muted); }
+.hm-refs-label { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); cursor: help; }
+.lb-chip.hm-refs-chip { gap: 4px; padding: 2px 7px 2px 6px; font-weight: 500; }
+.hm-ref { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.hm-ref b { font-weight: 650; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.hm-tip-cloud { margin-bottom: 3px; }
+
 /* stacked list: the ranking opens under the tapped tile */
 .hm-stack .hm-detail { margin: 4px 2px 14px; padding-top: 6px; border-top: 0; }
 .hm-stack .hm-dname { display: none; }
 .hm-stack .hm-rank { grid-template-columns: minmax(0, 1fr); margin-top: 16px; }
+.hm-stack .hm-refs { margin-top: 16px; gap: 8px 14px; }
 
 /* tooltip rows (inside the shared #lb-tip) */
 .hm-tip-row { display: flex; align-items: center; gap: 8px; min-width: 230px; }

@@ -26,8 +26,12 @@
 
     el.append(LB.sectionHead({ title: "Methodology", sub: "How the numbers are produced." }));
     if (items.length) {
+      // Cards sit on a 6-column grid (3 per row, 2 when narrower); a short last row stretches to fill it.
+      const n = items.length;
+      const lastRow = (i, per) => { const r = n % per; return r && i >= n - r ? r : 0; };
       el.append(h("div", { class: "me-grid" }, items.map((it, i) =>
-        LB.card("me-card", h("span", { class: "me-num", "aria-hidden": "true" }, String(i + 1).padStart(2, "0")),
+        LB.card(["me-card", lastRow(i, 3) === 1 && "me-full3", lastRow(i, 3) === 2 && "me-half3", lastRow(i, 2) === 1 && "me-full2"].filter(Boolean).join(" "),
+          h("span", { class: "me-num", "aria-hidden": "true" }, String(i + 1).padStart(2, "0")),
           h("h3", {}, it.title || ""), it.body ? h("p", {}, it.body) : null))));
     }
 

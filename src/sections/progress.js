@@ -57,7 +57,7 @@
   function render(el) {
     const all = (Array.isArray(D.models) ? D.models : []).filter(Boolean);
     const rank = (m) => { const i = ORDER.indexOf(statusKey(m)); return i < 0 ? ORDER.length : i; };
-    const list = all.filter((m) => (m.status && m.status !== "done") || m.partial).sort((a, b) => rank(a) - rank(b));
+    const list = all.filter((m) => !m.reference && ((m.status && m.status !== "done") || m.partial)).sort((a, b) => rank(a) - rank(b));
     const counts = ORDER.map((k) => [k, list.filter((m) => statusKey(m) === k).length]).filter(([, n]) => n);
     const right = counts.length ? h("div", { class: "pg-counts" },
       counts.map(([k, n]) => h("span", { class: "pg-count" }, dot(k), h("b", {}, String(n)), " " + STATUS[k].text.toLowerCase()))) : null;

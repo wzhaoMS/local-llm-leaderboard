@@ -179,7 +179,7 @@
     const pts = [];
     let noX = 0;
     for (const m of D.models || []) {
-      if (!m || m.speedOnly) continue;
+      if (!m || m.speedOnly || m.reference) continue;     // cloud references have no comparable speed
       const q = m.scores && m.scores.textCore;
       if (!isNum(q)) continue;
       const xv = M.value(m);

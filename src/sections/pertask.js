@@ -28,6 +28,9 @@
   const plural = (n, one, many) => `${fmt.int(n)} ${n === 1 ? one : many || one + "s"}`;
   const models = () => (LB.data && Array.isArray(LB.data.models) ? LB.data.models : []).filter(Boolean);
   const agentic = (m, key) => (m.agentic && m.agentic[key]) || null;
+  // The top 5 is local-only; cloud references (m.reference) get their own footer line.
+  const isRef = (m) => m.reference === true;
+  const isLocal = (m) => !isRef(m) && LB.matchPlacement(m, "all");
 
   /** Time stat for the sub line; also breaks ties (lower = faster). */
   function timeStat(m, key) {
@@ -39,10 +42,11 @@
     return isNum(t) ? { t, text: `median ${secText(t)} per task` } : null;
   }
 
-  /** Models with a score on `key`, best first; equal scores: faster first. */
-  function ranked(key) {
+  /** Models passing `keep` with a score on `key`, best first; equal scores: faster first. */
+  function ranked(key, keep) {
     const out = [];
     for (const m of models()) {
+      if (!keep(m)) continue;
       const v = LB.score(m, key);
       if (!isNum(v)) continue;
       out.push({ m, v, ts: timeStat(m, key) });
@@ -95,9 +99,31 @@
     return [text, m.partial ? h("span", { class: "pt-partial", title: "Partial run: scored on the tasks it finished." }, "partial") : null];
   }
 
+  /** The best cloud reference on this suite (same tie rule as the list), or null when none has a result. */
+  function refLine(key, title) {
+    const refs = ranked(key, isRef);
+    if (!refs.length) return null;
+    const best = refs[0];
+    const tied = refs.filter((x) => r1(x.v) === r1(best.v)).length - 1;
+    const line = h("span", { class: "pt-ref" },
+      h("span", { class: "pt-ref-k" }, "Cloud reference:"),
+      LB.mono(best.m, 18),
+      h("span", { class: "pt-ref-name" }, LB.label(best.m)),
+      tied > 0 ? h("span", { class: "pt-ref-tied" }, `+${tied} tied`) : null,
+      h("span", { class: "pt-ref-val" }, pctText(best.v)));
+    LB.tip.attach(line, () => {
+      const none = models().filter((m) => isRef(m) && !refs.some((x) => x.m === m)).map((m) => esc(LB.label(m)));
+      return `<b>Cloud references · ${esc(title)}</b><br>` +
+        refs.map((x) => `${esc(LB.label(x.m))} <b>${pctText(x.v)}</b>` + (x.ts ? ` <span class="muted">· ${esc(x.ts.text)}</span>` : "")).join("<br>") +
+        (none.length ? `<br><span class="muted">No result yet: ${none.join(", ")}</span>` : "") +
+        `<hr><span class="muted">Same tasks and graders, run in the cloud through GitHub Copilot. Not ranked with the local models.</span>`;
+    });
+    return line;
+  }
+
   function taskCard(key, title) {
     const su = LB.suite(key) || { key, short: key, name: title };
-    const rows = ranked(key);
+    const rows = ranked(key, isLocal);
     if (!rows.length) return null;
     const top = rows.slice(0, TOP);
     const cut = top.length === TOP ? r1(top[TOP - 1].v) : null;
@@ -115,21 +141,24 @@
 
     let more = null;
     if (tied.length) {
-      more = h("div", { class: "pt-more" }, `+${tied.length} more at ${pctText(cut)}`);
+      more = h("span", { class: "pt-more" }, `+${tied.length} more at ${pctText(cut)}`);
       LB.tip.attach(more, () => `<b>Also at ${pctText(cut)}</b><br>` +
         tied.map((x) => `${esc(LB.label(x.m))}` + (x.ts ? ` <span class="muted">· ${esc(x.ts.text)}</span>` : "")).join("<br>"));
     }
+    // One muted footer line: local ties on the left, the best cloud reference on the right.
+    const ref = refLine(key, title);
+    const foot = more || ref ? h("div", { class: "pt-foot" }, h("div", { class: "pt-foot-in" }, more, ref)) : null;
 
     return LB.card("pt-card",
       h("div", { class: "pt-head" }, h("h3", {}, "Best in " + title), chip),
       h("div", { class: "lb-list pt-list" }, list),
-      more);
+      foot);
   }
 
   function render(el) {
     const cards = TASKS.map(([key, title]) => taskCard(key, title)).filter(Boolean);
     el.append(
-      LB.sectionHead({ title: "Best models per task", sub: "Top 5 on each task. Every model answered the same questions." }),
+      LB.sectionHead({ title: "Best models per task", sub: "Top 5 local models on each task. Every model answered the same questions." }),
       cards.length ? h("div", { class: "lb-grid-2 pt-grid" }, cards) : LB.card("lb-empty", "No per-task results yet."));
   }
 

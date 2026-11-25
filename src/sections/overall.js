@@ -141,7 +141,42 @@
     return `M${x},${y + hgt}V${y + r}A${r},${r} 0 0 1 ${x + r},${y}H${x + w - r}A${r},${r} 0 0 1 ${x + w},${y + r}V${y + hgt}Z`;
   }
 
-  function drawBars(chart, rows, mt) {
+  // ---------- cloud references: closed models run on the same tasks, drawn as benchmark lines and never ranked ----------
+  const REF_NOTE = "Cloud reference via GitHub Copilot · same tasks, not ranked";
+  function refsFor(metric) {
+    const out = [];
+    for (const m of D.models || []) {
+      if (!m || !m.reference) continue;
+      const v = LB.score(m, metric);
+      if (isNum(v)) out.push({ m, v });
+    }
+    return out.sort((a, b) => b.v - a.v || LB.label(a.m).localeCompare(LB.label(b.m)));
+  }
+  function refTipHtml(r, mt) {
+    return LB.modelTip(r.m, (mt.value === "textCore" ? "" : `${mt.label} <b>${fmt.num(r.v, 1)}</b><br>`) + REF_NOTE);
+  }
+  /** Centres for labels of height `size` wanted at `ys` (ascending): at least `gap` apart, each as close to its own line
+   *  as possible (overlapping runs are centred on their mean), and kept within [lo, hi]. */
+  function spread(ys, size, gap, lo, hi) {
+    const pitch = size + gap;
+    const topOf = (c) => Math.max(lo, Math.min(hi - c.n * pitch + gap, c.sum / c.n - size / 2 - ((c.n - 1) / 2) * pitch));
+    const runs = ys.map((y) => ({ n: 1, sum: y }));
+    for (let k = 0; k + 1 < runs.length; ) {
+      if (topOf(runs[k]) + runs[k].n * pitch > topOf(runs[k + 1]) + 0.01) {
+        runs.splice(k, 2, { n: runs[k].n + runs[k + 1].n, sum: runs[k].sum + runs[k + 1].sum });
+        k = Math.max(0, k - 1);
+      } else k++;
+    }
+    const out = [];
+    for (const c of runs) { const t = topOf(c); for (let j = 0; j < c.n; j++) out.push(t + size / 2 + j * pitch); }
+    return out;
+  }
+  function dashSwatch() {
+    return s("svg", { class: "ov-dash", width: 24, height: 6, viewBox: "0 0 24 6", "aria-hidden": "true" },
+      s("line", { x1: 0, x2: 24, y1: 3, y2: 3 }));
+  }
+
+  function drawBars(chart, rows, mt, refs) {
     chart.textContent = "";
     const avail = Math.floor(chart.clientWidth) || 960;
     const narrow = avail < 640;
@@ -153,16 +188,26 @@
     const bottom = Math.ceil(Math.max(40, ...labW) * SIN + fsL * COS + 14);
     const minStep = narrow ? 40 : 46, maxStep = 96;
 
+    // reference label pills sit in a gutter at the right edge
+    const fsP = narrow ? 10.5 : 11.5, pillH = narrow ? 19 : 21, rb = narrow ? 5.5 : 6.5, LEAD = 16;
+    const pills = refs.map((r) => {
+      const name = LB.label(r.m) + (r.m.partial ? " (partial)" : ""), val = fmt.num(r.v, 1);
+      const tw = textW(name, fsP, 500) + textW(" · ", fsP, 500) + textW(val, fsP, 650);
+      return { name, val, w: Math.ceil(pillH / 2 + rb + 6 + tw + 10) };
+    });
+    const gutter = pills.length ? LEAD + Math.max(...pills.map((p) => p.w)) + 4 : 0;
+
     // long labels hang down-left from their bar: shift the plot right until the first ones fit
     let left = axisW, step = minStep;
     for (let pass = 0; pass < 4; pass++) {
-      step = Math.max(minStep, Math.min(maxStep, (avail - left - 4) / n));
+      step = Math.max(minStep, Math.min(maxStep, (avail - left - 4 - gutter) / n));
       let need = 0;
       labW.forEach((w, i) => { need = Math.max(need, w * COS + 6 - (left + step * (i + 0.5) + fsL * 0.3)); });
       if (need <= 0.5) break;
       left += need;
     }
-    const W = Math.max(avail, Math.ceil(left + step * n + 4));
+    const W = Math.max(avail, Math.ceil(left + step * n + 4 + gutter));
+    const gx = W - gutter;                        // reference lines end here; their pills start LEAD px further right
     const H = top + plotH + bottom, base = top + plotH;
     const yOf = (v) => base - (Math.max(0, Math.min(100, v)) / 100) * plotH;
     const bw = Math.min(54, Math.max(18, step * 0.66));
@@ -171,20 +216,28 @@
     const hasCI = mt.value === "textCore";
 
     const svg = s("svg", { class: "ov-svg", width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "group",
-      "aria-label": `${mt.label} by model, ${n} model${n === 1 ? "" : "s"}, highest first` });
+      "aria-label": `${mt.label} by model, ${n} model${n === 1 ? "" : "s"}, highest first` +
+        (refs.length ? `; dashed lines mark ${refs.length} cloud reference${refs.length === 1 ? "" : "s"}` : "") });
     svg.append(s("defs", {}, s("pattern", { id: "ov-hatch", width: 7, height: 7, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" },
       s("rect", { width: 3, height: 7, fill: "rgba(255,255,255,.6)" }))));
 
     const grid = s("g", { class: "ov-grid", "aria-hidden": "true" });
     for (let t = 0; t <= 100; t += 20) {
       const y = Math.round(yOf(t)) + 0.5;
-      grid.append(s("line", { x1: left - 8, x2: W - 2, y1: y, y2: y }),
+      grid.append(s("line", { x1: left - 8, x2: gutter ? gx + 4 : W - 2, y1: y, y2: y }),
         s("text", { class: "ov-tick", x: left - 14, y: y + 3.5, "text-anchor": "end" }, t + "%"));
     }
     svg.append(grid);
+    const refLines = s("g", { class: ["ov-refs", "ov-fade"], "aria-hidden": "true" });   // behind the bars
+    svg.append(refLines);
 
-    const groups = [];
-    const clear = () => { svg.classList.remove("ov-dim"); groups.forEach((g) => g.classList.remove("ov-hot", "ov-tied")); LB.tip.hide(); };
+    const groups = [], refHot = [], zoneTop = [];
+    const clear = () => {
+      svg.classList.remove("ov-dim", "ov-refdim");
+      groups.forEach((g) => g.classList.remove("ov-hot", "ov-tied"));
+      refHot.forEach((x) => x.classList.remove("ov-ref-hot"));
+      LB.tip.hide();
+    };
     rows.forEach((r, i) => {
       const { m, v } = r;
       const ven = LB.vendor(m);
@@ -213,6 +266,7 @@
           "font-size": (letter.length > 1 ? badgeR * 0.78 : badgeR * 0.98).toFixed(1) }, letter)));
       // value label (lime pill for our pick)
       const vy = (inside ? y : by - badgeR) - 8;
+      zoneTop[i] = vy - fsV - 4;
       const vtxt = (m.recommended ? "★ " : "") + fmt.num(v, 1);
       const val = s("g", { class: ["ov-val", hasCI && "ov-val-ci"] });
       if (m.recommended) {
@@ -255,6 +309,74 @@
       groups.push(g);
       svg.append(g);
     });
+
+    /** Dashed benchmark line per reference (behind the bars), with a pill in the gutter; stacked pills get a leader. */
+    function drawRefs() {
+      const px = gx + LEAD;
+      const ys = refs.map((r) => Math.round(yOf(r.v)));       // refs come highest first, so ys ascend
+      const centres = spread(ys, pillH, 4, 2, base + pillH / 2);
+      // lines closer than 2.5 px share one dash pattern, each colour taking its turn, so none hides another
+      const dash = ys.map(() => ({ arr: "6 4", off: 0 }));
+      for (let i = 0; i < ys.length;) {
+        let j = i + 1;
+        while (j < ys.length && ys[j] - ys[j - 1] < 2.5) j++;
+        for (let q = i; j - i > 1 && q < j; q++) dash[q] = { arr: `6 ${6 * (j - i - 1) + 4}`, off: -6 * (q - i) };
+        i = j;
+      }
+      const front = s("g", { class: ["ov-refpills", "ov-fade"] });
+      const fade = { transitionDelay: 640 + Math.min(n * 40, 640) + "ms" };
+      refLines.style.transitionDelay = fade.transitionDelay;
+      Object.assign(front.style, fade);
+      refs.forEach((r, i) => {
+        const m = r.m, col = LB.vendor(m).color, yl = ys[i], yp = centres[i], moved = Math.abs(yp - yl) > 0.75;
+        const line = s("line", { class: "ov-refline", x1: left - 4, x2: moved ? gx : px + 1, y1: yl, y2: yl, stroke: col,
+          "stroke-dasharray": dash[i].arr, "stroke-dashoffset": dash[i].off });
+        refLines.append(line);
+        // hover the line only where it crosses empty space, so the bars keep their own hover
+        const free = [];
+        const add = (a, b) => {
+          const last = free[free.length - 1];
+          if (last && a - last[1] < 1) last[1] = b; else if (b - a >= 1) free.push([a, b]);
+        };
+        rows.forEach((_, j) => { if (yl < zoneTop[j] - 6) add(left + step * j, left + step * (j + 1)); });
+        add(left + step * n, gx);
+        const hit = free.length ? s("path", { class: "ov-refhit", d: free.map(([a, b]) => `M${a},${yl}H${b}`).join("") }) : null;
+        // the pill: vendor badge, name and value
+        const p = pills[i], letter = String(LB.vendor(m).letter || "?"), bx = px + pillH / 2;
+        const pill = s("g", { class: "ov-refpill", tabindex: 0, role: "img",
+          "aria-label": `Cloud reference ${LB.fullName(m)}: ${mt.label} ${fmt.num(r.v, 1)}, not ranked` },
+          moved ? s("path", { class: "ov-refleader", d: `M${gx},${yl}H${gx + 4}L${px},${yp}`, stroke: col }) : null,
+          s("rect", { x: px, y: yp - pillH / 2, width: p.w, height: pillH, rx: pillH / 2, stroke: col }),
+          s("circle", { cx: bx, cy: yp, r: rb, fill: col }),
+          s("text", { class: "ov-refletter", x: bx, y: yp, dy: "0.35em", "text-anchor": "middle",
+            "font-size": (letter.length > 1 ? rb * 1.05 : rb * 1.3).toFixed(1) }, letter),
+          s("text", { x: bx + rb + 6, y: yp, dy: "0.35em", "font-size": fsP },
+            s("tspan", { class: "ov-refname" }, p.name), s("tspan", { class: "ov-refsep" }, " · "),
+            s("tspan", { class: "ov-refval" }, p.val)));
+        front.append(pill);
+        refHot.push(line, pill);
+        const show = (e) => {
+          clear();
+          svg.classList.add("ov-refdim");
+          line.classList.add("ov-ref-hot");
+          pill.classList.add("ov-ref-hot");
+          LB.tip.show(e, refTipHtml(r, mt));
+        };
+        for (const el of hit ? [hit, pill] : [pill]) {
+          el.addEventListener("mouseenter", show);
+          el.addEventListener("mousemove", LB.tip.move);
+          el.addEventListener("mouseleave", clear);
+        }
+        pill.addEventListener("focus", () => {
+          const b = pill.getBoundingClientRect();
+          show({ clientX: b.left + 12, clientY: b.bottom });
+        });
+        pill.addEventListener("blur", clear);
+        if (hit) svg.append(hit);
+      });
+      svg.append(front);
+    }
+    if (refs.length) drawRefs();
     chart.append(svg);
     return svg;
   }
@@ -271,13 +393,17 @@
         h("a", { href: "#in-progress" }, "See what's running ↗")) : null));
   }
 
-  function fillFoot(foot, rows, st, mt) {
+  /** nRefs: reference lines drawn (0 = none has this metric); null = references hidden or absent. */
+  function fillFoot(foot, rows, st, mt, nRefs) {
     foot.textContent = "";
     const scored = (D.models || []).filter((m) => m && LB.matchPlacement(m, st.filter) && m.scores && isNum(m.scores.textCore)).length;
     const missing = mt.value === "textCore" ? 0 : Math.max(0, scored - rows.length);
+    const refKey = nRefs === null ? null : nRefs > 0
+      ? h("span", { class: "ov-refkey" }, dashSwatch(), "Cloud reference (same tasks via GitHub Copilot, not ranked)")
+      : h("span", { class: ["ov-refkey", "ov-refnone"] }, dashSwatch(), "No cloud reference has this score yet");
     foot.append(
       h("span", {}, mt.note),
-      h("span", { class: "ov-count" },
+      h("span", { class: "ov-count" }, refKey,
         rows.some((r) => r.m.recommended) ? h("span", { class: "ov-key" }, h("i", { "aria-hidden": "true" }, "★"), "Our pick") : null,
         h("span", {}, h("b", {}, String(rows.length)), ` model${rows.length === 1 ? "" : "s"} shown`,
           missing ? ` · ${missing} not run on this suite` : "")));
@@ -305,7 +431,8 @@
 
   function render(el) {
     const metrics = metricList();
-    const st = { filter: "all", metric: "textCore" };
+    const st = { filter: "all", metric: "textCore", refs: true };
+    const anyRefs = (D.models || []).some((m) => m && m.reference);
     const meta = (k) => metrics.find((x) => x.value === k) || metrics[0];
     const sub = h("p", { class: "ov-sub" }, meta(st.metric).sub);
     const chart = h("div", { class: "ov-chart" });
@@ -313,10 +440,14 @@
     const seg = LB.seg(LB.PLACEMENTS, st.filter, (v) => { st.filter = v; update("now"); });
     seg.setAttribute("aria-label", "Where the model runs");
     const sel = metricSelect(metrics, st.metric, (v) => { st.metric = v; sub.textContent = meta(v).sub; update("now"); });
+    const toggle = anyRefs ? h("button", { class: "ov-reftoggle", type: "button", role: "switch", "aria-checked": "true",
+      title: "Closed cloud models that took the same tasks, drawn as dashed lines",
+      onclick: () => { st.refs = !st.refs; toggle.setAttribute("aria-checked", String(st.refs)); update("none"); } },
+      h("span", { class: "ov-switch", "aria-hidden": "true" }), "Cloud references") : null;
     el.append(LB.card("ov-card",
       h("div", { class: ["lb-card-head", "ov-head"] },
         h("div", { class: "ov-title" }, h("h3", {}, "Best Overall"), sub),
-        h("div", { class: "ov-controls" }, seg, sel)),
+        h("div", { class: "ov-controls" }, h("div", { class: "ov-ctl-row" }, seg, sel), toggle)),
       chart, foot));
 
     let played = false, io = null, lastW = -1;
@@ -325,10 +456,11 @@
       LB.tip.hide();
       const mt = meta(st.metric);
       const rows = rowsFor(st.metric, st.filter);
+      const refs = anyRefs && st.refs && rows.length ? refsFor(st.metric) : [];
       lastW = chart.clientWidth;
-      fillFoot(foot, rows, st, mt);
+      fillFoot(foot, rows, st, mt, anyRefs && st.refs && rows.length ? refs.length : null);
       if (!rows.length) { drawEmpty(chart, st, mt); return; }
-      const svg = drawBars(chart, rows, mt);
+      const svg = drawBars(chart, rows, mt, refs);
       if (anim === "none" || reduceMotion()) return;
       // bars grow from the baseline: on first sight (IntersectionObserver), or right away after a filter change.
       // A timer then pins the final state, so slow or throttled frame clocks (background tabs, headless) never leave bars short.

@@ -1,19 +1,31 @@
 /* Per task: "Best in X" cards. */
 .pt-grid { align-items: stretch; }
-.pt-card { display: flex; flex-direction: column; padding: 22px 26px 24px; }
-.pt-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.pt-card { display: flex; flex-direction: column; padding: 20px 26px 22px; }
+.pt-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
 .pt-head h3 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
 .pt-chip { margin-top: 2px; cursor: help; color: var(--ink-2); }
-.pt-list { gap: 15px; }
+.pt-list { gap: 14px; }
 .pt-list .lb-row { cursor: default; }
 .pt-card .lb-row .lb-row-sub { margin-top: -5px; }
 .pt-partial { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 5px; background: var(--line-2);
   color: var(--muted); font-size: 11px; font-weight: 550; line-height: 17px; vertical-align: 1px; }
-.pt-more { margin-top: 14px; padding-left: 42px; font-size: 12.5px; color: var(--faint); cursor: help; align-self: flex-start; }
+
+/* Footer line, pinned to the card bottom so footers line up across a row; dashed like the other cloud-reference marks. */
+.pt-foot { margin-top: auto; padding-top: 12px; }
+.pt-foot-in { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; padding-top: 9px; border-top: 1px dashed #dadee3;
+  font-size: 12.5px; line-height: 18px; color: var(--faint); }
+.pt-more { cursor: help; }
 .pt-more:hover { color: var(--muted); }
+.pt-ref { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; cursor: help; min-width: 0; }
+.pt-ref .lb-mono { opacity: .9; }
+.pt-ref-name { color: var(--muted); font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.pt-ref-tied { white-space: nowrap; }
+.pt-ref-val { margin-left: 5px; color: var(--ink-2); font-weight: 650; font-variant-numeric: tabular-nums; }
+.pt-ref:hover .pt-ref-k, .pt-ref:hover .pt-ref-tied { color: var(--muted); }
 
 @media (max-width: 640px) {
   .pt-card { padding: 20px 18px 22px; }
   .pt-head h3 { font-size: 18px; }
-  .pt-more { padding-left: 0; }
+  .pt-ref { flex-basis: 100%; }
+  .pt-ref-val { margin-left: auto; }
 }

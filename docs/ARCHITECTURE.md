@@ -65,8 +65,12 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
   `long_horizon` (agentic, reported separately). `tasks` = questions compared per model (sessions for `long_horizon`)
 - `vendors {key: {name, org, color, letter, country}}`
 - `models[]`:
-  - identity: `id, name, short, variant, vendor, params, quant, placement (1gpu|2gpu|hybrid|stream|cpu), where`
-  - flags: `recommended, partial, speedOnly, status (done|running|queued|waiting), notes`
+  - identity: `id, name, short, variant, vendor, params, quant, placement (1gpu|2gpu|hybrid|stream|cpu|cloud), where`
+  - flags: `recommended, reference, partial, speedOnly, status (done|running|queued|waiting), notes`. `reference` = a
+    closed cloud model run through the GitHub Copilot CLI on the same tasks: shown for comparison, never ranked with
+    the local setups. `LB.matchPlacement` only lets references through for the `"cloud"` filter, so `LB.quality("all")`
+    and every placement filter leave them out; `LB.references()` returns them (best text core first). References have
+    no speed, VRAM or endurance data.
   - memory: `vramGiB [gpu0, gpu1] | null, ramGiB`
   - `scores {textCore, textCoreCI [lo, hi], allSuites, suites {core suite: 0-100}, repo_replay, debug, long_horizon}`
   - `suiteTimeS {core suite: median seconds}`

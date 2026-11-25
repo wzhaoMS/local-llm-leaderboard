@@ -237,15 +237,21 @@
   }
   function tipHtml(t) {
     const dir = t.higher ? "Higher is better" : "Lower is better";
-    if (!t.rows.length) return `<b>${esc(t.name)}</b><br><span class="muted">No runs yet under this filter.</span>`;
+    const ref = t.refs && t.refs[0];
+    const cloud = ref ? `<div class="hm-tip-cloud"><span class="muted">Cloud best:</span> ${esc(nameOf(ref.m))} ` +
+      `<b>${esc(withUnit(t, t.fmt(ref.v)))}</b></div>` : "";
+    if (!t.rows.length) return `<b>${esc(t.name)}</b><br><span class="muted">No runs yet under this filter.</span>${cloud ? "<hr>" + cloud : ""}`;
     const top = t.rows.slice(0, 3).map((r) =>
       `<div class="hm-tip-row"><span class="hm-tip-rk${r.rank === 0 ? " first" : ""}">${String(r.rank + 1).padStart(2, "0")}</span>` +
       `<i style="background:${esc(LB.vendor(r.m).color)}"></i><span class="hm-tip-nm">${esc(nameOf(r.m))}` +
       `${r.m.partial ? ' <span class="muted">partial</span>' : ""}</span><b>${esc(withUnit(t, t.fmt(r.v)))}</b></div>`).join("");
     const n = t.rows.length;
-    return `<b>${esc(t.name)}</b><hr>${top}<hr><span class="muted">${n} model${n === 1 ? "" : "s"} · ${dir}` +
+    return `<b>${esc(t.name)}</b><hr>${top}<hr>${cloud}<span class="muted">${n} model${n === 1 ? "" : "s"} · ${dir}` +
       `${n > 3 ? " · click for all" : ""}</span>`;
   }
+  const cloudIcon = () => s("svg", { width: 13, height: 13, viewBox: "0 0 16 16", "aria-hidden": "true" },
+    s("path", { d: "M4.8 12.5h6.7a2.9 2.9 0 0 0 .3-5.8 4 4 0 0 0-7.7.9A2.5 2.5 0 0 0 4.8 12.5z", fill: "none", stroke: "currentColor",
+      "stroke-width": 1.3, "stroke-linejoin": "round" }));
 
   // ---------- section ----------
   function render(el) {
@@ -263,7 +269,9 @@
     el.append(head, LB.card("hm-card", h("div", { class: "hm-bar" }, tabs, count), map, detail, live));
 
     function refresh() {
-      tiles = specsFor(state.tab).map((sp) => rankTile(sp, state.filter));
+      // leaders and rankings stay local (matchPlacement keeps references out of every local filter); references are
+      // ranked separately for the detail panel and the tooltip
+      tiles = specsFor(state.tab).map((sp) => Object.assign(rankTile(sp, state.filter), { refs: rankTile(sp, "cloud").rows }));
       if (!tiles.some((t) => t.key === state.sel)) state.sel = tiles.length ? tiles[0].key : null;
       state.all = false;
       count.textContent = `${tiles.length} ${state.tab === "speed" ? "metric" : "suite"}${tiles.length === 1 ? "" : "s"}`;
@@ -346,7 +354,7 @@
               h("div", { class: "hm-dlead" }, lead ? [leadLink, tied > 0 ? h("span", { class: "hm-dtied" }, `+${tied} tied`) : null]
                 : h("span", { class: "hm-dnone" }, "No runs yet")),
               h("div", { class: "hm-dmeta" }, `${n} model${n === 1 ? "" : "s"} · ${t.higher ? "Higher" : "Lower"} is better`))),
-          ...ranking(t).filter(Boolean));
+          ...[...ranking(t), cloudRefs(t)].filter(Boolean));
       }
       const tile = stacked && t ? [...map.querySelectorAll(".hm-tile")].find((b) => b.dataset.key === t.key) : null;
       if (tile) tile.after(detail);
@@ -372,6 +380,20 @@
           onclick: () => { state.all = !state.all; renderDetail(); const b = detail.querySelector(".hm-more"); if (b) b.focus(); } },
         state.all ? "Show top 5" : `Show all ${t.rows.length} models`) : null,
       ];
+    }
+
+    /** Cloud reference models' results on this tile: a muted strip of pills under the local ranking, not ranked. */
+    function cloudRefs(t) {
+      if (!t.refs || !t.refs.length) return null;
+      const label = h("span", { class: "hm-refs-label" }, LB.chip([cloudIcon(), "cloud"], "hm-refs-chip"), "Cloud references");
+      LB.tip.attach(label, "Closed cloud models that ran the same tasks and graders through GitHub Copilot. " +
+        "Shown for reference, not ranked.");
+      return h("div", { class: "hm-refs", role: "group", "aria-label": "Cloud references, not ranked" }, label,
+        t.refs.map((r) => {
+          const val = withUnit(t, t.fmt(r.v));
+          return LB.tip.attach(h("span", { class: "hm-ref" }, LB.mono(r.m, 20), h("span", { class: "hm-ref-name" }, nameOf(r.m)),
+            h("b", {}, val)), () => LB.modelTip(r.m, `${esc(t.name)} <b>${esc(val)}</b>`));
+        }));
     }
 
     refresh();

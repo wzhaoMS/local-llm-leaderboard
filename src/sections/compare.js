@@ -8,6 +8,7 @@
   const GROUP = { daily: "Daily work", coding: "Coding", agents: "Agents" };
 
   const num = (v) => (isNum(v) ? v : null);
+  const isRef = (m) => !!(m && m.reference);
   const score = (key) => (m) => num(LB.score(m, key));
   const speed = (fn) => (m) => (m.speed ? num(fn(m.speed)) : null);
   function vramSum(m) {
@@ -20,11 +21,11 @@
   }
 
   // ---------- visual atoms ----------
-  /** Rounded-square vendor badge (the reference's logo tiles). */
+  /** Rounded-square vendor badge (the reference's logo tiles); cloud references get a dashed outline. */
   function badge(m, size) {
     const v = LB.vendor(m);
     const letter = String(v.letter || "?");
-    return h("span", { class: "cmp-badge", "aria-hidden": "true", style: {
+    return h("span", { class: ["cmp-badge", isRef(m) && "ref"], "aria-hidden": "true", style: {
       width: size + "px", height: size + "px", borderRadius: Math.round(size * 0.27) + "px", color: v.color,
       fontSize: Math.round(size * (letter.length > 1 ? 0.36 : 0.44)) + "px" } }, letter);
   }
@@ -33,24 +34,31 @@
   const arrowIcon = () => icon("M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8");
   const swapIcon = () => icon("M2.5 5.2h10.6M10.2 2.4l2.9 2.8-2.9 2.8M13.5 10.8H2.9M5.8 8l-2.9 2.8 2.9 2.8");
   const closeIcon = () => icon("M4 4l8 8M12 4l-8 8");
+  const cloudIcon = () => icon("M4.6 12.6h7.1a2.9 2.9 0 0 0 .3-5.8 4 4 0 0 0-7.7.9 2.5 2.5 0 0 0 .3 4.9z", 13);
 
-  /** Same vendor on both sides: darken B so the two bars stay distinguishable. */
+  /** Same or near-identical vendor colours on both sides: darken B so the two bars stay distinguishable. */
   function mix(hex, to, t) {
-    const rgb = (x) => {
-      let v = String(x || "").replace("#", "");
-      if (v.length === 3) v = v.split("").map((c) => c + c).join("");
-      return [0, 2, 4].map((i) => parseInt(v.slice(i, i + 2), 16));
-    };
     const a = rgb(hex), b = rgb(to);
-    if (a.concat(b).some((c) => !isFinite(c))) return hex;
+    if (!a || !b) return hex;
     return "#" + a.map((c, i) => Math.round(c + (b[i] - c) * t).toString(16).padStart(2, "0")).join("");
+  }
+  function rgb(x) {
+    let v = String(x || "").replace("#", "");
+    if (v.length === 3) v = v.split("").map((c) => c + c).join("");
+    const out = [0, 2, 4].map((i) => parseInt(v.slice(i, i + 2), 16));
+    return out.every((c) => isFinite(c)) ? out : null;
   }
   function sideColors(A, B) {
     const ca = LB.vendor(A).color, cb = LB.vendor(B).color;
-    return [ca, String(ca).toLowerCase() === String(cb).toLowerCase() ? mix(cb, "#171e29", 0.42) : cb];
+    const a = rgb(ca), b = rgb(cb);
+    const close = a && b ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) < 80 : ca === cb;
+    if (!close) return [ca, cb];
+    const dark = b && 0.299 * b[0] + 0.587 * b[1] + 0.114 * b[2] < 110; // very dark colours get lighter instead
+    return [ca, dark ? mix(cb, "#ffffff", 0.45) : mix(cb, "#171e29", 0.42)];
   }
 
   function statusTag(m) {
+    if (isRef(m)) return h("span", { class: "lb-chip cmp-cloud" }, cloudIcon(), "Cloud reference");
     const st = m.status || "done";
     if (st === "running") return LB.chip("Running", "lime");
     if (st === "queued") return LB.chip("Queued");
@@ -87,13 +95,13 @@
         scoreRow("debug", name("debug", "Debugging"), hint("% fixed", count(tasksOf("debug")))),
         scoreRow("long_horizon", name("long_horizon", "Long sessions"), hint("score", count(tasksOf("long_horizon"), "sessions"))),
       ] },
-      { title: "Speed & memory", hint: "Measured on this PC", rows: [
+      { title: "Speed & memory", hint: "Measured on this PC", speed: true, rows: [
         { key: "decode", label: "Decode", hint: "tok/s · higher is better", unit: "tok/s", get: speed((x) => x.decode), f: fmt.tps },
         { key: "firstOutput", label: "First output", hint: "after thinking · lower is better", unit: "s", low: true, get: speed((x) => x.firstOutput), f: (v) => fmt.num(v, 1) },
         { key: "taskTime", label: "Time per task", hint: "median seconds · lower is better", unit: "s", low: true, get: speed((x) => x.taskTime), f: (v) => fmt.num(v, 1) },
         { key: "prefill32k", label: "Prefill @32K", hint: "tok/s · higher is better", unit: "tok/s", get: speed((x) => x.prefill && x.prefill["32k"]), f: fmt.int },
         { key: "vram", label: "VRAM", hint: "GiB on both GPUs · lower is better", unit: "GiB", low: true, get: vramSum, f: (v) => fmt.num(v, 1) },
-      ] },
+      ].map((r) => Object.assign(r, { speed: true })) },
     ];
   }
   function winner(r, va, vb) {
@@ -122,14 +130,28 @@
     else if (a === b) b = pick && a !== pick ? pick : bestOther(a);
     return [a, b];
   }
-  function options() {
-    const list = LB.quality();
-    [state.a, state.b].forEach((id) => { const m = LB.byId(id); if (m && !list.includes(m)) list.push(m); });
-    return list.map((m) => {
+  /** Dropdown options in two groups: local setups (best first), then cloud references. */
+  function optionGroups() {
+    const local = LB.quality();
+    const refs = typeof LB.references === "function" ? LB.references()
+      : (D.models || []).filter((m) => isRef(m) && m.scores && isNum(m.scores.textCore));
+    [state.a, state.b].forEach((id) => {
+      const m = LB.byId(id);
+      if (m && !local.includes(m) && !refs.includes(m)) (isRef(m) ? refs : local).push(m);
+    });
+    const opt = (m) => {
       const tc = m.scores && m.scores.textCore;
       const tail = isNum(tc) ? ` (${fmt.pct(tc)})` : m.speed ? " (speed only)" : " (no results yet)";
       return { value: m.id, label: LB.fullName(m) + tail };
-    });
+    };
+    return [{ label: "Local setups", options: local.map(opt) }, { label: "Cloud references", options: refs.map(opt) }];
+  }
+  /** Like LB.select, with <optgroup>s. */
+  function groupedSelect(groups, value, onChange, label, key) {
+    const sel = h("select", { "aria-label": label, "data-k": key, onchange: (e) => onChange(e.target.value) },
+      groups.filter((g) => g.options.length).map((g) => h("optgroup", { label: g.label },
+        g.options.map((o) => h("option", { value: o.value, selected: o.value === value }, o.label)))));
+    return h("label", { class: "lb-select" }, sel);
   }
 
   function ensure() {
@@ -142,16 +164,16 @@
     dlg.addEventListener("close", onClosed);
     const pickers = h("div", { class: "cmp-pickers" });
     const body = h("div", { class: "cmp-body", tabindex: "0", role: "region", "aria-label": "Comparison details" });
+    const lede = h("p", { id: "cmp-dlg-lede", class: "cmp-lede" });
     dlg.append(
       h("div", { class: "cmp-top" },
         h("div", { class: "cmp-titlebar" },
-          h("div", {}, h("h2", { id: "cmp-dlg-title" }, "Compare models"),
-            h("p", { id: "cmp-dlg-lede", class: "cmp-lede" }, "Same tasks, same PC. The better value in each row is highlighted.")),
+          h("div", {}, h("h2", { id: "cmp-dlg-title" }, "Compare models"), lede),
           h("button", { type: "button", class: "cmp-x", "aria-label": "Close", title: "Close (Esc)", onclick: close }, closeIcon())),
         pickers),
       body);
     document.body.appendChild(dlg);
-    ui = { pickers, body };
+    ui = { pickers, body, lede };
   }
 
   function choose(k, v) {
@@ -168,18 +190,16 @@
   }
 
   function draw(focusKey) {
-    const opts = options();
-    const pick = (k, label) => {
-      const el = LB.select(opts, state[k], (v) => choose(k, v));
-      const sel = el.querySelector("select");
-      sel.setAttribute("aria-label", label);
-      sel.dataset.k = k;
-      return el;
-    };
+    const groups = optionGroups();
+    const pick = (k, label) => groupedSelect(groups, state[k], (v) => choose(k, v), label, k);
     ui.pickers.textContent = "";
     ui.pickers.append(pick("a", "First model"),
       h("button", { type: "button", class: "cmp-swap", "aria-label": "Swap models", title: "Swap", "data-k": "swap", onclick: swap }, swapIcon()),
       pick("b", "Second model"));
+    const withRef = isRef(LB.byId(state.a)) || isRef(LB.byId(state.b));
+    ui.lede.textContent = withRef
+      ? "Same tasks and graders; cloud references ran through GitHub Copilot. The better value in each row is highlighted."
+      : "Same tasks, same PC. The better value in each row is highlighted.";
     const top = ui.body.scrollTop;
     ui.body.textContent = "";
     ui.body.append(...content());
@@ -196,7 +216,12 @@
       h("span", { role: "columnheader" }, LB.fullName(A)), h("span", { role: "columnheader" }, "Metric"), h("span", { role: "columnheader" }, LB.fullName(B)));
     const groups = metricGroups().map((g, gi) => {
       const rows = [];
-      for (const r of g.rows) {
+      const skip = g.speed && isRef(A) && isRef(B);
+      if (skip) {
+        rows.push(h("div", { class: "cmp-note", role: "row" }, h("span", { role: "cell" },
+          "Cloud references run on remote hardware, so their speed and memory aren't comparable.")));
+      }
+      for (const r of skip ? [] : g.rows) {
         const va = r.get(A), vb = r.get(B), w = winner(r, va, vb);
         if (va !== null && vb !== null) { both++; if (w === "a") winA++; else if (w === "b") winB++; }
         rows.push(metricRow(r, A, B, va, vb, w, ca, cb));
@@ -217,12 +242,15 @@
   }
 
   function heads(A, B, ca, cb, winA, winB, both) {
+    const meta = (m) => [m.where,
+      m.params && /undisclosed/i.test(m.params) ? "size " + m.params : m.params,
+      m.quant && !/^\s*[—–-]?\s*$/.test(m.quant) ? m.quant : null].filter(Boolean).join(" · ");
     const head = (m, k, color, wins) => h("div", { class: ["cmp-head", k] },
       badge(m, 48),
       h("div", { class: "cmp-head-txt" },
         h("div", { class: "cmp-head-name" }, m.name || LB.label(m)),
         m.variant ? h("div", { class: "cmp-head-var" }, m.variant) : null,
-        h("div", { class: "cmp-head-meta" }, [m.where, m.params, m.quant].filter(Boolean).join(" · ")),
+        h("div", { class: "cmp-head-meta" }, meta(m)),
         h("div", { class: "cmp-head-tags" },
           h("span", { class: "cmp-swatch", style: { background: color }, "aria-hidden": "true" }),
           both ? h("span", {}, "Better on ", h("b", {}, String(wins)), ` of ${both}`) : null,
@@ -233,6 +261,11 @@
   function metricRow(r, A, B, va, vb, w, ca, cb) {
     const max = r.scale || Math.max(va || 0, vb || 0) || 1;
     const side = (k, v, m, color) => {
+      if (r.speed && v === null && isRef(m)) {
+        const val = h("span", { class: "cmp-val" }, h("span", { class: "cmp-na" }, "—"));
+        const why = h("span", { class: "cmp-nc" }, "not comparable (cloud)");
+        return h("div", { class: ["cmp-side", k, "nc"], role: "cell" }, k === "a" ? [val, why] : [why, val]);
+      }
       const frac = v === null ? 0 : Math.max(0, Math.min(1, v / max));
       const ci = r.ci && v !== null ? ciOf(m) : null;
       const ciPos = ci ? { [k === "a" ? "right" : "left"]: Math.max(0, ci[0]) + "%", width: Math.max(0, Math.min(100, ci[1]) - ci[0]) + "%" } : null;
@@ -258,7 +291,7 @@
     try { history.replaceState(history.state, "", location.href.split("#")[0] + hash); } catch (e) { /* history API unavailable */ }
   }
 
-  /** LB.openCompare(idA, idB): opens (or updates) the dialog; missing ids default to our pick and the best other model. */
+  /** LB.openCompare(idA, idB): opens (or updates) the dialog; missing ids default to our pick and the best other local model. */
   function open(a, b) {
     [state.a, state.b] = resolve(a, b);
     ensure();
@@ -307,10 +340,12 @@
   function cardSide(m) {
     return h("span", { class: "cmp-card-side" }, badge(m, 56),
       h("span", { class: "cmp-card-name" }, LB.label(m)),
-      m.where ? h("span", { class: "cmp-card-where" }, m.where) : null);
+      isRef(m) ? h("span", { class: "cmp-card-tag", title: m.where || "Cloud reference" }, cloudIcon(), "Cloud")
+        : m.where ? h("span", { class: "cmp-card-where" }, m.where) : null);
   }
   function pairCard(A, B) {
-    return h("button", { type: "button", class: "cmp-card", "aria-label": `Compare ${LB.fullName(A)} with ${LB.fullName(B)}`, onclick: () => open(A.id, B.id) },
+    const name = (m) => LB.fullName(m) + (isRef(m) ? " (cloud reference)" : "");
+    return h("button", { type: "button", class: "cmp-card", "aria-label": `Compare ${name(A)} with ${name(B)}`, onclick: () => open(A.id, B.id) },
       h("span", { class: "cmp-card-top" }, cardSide(A), h("span", { class: "cmp-card-vs", "aria-hidden": "true" }, "vs"), cardSide(B)),
       h("span", { class: "cmp-card-foot" }, h("span", {}, "Compare models"), arrowIcon()));
   }
