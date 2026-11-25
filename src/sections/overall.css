@@ -37,8 +37,9 @@
 .ov-badge.ov-badge-out circle { stroke: var(--line); }
 .ov-badge text { font-weight: 760; letter-spacing: -.04em; }
 .ov-vtext { font-weight: 620; fill: var(--ink-2); font-variant-numeric: tabular-nums;
-  paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+  paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
 .ov-vtext.ov-vrec { font-weight: 700; fill: var(--ink); stroke: var(--lime); }
+.ov-knock { fill: #fff; }
 .ov-pill { fill: var(--lime); stroke: var(--lime-2); stroke-width: 1; }
 .ov-xlab { fill: var(--muted); }
 .ov-xlab.ov-xrec { fill: var(--ink); font-weight: 620; }
@@ -55,8 +56,8 @@
 .ov-hot .ov-val-ci { opacity: 0; }
 
 /* cloud reference lines (behind the bars) and their pills */
-.ov-refline { fill: none; stroke-width: 1.5; transition: stroke-width .15s ease, opacity .15s ease; }
-.ov-refline.ov-ref-hot { stroke-width: 2.25; }
+.ov-refline { fill: none; stroke-width: 1.5; opacity: .6; transition: stroke-width .15s ease, opacity .15s ease; }
+.ov-refline.ov-ref-hot { stroke-width: 2.25; opacity: 1; }
 .ov-refhit { fill: none; stroke: transparent; stroke-width: 10; }
 .ov-refpill { outline: none; transition: opacity .15s ease; }
 .ov-refpill rect { fill: #fff; stroke-width: 1; stroke-opacity: .55; transition: stroke-opacity .15s ease; }
@@ -66,7 +67,8 @@
 .ov-refname { fill: var(--ink-2); font-weight: 500; }
 .ov-refsep { fill: var(--faint); }
 .ov-refval { fill: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
-.ov-refdim .ov-refline:not(.ov-ref-hot), .ov-refdim .ov-refpill:not(.ov-ref-hot) { opacity: .3; }
+.ov-refdim .ov-refline:not(.ov-ref-hot) { opacity: .2; }
+.ov-refdim .ov-refpill:not(.ov-ref-hot) { opacity: .3; }
 
 /* first-render animation: bars grow up from the baseline, badges and values fade in */
 .ov-rise { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .85s cubic-bezier(.2, .75, .2, 1); }

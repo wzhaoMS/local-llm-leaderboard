@@ -264,14 +264,18 @@
         s("circle", { cx, cy: by, r: badgeR }),
         s("text", { x: cx, y: by, dy: "0.35em", "text-anchor": "middle", fill: ven.color,
           "font-size": (letter.length > 1 ? badgeR * 0.78 : badgeR * 0.98).toFixed(1) }, letter)));
-      // value label (lime pill for our pick)
+      // value label (lime pill for our pick), on a white knockout so reference lines never run through it
       const vy = (inside ? y : by - badgeR) - 8;
       zoneTop[i] = vy - fsV - 4;
       const vtxt = (m.recommended ? "★ " : "") + fmt.num(v, 1);
       const val = s("g", { class: ["ov-val", hasCI && "ov-val-ci"] });
       if (m.recommended) {
-        const pw = textW(vtxt, fsV, 700) + 14;
-        val.append(s("rect", { class: "ov-pill", x: cx - pw / 2, y: vy - fsV - 2.5, width: pw, height: fsV + 8, rx: 6 }));
+        const pw = textW(vtxt, fsV, 700) + 14, ph = fsV + 8, py = vy - fsV - 2.5;
+        val.append(s("rect", { class: "ov-knock", x: cx - pw / 2 - 2.5, y: py - 2.5, width: pw + 5, height: ph + 5, rx: 8.5 }),
+          s("rect", { class: "ov-pill", x: cx - pw / 2, y: py, width: pw, height: ph, rx: 6 }));
+      } else {
+        const kw = textW(vtxt, fsV, 620) + 8, kt = vy - fsV * 0.8 - 3;
+        val.append(s("rect", { class: "ov-knock", x: cx - kw / 2, y: kt, width: kw, height: vy + 3.5 - kt, rx: 4 }));
       }
       val.append(s("text", { class: ["ov-vtext", m.recommended && "ov-vrec"], x: cx, y: vy, "text-anchor": "middle",
         "font-size": fsV }, vtxt));

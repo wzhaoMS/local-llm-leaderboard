@@ -221,8 +221,11 @@
       const inProg = D.models.filter((m) => m.status && m.status !== "done").length;
       ann.className = "lb-announce";
       if (refs.length) {
-        const names = refs.map((m) => fullName(m));
-        const list = names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names[0];
+        const names = refs.map((m) => m.name);
+        const shown = names.length > 3 ? names.slice(0, 3) : names;
+        const more = names.length - shown.length;
+        const list = more ? `${shown.join(", ")} and ${more} more` :
+          (shown.length > 1 ? shown.slice(0, -1).join(", ") + " and " + shown[shown.length - 1] : shown[0]);
         ann.append(h("b", {}, "New: "), `${list} took the same tasks as cloud references.`,
           h("a", { href: "#overall" }, "See how local compares ↗"));
       } else {
@@ -287,7 +290,7 @@
           h("div", {}, h("b", {}, fmt.tps(pick.speed && pick.speed.decode)), h("span", {}, "tok/s decode")),
           h("div", {}, h("b", {}, fmt.num(pick.speed && pick.speed.taskTime, 1) + " s"), h("span", {}, "per task"))),
         refs.length ? h("div", { class: "lb-pick-ref" }, mono(refs[0], 20), h("span", {}, "Best cloud reference: ",
-          h("b", {}, fullName(refs[0])), ` · ${fmt.pct(refs[0].scores.textCore)} text core`)) : null,
+          h("b", {}, refs[0].name), ` · ${fmt.pct(refs[0].scores.textCore)} text core`)) : null,
         h("p", {}, D.verdict.en), h("p", { class: "zh", lang: "zh" }, D.verdict.zh)) : null);
     const main = document.getElementById("lb-main");
     main.before(hero);
