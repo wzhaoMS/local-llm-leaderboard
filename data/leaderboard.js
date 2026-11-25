@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T17:34-05:00",
+ "generated": "2026-11-25T17:38-05:00",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2195
+  "gradedRuns": 2196
  },
  "suites": [
   {
@@ -850,11 +850,11 @@ window.LB_DATA = {
    "agentic": {
     "repo_replay": {
      "rate": 100.0,
-     "runs": 8,
-     "tasks": 8,
-     "medianWallS": 125.0,
-     "medianTimeToCorrectS": 109.0,
-     "medianSteps": 14.0
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 114.0,
+     "medianTimeToCorrectS": 104.0,
+     "medianSteps": 17.0
     }
    },
    "speed": {
@@ -890,7 +890,7 @@ window.LB_DATA = {
     }
    },
    "endurance": null,
-   "rows": 82
+   "rows": 83
   },
   {
    "id": "inkling2mini-5090",
@@ -2009,14 +2009,14 @@ window.LB_DATA = {
    "drive": "D: KIOXIA XG10 512 GB",
    "seq": 3.58,
    "rand2m": 3.57,
-   "rand256k": 3.57,
-   "rand64k": 3.55
+   "rand256k": null,
+   "rand64k": null
   },
   {
    "drive": "Both at once",
    "seq": null,
    "rand2m": 7.34,
-   "rand256k": 5.75,
+   "rand256k": null,
    "rand64k": null
   }
  ],
