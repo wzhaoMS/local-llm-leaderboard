@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local LLM leaderboard · open-weight models on an RTX PRO 6000 + RTX 5090 workstation</title>
+  <meta name="description" content="Open-weight LLMs (Qwen, GLM, DeepSeek, MiMo, Step, Ling, MiniMax, Kimi) benchmarked on one workstation: quality on real-work tasks, speed, and how to use two GPUs, 128 GB of RAM and NVMe.">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Crect width='18' height='18' rx='4' fill='%23171e29'/%3E%3Crect x='3' y='9' width='3' height='6' rx='1' fill='%23d6ff62'/%3E%3Crect x='7.5' y='6' width='3' height='9' rx='1' fill='%23d6ff62'/%3E%3Crect x='12' y='3' width='3' height='12' rx='1' fill='%23d6ff62'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/base.css">
+  <link rel="stylesheet" href="src/sections/overall.css">
+  <link rel="stylesheet" href="src/sections/scatter.css">
+  <link rel="stylesheet" href="src/sections/heatmap.css">
+  <link rel="stylesheet" href="src/sections/pertask.css">
+  <link rel="stylesheet" href="src/sections/speed.css">
+  <link rel="stylesheet" href="src/sections/hardware.css">
+  <link rel="stylesheet" href="src/sections/models.css">
+  <link rel="stylesheet" href="src/sections/compare.css">
+  <link rel="stylesheet" href="src/sections/progress.css">
+  <link rel="stylesheet" href="src/sections/methodology.css">
+</head>
+<body>
+  <div id="lb-announce"></div>
+  <header id="lb-header"></header>
+  <main id="lb-main"></main>
+  <footer id="lb-footer"></footer>
+  <div id="lb-tip" class="lb-tip" hidden></div>
+
+  <script src="data/leaderboard.js"></script>
+  <script src="src/base.js"></script>
+  <script src="src/sections/overall.js"></script>
+  <script src="src/sections/scatter.js"></script>
+  <script src="src/sections/heatmap.js"></script>
+  <script src="src/sections/pertask.js"></script>
+  <script src="src/sections/speed.js"></script>
+  <script src="src/sections/hardware.js"></script>
+  <script src="src/sections/models.js"></script>
+  <script src="src/sections/compare.js"></script>
+  <script src="src/sections/progress.js"></script>
+  <script src="src/sections/methodology.js"></script>
+  <script>LB.boot();</script>
+</body>
+</html>
