@@ -1,0 +1,47 @@
+/* Methodology (methodology section). */
+.me-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.me-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.me-card { padding: 26px 26px 24px; }
+.me-num { display: inline-grid; place-items: center; min-width: 30px; height: 26px; padding: 0 6px; border-radius: 7px; background: var(--line-2);
+  font-size: 12px; font-weight: 650; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.me-card:first-child .me-num { background: var(--lime); color: var(--ink); }
+.me-card h3 { margin: 16px 0 8px; font-size: 18px; font-weight: 620; letter-spacing: -.02em; line-height: 1.3; }
+.me-card p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+.me-suites { margin-top: 20px; padding: 0; overflow: hidden; }
+.me-head { padding: 26px 28px 0; margin-bottom: 18px; align-items: flex-start; }
+.me-head p { max-width: 760px; }
+.me-count { margin-top: 6px; }
+.me-scroll { overflow-x: auto; }
+.me-table { width: 100%; border-collapse: collapse; font-size: 14px; color: var(--ink-2); }
+.me-table thead th { background: #f7f8fa; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left;
+  font-size: 13px; font-weight: 600; color: var(--ink); padding: 13px 16px; white-space: nowrap; }
+.me-table th:first-child, .me-table td:first-child { padding-left: 28px; }
+.me-table th:last-child, .me-table td:last-child { padding-right: 28px; }
+.me-table tbody th, .me-table tbody td { padding: 14px 16px; border-bottom: 1px solid var(--line-2); text-align: left; vertical-align: middle; font-weight: 400; }
+.me-table tbody tr:last-child > * { border-bottom: 0; }
+.me-name { font-weight: 550; color: var(--ink); white-space: nowrap; }
+.me-short { margin-left: 8px; font-size: 11.5px; color: var(--faint); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
+.me-desc { color: var(--muted); min-width: 280px; line-height: 1.5; }
+.me-table .me-num-col { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink); }
+.me-group { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font-size: 13.5px; }
+.me-group::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+.me-g-daily::before { background: #a3c93a; }
+.me-g-coding::before { background: #6366f1; }
+.me-g-agents::before { background: #0ea5e9; }
+.me-yes { gap: 4px; }
+.me-sep { background: var(--line-2); }
+
+.me-foot { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 18px 2px 0; font-size: 13px; color: var(--muted); }
+.me-foot b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 980px) {
+  .me-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .me-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .me-card { padding: 20px; }
+  .me-head { padding: 20px 20px 0; }
+  .me-table { min-width: 620px; }
+  .me-table th:first-child, .me-table td:first-child { padding-left: 20px; }
+}

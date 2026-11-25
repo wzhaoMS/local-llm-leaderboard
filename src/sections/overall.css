@@ -1,0 +1,76 @@
+/* Best Overall (prefix ov-) */
+.ov-card { padding: 26px 28px 18px; }
+.ov-head { margin-bottom: 14px; align-items: flex-start; }
+.ov-title { min-width: 0; flex: 1 1 300px; }
+.ov-head h3 { font-size: 24px; }
+.ov-sub { max-width: 520px; font-size: 14px; }
+.ov-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; flex: 0 1 auto; }
+.ov-select select { min-width: 236px; }
+
+.ov-chart { position: relative; overflow-x: auto; overflow-y: hidden; padding-top: 4px; scrollbar-width: thin; }
+.ov-svg { display: block; overflow: visible; }
+.ov-svg text { font-family: var(--font); }
+.ov-grid line { stroke: var(--line); stroke-width: 1; shape-rendering: crispEdges; }
+.ov-tick { font-size: 11px; fill: var(--faint); font-variant-numeric: tabular-nums; }
+
+.ov-bar { outline: none; transition: opacity .18s ease; }
+.ov-hit { fill: transparent; }
+.ov-bar:focus-visible .ov-hit { stroke: var(--ink-2); stroke-width: 1.2; stroke-dasharray: 3 3; }
+.ov-dim .ov-bar:not(.ov-hot):not(.ov-tied) { opacity: .28; }
+.ov-dim .ov-tied:not(.ov-hot) .ov-xlab { fill: var(--ink); }
+.ov-hot .ov-xlab { fill: var(--ink); font-weight: 600; }
+
+.ov-badge circle { fill: #fff; }
+.ov-badge.ov-badge-out circle { stroke: var(--line); }
+.ov-badge text { font-weight: 760; letter-spacing: -.04em; }
+.ov-vtext { font-weight: 620; fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+.ov-vtext.ov-vrec { font-weight: 700; fill: var(--ink); }
+.ov-pill { fill: var(--lime); stroke: var(--lime-2); stroke-width: 1; }
+.ov-xlab { fill: var(--muted); }
+.ov-xlab.ov-xrec { fill: var(--ink); font-weight: 620; }
+.ov-xpart { fill: var(--warn); font-weight: 600; }
+
+/* 95% interval whisker (text core) */
+.ov-ci { opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.ov-ci line { stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; }
+.ov-ci line.ov-ci-halo { stroke: #fff; stroke-width: 4.5; }
+.ov-ci text { font-size: 11.5px; font-weight: 650; fill: var(--ink); font-variant-numeric: tabular-nums;
+  paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+.ov-hot .ov-ci { opacity: 1; }
+.ov-val { transition: opacity .15s ease; }
+.ov-hot .ov-val-ci { opacity: 0; }
+
+/* first-render animation: bars grow up from the baseline, badges and values fade in */
+.ov-rise { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .85s cubic-bezier(.2, .75, .2, 1); }
+.ov-pre .ov-rise { transform: scaleY(0); }
+.ov-fade { transition: opacity .4s ease; }
+.ov-pre .ov-fade { opacity: 0; }
+.ov-done .ov-rise, .ov-done .ov-fade { transition: none; }
+
+.ov-empty { min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  text-align: center; color: var(--muted); font-size: 14px; border: 1px dashed var(--line); border-radius: var(--radius-sm);
+  margin: 6px 0 4px; padding: 24px; }
+.ov-empty b { color: var(--ink); font-weight: 600; font-size: 15px; }
+.ov-empty a { font-weight: 600; color: var(--lime-ink); }
+.ov-empty a:hover { text-decoration: underline; }
+
+.ov-foot { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line-2); align-items: center; }
+.ov-count { display: inline-flex; gap: 14px; align-items: center; }
+.ov-count b { color: var(--ink); font-weight: 600; }
+.ov-key { display: inline-flex; gap: 6px; align-items: center; }
+.ov-key i { font-style: normal; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 5px;
+  background: var(--lime); color: var(--ink); font-size: 11px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ov-rise, .ov-fade, .ov-bar, .ov-ci, .ov-val { transition: none; }
+}
+@media print {
+  .ov-pre .ov-rise { transform: none; }
+  .ov-pre .ov-fade { opacity: 1; }
+}
+@media (max-width: 640px) {
+  .ov-card { padding: 20px 18px 14px; }
+  .ov-head h3 { font-size: 22px; }
+  .ov-controls { width: 100%; }
+  .ov-select, .ov-select select { width: 100%; min-width: 0; }
+}
