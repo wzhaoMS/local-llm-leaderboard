@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T17:38-05:00",
+ "generated": "2026-11-25T22:59Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2196
+  "gradedRuns": 2206
  },
  "suites": [
   {
@@ -833,7 +833,7 @@
      "repo_qa": 100.0
     },
     "repo_replay": 100.0,
-    "debug": null,
+    "debug": 100.0,
     "long_horizon": null
    },
    "suiteTimeS": {
@@ -855,6 +855,15 @@
      "medianWallS": 114.0,
      "medianTimeToCorrectS": 104.0,
      "medianSteps": 17.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 68.0,
+     "medianTimeToFixS": 43.0,
+     "reproducedFirst": 80.0,
+     "rootCauseNamed": 100.0
     }
    },
    "speed": {
@@ -890,7 +899,7 @@
     }
    },
    "endurance": null,
-   "rows": 83
+   "rows": 93
   },
   {
    "id": "inkling2mini-5090",
