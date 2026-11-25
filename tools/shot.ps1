@@ -1,7 +1,7 @@
 param(
   [string]$Out = '',                 # PNG path (default: .shots\page.png, or .shots\<Only>.png)
   [string]$Only = '',                # render just one section (index.html?only=<section id>)
-  [int]$Width = 1440,
+  [int]$Width = 1440,                # below 512 the page renders in an iframe of this width (phone layouts)
   [int]$Height = 0,                  # default: 1400 for one section, 9000 for the whole page
   [string]$Url = ''                  # screenshot another URL instead (e.g. https://llmleaderboard.com/)
 )
@@ -23,9 +23,31 @@ if (-not [IO.Path]::IsPathRooted($Out)) { $Out = Join-Path (Get-Location).Path $
 New-Item -ItemType Directory -Force (Split-Path $Out) | Out-Null
 Remove-Item $Out -ErrorAction SilentlyContinue
 $profileDir = Join-Path $env:TEMP ("lb-shot-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
+# Headless Chrome won't make a window narrower than ~512 px, so phone widths render the page inside an iframe of the
+# requested width (media queries follow the iframe's viewport) and the PNG is cropped to it afterwards.
+$frame = $null
+$winW = $Width
+if ($Width -lt 512) {
+  $frame = Join-Path $env:TEMP ("lb-frame-" + [guid]::NewGuid().ToString('N').Substring(0, 8) + '.html')
+  $html = '<!doctype html><html><body style="margin:0"><iframe src="' + $Url + '" style="border:0;width:' + $Width + 'px;height:' + $Height + 'px;display:block"></iframe></body></html>'
+  [IO.File]::WriteAllText($frame, $html)
+  $Url = 'file:///' + ($frame -replace '\\', '/')
+  $winW = 512
+}
 $args2 = @('--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--disable-extensions',
-  "--user-data-dir=$profileDir", "--window-size=$Width,$Height", '--virtual-time-budget=4000', "--screenshot=$Out", $Url)
+  "--user-data-dir=$profileDir", "--window-size=$winW,$Height", '--virtual-time-budget=4000', "--screenshot=$Out", $Url)
 # Start-Process -Wait: chrome.exe returns before the screenshot is written when called with the & operator.
 Start-Process -FilePath $chrome -ArgumentList $args2 -Wait -NoNewWindow -RedirectStandardError (Join-Path $env:TEMP 'lb-shot-stderr.txt') | Out-Null
 Remove-Item $profileDir -Recurse -Force -ErrorAction SilentlyContinue
+if ($frame) {
+  Remove-Item $frame -ErrorAction SilentlyContinue
+  if (Test-Path $Out) {
+    Add-Type -AssemblyName System.Drawing
+    $img = [Drawing.Image]::FromFile($Out)
+    $crop = ([Drawing.Bitmap]$img).Clone([Drawing.Rectangle]::new(0, 0, [Math]::Min($Width, $img.Width), $img.Height), $img.PixelFormat)
+    $img.Dispose()
+    $crop.Save($Out, [Drawing.Imaging.ImageFormat]::Png)
+    $crop.Dispose()
+  }
+}
 if (Test-Path $Out) { "screenshot: $Out" } else { "screenshot FAILED: $Out" }

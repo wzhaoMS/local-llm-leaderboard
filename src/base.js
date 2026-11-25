@@ -219,11 +219,39 @@
     const head = document.getElementById("lb-header");
     if (head) {
       head.className = "lb-header";
-      head.append(h("div", { class: "lb-wrap" }, logo(),
-        h("nav", { class: "lb-nav" }, navSecs.map((x) => h("a", { href: "#" + x.id }, x.nav))),
+      const nav = h("nav", { class: "lb-nav", "aria-label": "Sections" }, navSecs.map((x) => h("a", { href: "#" + x.id }, x.nav)));
+      const menu = h("div", { class: "lb-more-menu", role: "menu", hidden: true });
+      const moreBtn = h("button", { class: "lb-more-btn", type: "button", "aria-haspopup": "true", "aria-expanded": "false" }, "More");
+      const more = h("div", { class: "lb-more", hidden: true }, moreBtn, menu);
+      const setOpen = (open) => { menu.hidden = !open; moreBtn.setAttribute("aria-expanded", String(open)); };
+      moreBtn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(menu.hidden); });
+      menu.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+      document.addEventListener("click", (e) => { if (!more.contains(e.target)) setOpen(false); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { setOpen(false); moreBtn.focus(); } });
+      // Priority+ navigation: links that don't fit move into the "More" menu (all of them on phones, where the bar is hidden).
+      const fitNav = () => {
+        const links = [...nav.children];
+        links.forEach((a) => { a.hidden = false; });
+        menu.replaceChildren();
+        more.hidden = true;
+        const collapsed = getComputedStyle(nav).display === "none";
+        if (!collapsed && nav.scrollWidth <= nav.clientWidth + 1) return;
+        more.hidden = false;
+        moreBtn.textContent = collapsed ? "Menu" : "More";
+        const moved = [];
+        for (let i = links.length - 1; i >= 0 && (collapsed || nav.scrollWidth > nav.clientWidth + 1); i--) {
+          links[i].hidden = true;
+          moved.unshift(links[i]);
+        }
+        menu.append(...moved.map((a) => h("a", { href: a.getAttribute("href"), role: "menuitem" }, a.textContent)));
+      };
+      head.append(h("div", { class: "lb-wrap" }, logo(), nav, more,
         h("button", { class: "lb-btn-dark", onclick: () => LB.openCompare() },
           s("svg", { width: 16, height: 16, viewBox: "0 0 16 16", fill: "none", stroke: "currentColor", "stroke-width": 1.6 },
-            s("path", { d: "M2 5h11M10 2l3 3-3 3M14 11H3M6 8l-3 3 3 3" })), "Compare models")));
+            s("path", { d: "M2 5h11M10 2l3 3-3 3M14 11H3M6 8l-3 3 3 3" })), h("span", {}, "Compare models"))));
+      fitNav();
+      onResize(fitNav);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNav);
     }
     const hero = h("section", { class: "lb-wrap lb-hero", id: "top" },
       h("div", {},

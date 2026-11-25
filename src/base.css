@@ -35,6 +35,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   margin: 0;
@@ -65,9 +66,19 @@ button { font: inherit; color: inherit; }
 .lb-logo-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); display: grid; place-items: center; }
 .lb-logo-mark svg { display: block; }
 .lb-logo small { font-weight: 500; color: var(--muted); font-size: 13px; letter-spacing: 0; margin-left: 2px; }
-.lb-nav { display: flex; gap: 22px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.lb-nav { display: flex; gap: 22px; flex: 1; min-width: 0; overflow: hidden; }
 .lb-nav a { font-size: 14.5px; color: var(--ink-2); white-space: nowrap; padding: 6px 0; border-bottom: 2px solid transparent; }
 .lb-nav a:hover { color: var(--ink); border-bottom-color: var(--lime-2); }
+.lb-more { position: relative; flex: none; margin-left: -10px; }
+.lb-more-btn { display: inline-flex; align-items: center; gap: 7px; border: 0; background: transparent; cursor: pointer;
+  font-size: 14.5px; color: var(--ink-2); padding: 6px 4px; border-radius: 8px; }
+.lb-more-btn::after { content: ""; width: 6px; height: 6px; margin-top: -4px; border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+.lb-more-btn:hover, .lb-more-btn[aria-expanded="true"] { color: var(--ink); }
+.lb-more-menu { position: absolute; top: calc(100% + 12px); right: 0; z-index: 50; min-width: 210px; display: flex;
+  flex-direction: column; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-lg); }
+.lb-more-menu a { padding: 9px 12px; border-radius: 8px; font-size: 14.5px; color: var(--ink-2); white-space: nowrap; }
+.lb-more-menu a:hover, .lb-more-menu a:focus-visible { background: var(--line-2); color: var(--ink); outline: none; }
 .lb-btn-dark { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; border: 0;
   border-radius: 10px; padding: 10px 16px; font-weight: 600; font-size: 14.5px; cursor: pointer; white-space: nowrap; }
 .lb-btn-dark:hover { background: #000; }
@@ -151,7 +162,7 @@ button { font: inherit; color: inherit; }
 .lb-row .lb-row-sub { grid-column: 3 / 5; margin-top: -4px; font-size: 12.5px; color: var(--muted); }
 .lb-row .lb-row-val { font-weight: 650; font-size: 17px; font-variant-numeric: tabular-nums; text-align: right; }
 .lb-row .lb-row-val small { font-weight: 500; font-size: 12px; color: var(--muted); margin-left: 2px; }
-.lb-row .lb-bar { grid-column: 3 / 5; }
+.lb-row .lb-bar { grid-column: 2 / 5; margin-top: 3px; }
 .lb-empty { color: var(--faint); font-size: 13.5px; padding: 18px 0; }
 
 /* ---------- tooltip ---------- */
@@ -176,15 +187,27 @@ button { font: inherit; color: inherit; }
   margin-top: 40px; padding-top: 22px; font-size: 13.5px; color: #a9b1ab; }
 .lb-foot-bottom b { color: var(--lime); font-weight: 600; }
 
+@media (max-width: 1600px) {
+  .lb-header .lb-logo small { display: none; }
+}
 @media (max-width: 980px) {
   .lb-hero { grid-template-columns: 1fr; }
   .lb-grid-2, .lb-grid-3, .lb-grid-4 { grid-template-columns: 1fr; }
   .lb-foot-grid { grid-template-columns: 1fr 1fr; }
   .lb-nav { display: none; }
+  .lb-more { margin-left: auto; }
 }
 @media (max-width: 640px) {
   .lb-wrap { padding: 0 18px; }
+  .lb-wrap.lb-hero { padding: 36px 18px 8px; gap: 28px; }
+  .lb-header .lb-wrap { gap: 14px; height: 60px; }
+  .lb-header .lb-btn-dark { padding: 10px 12px; }
+  .lb-header .lb-btn-dark span { display: none; }
   .lb-card { padding: 20px; }
   .lb-sec-head h2 { font-size: 28px; }
+  .lb-sec-head .lb-sec-right { width: 100%; }
+  .lb-seg { flex-wrap: wrap; max-width: 100%; }
+  .lb-seg button { padding: 7px 11px; }
+  .lb-select, .lb-select select { max-width: 100%; }
   .lb-search { min-width: 0; width: 100%; }
 }

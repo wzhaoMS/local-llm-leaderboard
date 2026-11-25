@@ -59,9 +59,10 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
 ## Data (data/leaderboard.json, schema `local-llm-leaderboard@1`)
 
 - `generated`, `site`, `hardware {gpus[], cpu, ramGB, storage[], os, engine}`
-- `core {perSuite, tasks, suites[], textSuites[], gradedRuns}`
-- `suites[] {key, name, short, group: daily|coding|agents, desc, inCore}`: 9 core suites + `repo_replay`, `debug`,
-  `long_horizon` (agentic, reported separately)
+- `core {perSuite, tasks, textTasks, suites[], textSuites[], gradedRuns}`: `tasks` = core questions every model answers
+  (all 9 core suites), `textTasks` = the subset behind the text core (vision excluded)
+- `suites[] {key, name, short, group: daily|coding|agents, desc, inCore, tasks}`: 9 core suites + `repo_replay`, `debug`,
+  `long_horizon` (agentic, reported separately). `tasks` = questions compared per model (sessions for `long_horizon`)
 - `vendors {key: {name, org, color, letter, country}}`
 - `models[]`:
   - identity: `id, name, short, variant, vendor, params, quant, placement (1gpu|2gpu|hybrid|stream|cpu), where`
@@ -73,7 +74,8 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
     medianWallS, medianTimeToFixS, reproducedFirst, rootCauseNamed}, long_horizon {rate, score, sessions, stagesPassed,
     stagesTotal, recall, violations, medianWallMin, maxPromptTokens}}`
   - `speed {decode, inTaskDecode, ttft, firstOutput, taskTime, prefill {8k, 32k, 64k, 117k}, ttftAt {...}, decodeAt {...},
-    ctx, mtp {on, off, acceptance, draft}}`
+    ctx, mtp {on, off, acceptance, draft}}`. `firstOutput` = median seconds until the first answer token or tool call of a
+    core task (after any thinking); `taskTime` = median wall time per core task
   - `endurance {minutes, requests, errors, restarts, decodeMedian, ttftMedian, cacheHit, acceptRate, sustainRatio}`
 - `mtpSweep {model, points [{draft, tps}]}`, `nvme [{drive, seq, rand2m, rand256k, rand64k}]`
 - `hardwareFindings [{title, verdict: recommended|works|avoid, metric, body}]`
