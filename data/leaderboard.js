@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T17:02-05:00",
+ "generated": "2026-11-25T17:11-05:00",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
