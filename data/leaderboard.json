@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T17:11-05:00",
+ "generated": "2026-11-25T17:34-05:00",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -29,6 +29,7 @@
  "core": {
   "perSuite": 6,
   "tasks": 59,
+  "textTasks": 53,
   "suites": [
    "tool_calling",
    "zh_intent",
@@ -50,7 +51,7 @@
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2187
+  "gradedRuns": 2195
  },
  "suites": [
   {
@@ -59,7 +60,8 @@
    "short": "Tools",
    "group": "daily",
    "desc": "Pick the right tool and arguments from a toolset (JSON function calls).",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "zh_intent",
@@ -67,7 +69,8 @@
    "short": "中文",
    "group": "daily",
    "desc": "Understand terse, voice-dictated Chinese requests: intent, key facts, and when to ask back.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "finance_extract",
@@ -75,7 +78,8 @@
    "short": "Extract",
    "group": "daily",
    "desc": "Turn bank and card statements and receipts into strict JSON transactions.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "ts_coding",
@@ -83,7 +87,8 @@
    "short": "Code",
    "group": "coding",
    "desc": "Write a function from a spec; graded by hidden unit tests.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "reasoning",
@@ -91,7 +96,8 @@
    "short": "Math",
    "group": "daily",
    "desc": "Multi-step numeric reasoning (interest, amortization, APY) with an exact answer.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "vision",
@@ -99,7 +105,8 @@
    "short": "Vision",
    "group": "daily",
    "desc": "Read screenshots, receipts and statements.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "browser_agent",
@@ -107,7 +114,8 @@
    "short": "Browser",
    "group": "agents",
    "desc": "Drive a simulated web app through tool calls to finish a task.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 5
   },
   {
    "key": "agent_e2e",
@@ -115,7 +123,8 @@
    "short": "Fix loop",
    "group": "coding",
    "desc": "Fix a small bug in a mini repo with read, edit and run-tests tools.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 6
   },
   {
    "key": "repo_qa",
@@ -123,7 +132,8 @@
    "short": "Repo QA",
    "group": "coding",
    "desc": "Answer questions about a real TypeScript monorepo at 16K-64K tokens of context.",
-   "inCore": true
+   "inCore": true,
+   "tasks": 12
   },
   {
    "key": "repo_replay",
@@ -131,7 +141,8 @@
    "short": "Repo fixes",
    "group": "coding",
    "desc": "Replay 9 real fix commits in a scratch clone: explore, edit and run the real test suite.",
-   "inCore": false
+   "inCore": false,
+   "tasks": 9
   },
   {
    "key": "debug",
@@ -139,7 +150,8 @@
    "short": "Debug",
    "group": "coding",
    "desc": "10 bugs reported only by their symptom: reproduce, find the root cause, fix; hidden tests decide.",
-   "inCore": false
+   "inCore": false,
+   "tasks": 10
   },
   {
    "key": "long_horizon",
@@ -147,7 +159,8 @@
    "short": "Long",
    "group": "agents",
    "desc": "3 multi-stage sessions (6-7 stages each) with standing rules, recall probes and cumulative hidden tests.",
-   "inCore": false
+   "inCore": false,
+   "tasks": 3
   }
  ],
  "vendors": {
@@ -819,7 +832,7 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
+    "repo_replay": 100.0,
     "debug": null,
     "long_horizon": null
    },
@@ -834,7 +847,16 @@
     "agent_e2e": 23.0,
     "repo_qa": 2.3
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 8,
+     "tasks": 8,
+     "medianWallS": 125.0,
+     "medianTimeToCorrectS": 109.0,
+     "medianSteps": 14.0
+    }
+   },
    "speed": {
     "decode": 95.9,
     "inTaskDecode": 95.0,
@@ -868,7 +890,7 @@
     }
    },
    "endurance": null,
-   "rows": 74
+   "rows": 82
   },
   {
    "id": "inkling2mini-5090",
@@ -2090,7 +2112,7 @@
  "methodology": [
   {
    "title": "Same tasks for every model",
-   "body": "The headline score uses the first 6 tasks of every suite (59 tasks), intersected across models, so every model answers exactly the same questions. Partial runs are scored on the subset they finished."
+   "body": "The headline score uses the first tasks of every suite (6 in most), intersected across models, so every model answers exactly the same 59 questions. Partial runs are scored on the subset they finished."
   },
   {
    "title": "Text core = ranking metric",
@@ -2106,7 +2128,7 @@
   },
   {
    "title": "Speed is measured on this PC",
-   "body": "Decode = short prompts with the model's speculative decoding on; prefill and TTFT measured at 8K-117K tokens of context; task time = median wall time per core task, thinking included."
+   "body": "Decode = short prompts with the model's speculative decoding on; first output = median time until the first answer token or tool call of a core task, after any thinking; prefill and TTFT measured at 8K-117K tokens of context; task time = median wall time per core task, thinking included."
   },
   {
    "title": "Private data stays private",
