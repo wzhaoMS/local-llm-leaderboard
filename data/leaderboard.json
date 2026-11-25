@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T22:59Z",
+ "generated": "2026-11-25T23:51Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2206
+  "gradedRuns": 2567
  },
  "suites": [
   {
@@ -226,9 +226,357 @@
    "color": "#64748b",
    "letter": "T",
    "country": "US"
+  },
+  "anthropic": {
+   "name": "Anthropic",
+   "org": "Anthropic",
+   "color": "#c15f3c",
+   "letter": "A",
+   "country": "US"
+  },
+  "openai": {
+   "name": "OpenAI",
+   "org": "OpenAI",
+   "color": "#1f2937",
+   "letter": "O",
+   "country": "US"
+  },
+  "google": {
+   "name": "Google",
+   "org": "Google DeepMind",
+   "color": "#4285f4",
+   "letter": "G",
+   "country": "US"
   }
  },
  "models": [
+  {
+   "id": "cloud-claude-opus-55",
+   "name": "Claude Opus 5.5",
+   "short": "Claude Opus 5.5",
+   "variant": "cloud · effort high",
+   "vendor": "anthropic",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 100.0,
+    "textCoreCI": [
+     100.0,
+     100.0
+    ],
+    "allSuites": 100.0,
+    "suites": {
+     "tool_calling": 100.0,
+     "zh_intent": 100.0,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 5.4,
+    "zh_intent": 10.0,
+    "finance_extract": 6.8,
+    "ts_coding": 15.1,
+    "reasoning": 8.9,
+    "vision": 3.7,
+    "browser_agent": 10.8,
+    "agent_e2e": 22.5,
+    "repo_qa": 3.8
+   },
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 36.0,
+     "medianTimeToCorrectS": 32.0,
+     "medianSteps": 9.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 54.0,
+     "medianTimeToFixS": 18.0,
+     "reproducedFirst": 80.0,
+     "rootCauseNamed": 100.0
+    }
+   },
+   "speed": null,
+   "endurance": null,
+   "rows": 78
+  },
+  {
+   "id": "cloud-gemini-4-hydrogen",
+   "name": "Gemini 4 Hydrogen",
+   "short": "Gemini 4 Hydrogen",
+   "variant": "cloud · effort high",
+   "vendor": "google",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 92.9,
+    "textCoreCI": [
+     87.9,
+     97.9
+    ],
+    "allSuites": 93.7,
+    "suites": {
+     "tool_calling": 50.0,
+     "zh_intent": 93.3,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 6.8,
+    "zh_intent": 15.7,
+    "finance_extract": 13.5,
+    "ts_coding": 40.6,
+    "reasoning": 27.6,
+    "vision": 6.3,
+    "browser_agent": 21.9,
+    "agent_e2e": 53.3,
+    "repo_qa": 7.2
+   },
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "rows": 62
+  },
+  {
+   "id": "cloud-gemini-4-neon",
+   "name": "Gemini 4 Neon",
+   "short": "Gemini 4 Neon",
+   "variant": "cloud · effort high",
+   "vendor": "google",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 97.1,
+    "textCoreCI": [
+     92.9,
+     100.0
+    ],
+    "allSuites": 97.4,
+    "suites": {
+     "tool_calling": 83.3,
+     "zh_intent": 93.3,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 9.9,
+    "zh_intent": 38.4,
+    "finance_extract": 24.5,
+    "ts_coding": 108.4,
+    "reasoning": 60.8,
+    "vision": 21.6,
+    "browser_agent": 43.3,
+    "agent_e2e": 107.2,
+    "repo_qa": 9.5
+   },
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "rows": 60
+  },
+  {
+   "id": "cloud-gpt-6-astra",
+   "name": "GPT-6 Astra",
+   "short": "GPT-6 Astra",
+   "variant": "cloud · effort high",
+   "vendor": "openai",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 96.4,
+    "textCoreCI": [
+     91.1,
+     100.0
+    ],
+    "allSuites": 96.8,
+    "suites": {
+     "tool_calling": 100.0,
+     "zh_intent": 91.2,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 80.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": 100.0,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 6.0,
+    "zh_intent": 12.1,
+    "finance_extract": 8.9,
+    "ts_coding": 35.9,
+    "reasoning": 12.3,
+    "vision": 5.4,
+    "browser_agent": 16.3,
+    "agent_e2e": 40.3,
+    "repo_qa": 8.0
+   },
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 40.0,
+     "medianTimeToCorrectS": 37.0,
+     "medianSteps": 7.0
+    }
+   },
+   "speed": null,
+   "endurance": null,
+   "rows": 72
+  },
+  {
+   "id": "cloud-gpt-62-sol",
+   "name": "GPT-6.2 Sol",
+   "short": "GPT-6.2 Sol",
+   "variant": "cloud · effort high",
+   "vendor": "openai",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 90.9,
+    "textCoreCI": [
+     84.0,
+     97.6
+    ],
+    "allSuites": 91.9,
+    "suites": {
+     "tool_calling": 66.7,
+     "zh_intent": 97.2,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 80.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 83.3
+    },
+    "repo_replay": 100.0,
+    "debug": null,
+    "long_horizon": 100.0
+   },
+   "suiteTimeS": {
+    "tool_calling": 5.5,
+    "zh_intent": 7.2,
+    "finance_extract": 6.4,
+    "ts_coding": 13.0,
+    "reasoning": 7.4,
+    "vision": 6.6,
+    "browser_agent": 9.3,
+    "agent_e2e": 21.5,
+    "repo_qa": 5.7
+   },
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 27.0,
+     "medianTimeToCorrectS": 26.0,
+     "medianSteps": 8.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 2.7,
+     "maxPromptTokens": null
+    }
+   },
+   "speed": null,
+   "endurance": null,
+   "rows": 74
+  },
   {
    "id": "deepseek-v41-flash-offload",
    "name": "DeepSeek-V4.1-Flash",
@@ -240,6 +588,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": true,
    "status": "done",
@@ -300,6 +649,7 @@
    "placement": "1gpu",
    "where": "RTX PRO 6000 + SSD",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -418,6 +768,7 @@
    "placement": "1gpu",
    "where": "RTX PRO 6000",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -484,6 +835,7 @@
    "placement": "1gpu",
    "where": "RTX PRO 6000",
    "recommended": true,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -612,6 +964,7 @@
    "placement": "2gpu",
    "where": "PRO 6000 + 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -701,6 +1054,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -805,6 +1159,7 @@
    "placement": "2gpu",
    "where": "PRO 6000 + 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -912,6 +1267,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1030,6 +1386,7 @@
    "placement": "1gpu",
    "where": "RTX PRO 6000",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1116,6 +1473,7 @@
    "placement": "2gpu",
    "where": "PRO 6000 + 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1143,8 +1501,8 @@
      "agent_e2e": 100.0,
      "repo_qa": 91.7
     },
-    "repo_replay": null,
-    "debug": null,
+    "repo_replay": 88.9,
+    "debug": 100.0,
     "long_horizon": null
    },
    "suiteTimeS": {
@@ -1158,7 +1516,25 @@
     "agent_e2e": 18.7,
     "repo_qa": 0.9
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 88.9,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 170.0,
+     "medianTimeToCorrectS": 121.0,
+     "medianSteps": 26.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 6,
+     "tasks": 6,
+     "medianWallS": 108.0,
+     "medianTimeToFixS": 65.0,
+     "reproducedFirst": 83.3,
+     "rootCauseNamed": 100.0
+    }
+   },
    "speed": {
     "decode": 125.5,
     "inTaskDecode": 134.4,
@@ -1192,7 +1568,7 @@
     }
    },
    "endurance": null,
-   "rows": 74
+   "rows": 89
   },
   {
    "id": "qwen36-35b-a3b",
@@ -1205,6 +1581,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1294,6 +1671,7 @@
    "placement": "cpu",
    "where": "Ryzen 9 9950X3D2",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": true,
    "status": "done",
@@ -1348,6 +1726,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1466,6 +1845,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1532,6 +1912,7 @@
    "placement": "1gpu",
    "where": "RTX 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1650,6 +2031,7 @@
    "placement": "2gpu",
    "where": "PRO 6000 + 5090",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": false,
    "status": "done",
@@ -1739,6 +2121,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + 128 GB RAM",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "queued",
@@ -1771,6 +2154,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM + SSD",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "queued",
@@ -1803,6 +2187,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM",
    "recommended": false,
+   "reference": false,
    "partial": false,
    "speedOnly": true,
    "status": "queued",
@@ -1835,6 +2220,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "waiting",
@@ -1867,6 +2253,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "waiting",
@@ -1899,6 +2286,7 @@
    "placement": "hybrid",
    "where": "2 GPUs + RAM",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "waiting",
@@ -1931,6 +2319,7 @@
    "placement": "stream",
    "where": "2 GPUs + RAM + 2 NVMe",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "waiting",
@@ -1963,6 +2352,7 @@
    "placement": "stream",
    "where": "2 GPUs + RAM + 2 NVMe",
    "recommended": false,
+   "reference": false,
    "partial": true,
    "speedOnly": true,
    "status": "waiting",
@@ -2082,6 +2472,18 @@
  "pairs": [
   [
    "flashnext-q4-1gpu-medium",
+   "cloud-claude-opus-55"
+  ],
+  [
+   "flashnext-q4-1gpu-medium",
+   "cloud-gpt-6-astra"
+  ],
+  [
+   "qwen38-27b-medium",
+   "cloud-gemini-4-neon"
+  ],
+  [
+   "flashnext-q4-1gpu-medium",
    "flashnext-q5-2gpu-medium"
   ],
   [
@@ -2097,26 +2499,14 @@
    "qwen38-27b-medium"
   ],
   [
-   "qwen38-27b-medium",
-   "qwen36-35b-a3b-mtp"
-  ],
-  [
    "mimo26flash-2gpu",
    "step37flash-2gpu"
-  ],
-  [
-   "glm53flash-q2-2gpu",
-   "glm47flash-5090"
-  ],
-  [
-   "inkling2mini-5090",
-   "qwen36-35b-a3b-mtp"
   ]
  ],
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model.",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。"
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model. Cloud references on the same tasks: Claude Opus 5.5 scores 100.0; the local pick is ahead of Gemini 4 Hydrogen and GPT-6.2 Sol.",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。云端参照（同一套题）：Claude Opus 5.5 100.0 分，本地主力高于 Gemini 4 Hydrogen、GPT-6.2 Sol。"
  },
  "methodology": [
   {
@@ -2142,6 +2532,10 @@
   {
    "title": "Private data stays private",
    "body": "The tasks come from the owner's real work, so only aggregate scores are published here: no prompts, answers, task ids, account or institution names."
+  },
+  {
+   "title": "Cloud references",
+   "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI (reasoning effort high, built-in tools off). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
   }
  ]
 }
