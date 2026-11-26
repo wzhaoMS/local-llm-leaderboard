@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T11:15Z",
+ "generated": "2026-11-26T11:21Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -12613,8 +12613,7 @@
      "en": "On the RTX 5090: 193 tok/s with Basalt's NVFP4 pack, text core 94.4, 3.7 s per task, 9/9 real-repo fixes.",
      "zh": "放在 RTX 5090 上，用 Basalt 的 NVFP4 权重包：193 tok/s，文本核心 94.4，单题 3.7 秒，真实仓库修 bug 9/9。"
     },
-    "model": "qwen38-27b-basalt",
-    "href": "#models"
+    "model": "qwen38-27b-basalt"
    },
    {
     "key": "max-vs-max",
