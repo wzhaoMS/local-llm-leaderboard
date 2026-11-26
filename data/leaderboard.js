@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T07:12Z",
+ "generated": "2026-11-26T09:18Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,10 +51,11 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 3304,
+  "gradedRuns": 3434,
   "notes": [
-   "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
-   "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)"
+   "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, minimax31flash-hybrid, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
+   "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)",
+   "partial runs (scored on the common tasks they have): minimax31flash-hybrid"
   ]
  },
  "suites": [
@@ -10066,16 +10067,16 @@ window.LB_DATA = {
    ],
    "ramGiB": 2.2,
    "scores": {
-    "textCore": 95.5,
+    "textCore": 94.0,
     "textCoreCI": [
-     89.2,
-     100.0
+     88.4,
+     98.6
     ],
-    "allSuites": 95.5,
+    "allSuites": 94.0,
     "suites": {
-     "tool_calling": 100.0,
-     "zh_intent": 97.2,
-     "finance_extract": 100.0,
+     "tool_calling": 88.9,
+     "zh_intent": 99.1,
+     "finance_extract": 97.2,
      "ts_coding": 83.3,
      "reasoning": 83.3,
      "vision": null,
@@ -10088,61 +10089,61 @@ window.LB_DATA = {
     "long_horizon": null
    },
    "suiteTimeS": {
-    "tool_calling": 0.9,
-    "zh_intent": 8.3,
-    "finance_extract": 4.3,
-    "ts_coding": 39.2,
-    "reasoning": 13.3,
+    "tool_calling": 0.8,
+    "zh_intent": 7.3,
+    "finance_extract": 4.1,
+    "ts_coding": 34.3,
+    "reasoning": 8.9,
     "vision": null,
-    "browser_agent": 6.0,
-    "agent_e2e": 23.0,
-    "repo_qa": 2.3
+    "browser_agent": 5.6,
+    "agent_e2e": 15.3,
+    "repo_qa": 1.9
    },
-   "agentFixS": 15.1,
+   "agentFixS": 9.8,
    "fullSuites": {
-    "score": 95.5,
+    "score": 94.0,
     "tasks": 59,
-    "rows": 59,
+    "rows": 165,
     "suites": {
      "tool_calling": {
-      "score": 100.0,
+      "score": 88.9,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "zh_intent": {
-      "score": 97.2,
+      "score": 99.1,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "finance_extract": {
-      "score": 100.0,
+      "score": 97.2,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "ts_coding": {
       "score": 83.3,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "reasoning": {
       "score": 83.3,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "browser_agent": {
       "score": 100.0,
       "tasks": 5,
-      "rows": 5
+      "rows": 15
      },
      "agent_e2e": {
       "score": 100.0,
       "tasks": 6,
-      "rows": 6
+      "rows": 18
      },
      "repo_qa": {
       "score": 100.0,
       "tasks": 18,
-      "rows": 18
+      "rows": 42
      }
     }
    },
@@ -10174,10 +10175,10 @@ window.LB_DATA = {
    "speed": {
     "decode": 95.9,
     "decodeSource": "speed test, MTP on",
-    "inTaskDecode": 95.0,
-    "ttft": 0.5,
-    "firstOutput": 1.78,
-    "taskTime": 6.1,
+    "inTaskDecode": 102.0,
+    "ttft": 0.44,
+    "firstOutput": 1.49,
+    "taskTime": 5.2,
     "prefill": {
      "8k": 2265.0,
      "32k": 1910.0,
@@ -10207,9 +10208,9 @@ window.LB_DATA = {
    },
    "endurance": null,
    "cloudTaskTime": null,
-   "rows": 93,
+   "rows": 199,
    "coreTasks": 53,
-   "coreRows": 53
+   "coreRows": 159
   },
   {
    "id": "inkling2mini-5090",
@@ -10715,6 +10716,146 @@ window.LB_DATA = {
    "rows": 93,
    "coreTasks": 53,
    "coreRows": 53
+  },
+  {
+   "id": "minimax31flash-hybrid",
+   "name": "MiniMax-M3.1-Flash",
+   "short": "MiniMax-M3.1-Flash",
+   "variant": "Q2 · GPUs + RAM",
+   "vendor": "minimax",
+   "params": "428B-A23B",
+   "quant": "UD-Q2_K_XL",
+   "placement": "hybrid",
+   "where": "2 GPUs + 128 GB RAM",
+   "recommended": false,
+   "reference": false,
+   "partial": true,
+   "effort": "high",
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Experts that don't fit in VRAM are memory-mapped from RAM, so it decodes about 22 tok/s. At that speed it ran the first 3 tasks of each core suite (no vision).",
+   "vramGiB": [
+    89.9,
+    31.1
+   ],
+   "ramGiB": 5.7,
+   "scores": {
+    "textCore": 78.3,
+    "textCoreCI": [
+     65.0,
+     90.8
+    ],
+    "allSuites": 78.3,
+    "suites": {
+     "tool_calling": 33.3,
+     "zh_intent": 93.3,
+     "finance_extract": 100.0,
+     "ts_coding": 66.7,
+     "reasoning": 66.7,
+     "vision": null,
+     "browser_agent": 100.0,
+     "agent_e2e": 66.7,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 7.4,
+    "zh_intent": 52.2,
+    "finance_extract": 29.1,
+    "ts_coding": 263.1,
+    "reasoning": 63.4,
+    "vision": null,
+    "browser_agent": 54.1,
+    "agent_e2e": 506.4,
+    "repo_qa": 2.8
+   },
+   "agentFixS": 77.6,
+   "fullSuites": {
+    "score": 78.3,
+    "tasks": 24,
+    "rows": 24,
+    "suites": {
+     "tool_calling": {
+      "score": 33.3,
+      "tasks": 3,
+      "rows": 3
+     },
+     "zh_intent": {
+      "score": 93.3,
+      "tasks": 3,
+      "rows": 3
+     },
+     "finance_extract": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     },
+     "ts_coding": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "reasoning": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "browser_agent": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     },
+     "agent_e2e": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "repo_qa": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     }
+    }
+   },
+   "agentic": null,
+   "speed": {
+    "decode": 22.0,
+    "decodeSource": "speed test, MTP on",
+    "inTaskDecode": 24.3,
+    "ttft": 1.9,
+    "firstOutput": 12.08,
+    "taskTime": 49.4,
+    "prefill": {
+     "8k": 349.0,
+     "32k": 312.0
+    },
+    "ttftAt": {
+     "8k": 38.1,
+     "32k": 122.8
+    },
+    "decodeAt": {
+     "8k": 20.0,
+     "32k": 22.0
+    },
+    "ctx": 65536,
+    "mtp": {
+     "on": 22.0,
+     "off": null,
+     "acceptance": 62.0,
+     "draft": 1
+    },
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 24,
+   "coreTasks": 24,
+   "coreRows": 24
   },
   {
    "id": "qwen36-35b-a3b",
@@ -11958,46 +12099,6 @@ window.LB_DATA = {
    "coreRows": 53
   },
   {
-   "id": "minimax31flash-hybrid",
-   "name": "MiniMax-M3.1-Flash",
-   "short": "MiniMax-M3.1-Flash",
-   "variant": "Q2 · GPUs + RAM",
-   "vendor": "minimax",
-   "params": "428B-A23B",
-   "quant": "UD-Q2_K_XL",
-   "placement": "hybrid",
-   "where": "2 GPUs + 128 GB RAM",
-   "recommended": false,
-   "reference": false,
-   "partial": true,
-   "effort": "high",
-   "engineOf": null,
-   "maxEffort": false,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "Experts that don't fit in VRAM are memory-mapped from RAM.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentFixS": null,
-   "fullSuites": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0,
-   "coreTasks": null,
-   "coreRows": null
-  },
-  {
    "id": "deepseek41-rco-hybrid",
    "name": "DeepSeek-V4.1-Flash",
    "short": "DeepSeek-V4.1-Flash",
@@ -12342,6 +12443,12 @@ window.LB_DATA = {
    "body": "Layer split fits 200-320B models (GLM-5.3-Flash, MiMo, Step, Q5) but none beat the single-GPU Q4."
   },
   {
+   "title": "Both GPUs + system RAM",
+   "verdict": "works",
+   "metric": "17-22 tok/s",
+   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B decodes 22 tok/s and DeepSeek-V4.1-Flash 748B 17 tok/s, about 1/7 of the single-GPU Q4. MiniMax scored 78 on its 24 core tasks."
+  },
+  {
    "title": "Tensor parallel (-sm tensor)",
    "verdict": "avoid",
    "metric": "crash",
@@ -12431,8 +12538,8 @@ window.LB_DATA = {
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, GLM-5.3-Flash Q2, Qwen3.8-27B Basalt and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B Basalt、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。"
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。"
  },
  "methodology": [
   {
