@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T22:42Z",
+ "generated": "2026-11-26T23:35Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14820,6 +14820,31 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "glm53slim-hybrid-pelican",
+    "model": "glm53slim-hybrid",
+    "onBoard": true,
+    "name": "GLM-5.3",
+    "variant": "SLIM IQ2_M · GPUs + RAM",
+    "vendor": "zai",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "effort": null,
+    "complete": false,
+    "running": true,
+    "attempts": [
+     {
+      "n": 1,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "ran out of tokens before the SVG was complete",
+      "seconds": 3158.5,
+      "tokens": 32768,
+      "tps": 10.6
+     }
+    ]
+   },
+   {
     "id": "cloud-gpt-6-astra-max-pelican",
     "model": "cloud-gpt-6-astra-max",
     "onBoard": true,
@@ -15181,16 +15206,6 @@ window.LB_DATA = {
    }
   ],
   "queued": [
-   {
-    "id": "glm53slim-hybrid-pelican",
-    "model": "glm53slim-hybrid",
-    "name": "GLM-5.3",
-    "variant": "SLIM IQ2_M · GPUs + RAM",
-    "vendor": "zai",
-    "local": true,
-    "where": "2 GPUs + RAM",
-    "status": "running"
-   },
    {
     "id": "ling31flash-hybrid-pelican",
     "model": "ling31flash-hybrid",
