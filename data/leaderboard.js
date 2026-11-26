@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T01:37Z",
+ "generated": "2026-11-26T02:32Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2564
+  "gradedRuns": 2726
  },
  "suites": [
   {
@@ -288,9 +288,9 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 7.9,
@@ -303,11 +303,40 @@ window.LB_DATA = {
     "agent_e2e": 219.7,
     "repo_qa": 6.0
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 277.0,
+     "medianTimeToCorrectS": 242.0,
+     "medianSteps": 26.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 233.0,
+     "medianTimeToFixS": 103.0,
+     "reproducedFirst": 100.0,
+     "rootCauseNamed": 90.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 15.9,
+     "maxPromptTokens": null
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 13.0,
-   "rows": 59
+   "rows": 81
   },
   {
    "id": "cloud-gemini-4-hydrogen-xhigh",
@@ -347,9 +376,9 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 94.7
    },
    "suiteTimeS": {
     "tool_calling": 12.4,
@@ -362,11 +391,40 @@ window.LB_DATA = {
     "agent_e2e": 136.4,
     "repo_qa": 9.7
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 207.0,
+     "medianTimeToCorrectS": 200.0,
+     "medianSteps": 16.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 282.0,
+     "medianTimeToFixS": 209.0,
+     "reproducedFirst": 90.0,
+     "rootCauseNamed": 100.0
+    },
+    "long_horizon": {
+     "rate": 94.7,
+     "score": 95.2,
+     "sessions": 3,
+     "stagesPassed": 18,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 8.1,
+     "maxPromptTokens": null
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 29.6,
-   "rows": 59
+   "rows": 81
   },
   {
    "id": "cloud-gemini-4-neon-xhigh",
@@ -406,9 +464,9 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 17.2,
@@ -421,11 +479,40 @@ window.LB_DATA = {
     "agent_e2e": 149.7,
     "repo_qa": 11.7
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 329.0,
+     "medianTimeToCorrectS": 294.0,
+     "medianSteps": 15.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 258.0,
+     "medianTimeToFixS": 209.0,
+     "reproducedFirst": 80.0,
+     "rootCauseNamed": 90.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 7.9,
+     "maxPromptTokens": null
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 41.7,
-   "rows": 59
+   "rows": 81
   },
   {
    "id": "cloud-gpt-6-astra-max",
@@ -858,6 +945,85 @@ window.LB_DATA = {
    "endurance": null,
    "cloudTaskTime": null,
    "rows": 80
+  },
+  {
+   "id": "flashnext-q4-1gpu-max",
+   "name": "Qwen3.8-Flash-Next",
+   "short": "Flash-Next Q4 max",
+   "variant": "Q4 · effort xhigh",
+   "vendor": "qwen",
+   "params": "125B-A6B",
+   "quant": "UD-Q4_K_XL",
+   "placement": "1gpu",
+   "where": "RTX PRO 6000",
+   "recommended": false,
+   "reference": false,
+   "partial": false,
+   "effort": "xhigh",
+   "maxEffort": true,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "The daily driver's weights at the highest reasoning effort (xhigh).",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 86.5,
+    "textCoreCI": [
+     77.9,
+     94.7
+    ],
+    "allSuites": 88.0,
+    "suites": {
+     "tool_calling": 83.3,
+     "zh_intent": 75.1,
+     "finance_extract": 83.3,
+     "ts_coding": 66.7,
+     "reasoning": 83.3,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": 100.0,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 0.8,
+    "zh_intent": 17.3,
+    "finance_extract": 6.6,
+    "ts_coding": 265.0,
+    "reasoning": 31.7,
+    "vision": 1.4,
+    "browser_agent": 6.7,
+    "agent_e2e": 37.8,
+    "repo_qa": 1.5
+   },
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 93.0,
+     "medianTimeToCorrectS": 59.0,
+     "medianSteps": 31.0
+    }
+   },
+   "speed": {
+    "decode": 142.5,
+    "inTaskDecode": 155.6,
+    "ttft": 0.4,
+    "firstOutput": 1.4,
+    "taskTime": 6.6,
+    "prefill": null,
+    "ttftAt": null,
+    "decodeAt": null,
+    "ctx": null,
+    "mtp": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 96
   },
   {
    "id": "flashnext-q4-1gpu-medium",
@@ -2465,41 +2631,6 @@ window.LB_DATA = {
    "rows": 0
   },
   {
-   "id": "flashnext-q4-1gpu-max",
-   "name": "Qwen3.8-Flash-Next",
-   "short": "Flash-Next Q4 max",
-   "variant": "Q4 · effort xhigh",
-   "vendor": "qwen",
-   "params": "125B-A6B",
-   "quant": "UD-Q4_K_XL",
-   "placement": "1gpu",
-   "where": "RTX PRO 6000",
-   "recommended": false,
-   "reference": false,
-   "partial": false,
-   "effort": "xhigh",
-   "maxEffort": true,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "The daily driver's weights at the highest reasoning effort (xhigh).",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0
-  },
-  {
    "id": "qwen38-27b-max",
    "name": "Qwen3.8-27B",
    "short": "Qwen3.8-27B max",
@@ -2635,6 +2766,10 @@ window.LB_DATA = {
    "cloud-claude-opus-55-max"
   ],
   [
+   "flashnext-q4-1gpu-max",
+   "cloud-claude-opus-55-max"
+  ],
+  [
    "flashnext-q4-1gpu-medium",
    "cloud-gpt-6-astra-max"
   ],
@@ -2657,14 +2792,12 @@ window.LB_DATA = {
   [
    "flashnext-q4-1gpu-medium",
    "qwen38-27b-medium"
-  ],
-  [
-   "mimo26flash-2gpu",
-   "step37flash-2gpu"
   ]
  ],
  "maxEffort": {
-  "local": [],
+  "local": [
+   "flashnext-q4-1gpu-max"
+  ],
   "cloud": [
    "cloud-claude-opus-55-max",
    "cloud-gemini-4-hydrogen-xhigh",
@@ -2677,11 +2810,7 @@ window.LB_DATA = {
     "Qwen3.8-Flash-Next Q4 (xhigh)",
     "Qwen3.8-27B dense (xhigh)"
    ],
-   "cloud": [
-    "Gemini 4 Hydrogen",
-    "Gemini 4 Neon",
-    "Claude Opus 5.5"
-   ]
+   "cloud": []
   }
  },
  "verdict": {
