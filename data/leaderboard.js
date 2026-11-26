@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T13:17Z",
+ "generated": "2026-11-26T13:19Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -12999,8 +12999,24 @@ window.LB_DATA = {
     "id": "flashnext-q4-basalt-longctx",
     "model": "flashnext-q4-basalt",
     "setup": {
-     "en": "Basalt · both GPUs · YaRN ×4 · int8 KV cache",
-     "zh": "Basalt · 双卡 · YaRN ×4 · int8 KV 缓存"
+     "en": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV cache",
+     "zh": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV 缓存"
+    }
+   },
+   {
+    "id": "flashnext-q4-longctx-native",
+    "model": "flashnext-q4-1gpu-medium",
+    "setup": {
+     "en": "RTX PRO 6000 · native 256K, no YaRN",
+     "zh": "RTX PRO 6000 · 原生 256K，不开 YaRN"
+    }
+   },
+   {
+    "id": "qwen36-35b-mtp-longctx",
+    "model": "qwen36-35b-a3b-mtp",
+    "setup": {
+     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
+     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
     }
    },
    {
@@ -13025,22 +13041,6 @@ window.LB_DATA = {
     "setup": {
      "en": "Both GPUs · native 1M context",
      "zh": "双卡 · 原生 1M 上下文"
-    }
-   },
-   {
-    "id": "qwen36-35b-mtp-longctx",
-    "model": "qwen36-35b-a3b-mtp",
-    "setup": {
-     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
-     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
-    }
-   },
-   {
-    "id": "flashnext-q4-longctx-native",
-    "model": "flashnext-q4-1gpu-medium",
-    "setup": {
-     "en": "RTX PRO 6000 · native 256K, no YaRN",
-     "zh": "RTX PRO 6000 · 原生 256K，不开 YaRN"
     }
    }
   ]
