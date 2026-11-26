@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T13:19Z",
+ "generated": "2026-11-26T14:35Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -12629,6 +12629,402 @@ window.LB_DATA = {
   ],
   "runs": [
    {
+    "id": "qwen38-27b-longctx",
+    "model": "qwen38-27b-medium",
+    "name": "Qwen3.8-27B",
+    "variant": "dense · effort medium",
+    "vendor": "qwen",
+    "engine": "llama.cpp",
+    "setup": {
+     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
+     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
+    },
+    "running": false,
+    "closedBook": {
+     "acc": 10.0,
+     "ci": [
+      0.0,
+      25.0
+     ],
+     "single": 14.3,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 2,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 172.0,
+     "coldTtft": 0.3,
+     "prefill": 679.0,
+     "warmTtft": 0.16,
+     "decode": 138.2,
+     "taskTime": 2.6,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 99.3,
+      "ci": [
+       97.9,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 92.9,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 30376.0,
+      "coldTtft": 8.5,
+      "prefill": 3585.0,
+      "warmTtft": 0.46,
+      "decode": 151.3,
+      "taskTime": 1.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 1,
+      "promptTokens": 122044.0,
+      "coldTtft": 47.4,
+      "prefill": 2578.0,
+      "warmTtft": 0.78,
+      "decode": 101.0,
+      "taskTime": 3.1,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "256k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 1,
+      "promptTokens": 248390.0,
+      "coldTtft": 135.8,
+      "prefill": 1831.0,
+      "warmTtft": 1.19,
+      "decode": 69.0,
+      "taskTime": 4.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "512k": {
+      "acc": 98.8,
+      "ci": [
+       96.2,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 87.5,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 0,
+      "gained": 0,
+      "promptTokens": 493831.0,
+      "coldTtft": 414.8,
+      "prefill": 1191.0,
+      "warmTtft": 2.06,
+      "decode": 43.5,
+      "taskTime": 7.1,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "1m": {
+      "acc": 92.9,
+      "ci": [
+       80.7,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 75.0,
+      "list": 78.6,
+      "n": 20,
+      "solved": 18,
+      "complete": true,
+      "lost": 2,
+      "gained": 1,
+      "promptTokens": 986658.0,
+      "coldTtft": 1457.2,
+      "prefill": 677.0,
+      "warmTtft": 4.2,
+      "decode": 23.3,
+      "taskTime": 12.0,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "512k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "1m": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ]
+    },
+    "largest": "1m"
+   },
+   {
+    "id": "flashnext-q4-basalt-longctx",
+    "model": "flashnext-q4-basalt",
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · Basalt engine",
+    "vendor": "qwen",
+    "engine": "Basalt",
+    "setup": {
+     "en": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV cache",
+     "zh": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV 缓存"
+    },
+    "running": false,
+    "closedBook": {
+     "acc": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "single": 0.0,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 0,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 172.0,
+     "coldTtft": 0.2,
+     "prefill": 894.0,
+     "warmTtft": null,
+     "decode": 344.7,
+     "taskTime": 1.2,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 30376.0,
+      "coldTtft": 3.1,
+      "prefill": 10036.0,
+      "warmTtft": null,
+      "decode": 460.8,
+      "taskTime": 3.6,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 0,
+      "promptTokens": 122044.0,
+      "coldTtft": 12.6,
+      "prefill": 9774.0,
+      "warmTtft": 2.99,
+      "decode": 403.2,
+      "taskTime": 3.5,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "256k": {
+      "acc": 99.0,
+      "ci": [
+       97.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 90.0,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 1,
+      "gained": 0,
+      "promptTokens": 248390.0,
+      "coldTtft": 26.0,
+      "prefill": 9582.0,
+      "warmTtft": 3.65,
+      "decode": 375.9,
+      "taskTime": 4.2,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "512k": {
+      "acc": 97.1,
+      "ci": [
+       92.1,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 71.4,
+      "n": 20,
+      "solved": 18,
+      "complete": true,
+      "lost": 2,
+      "gained": 0,
+      "promptTokens": 493831.0,
+      "coldTtft": 58.2,
+      "prefill": 8512.0,
+      "warmTtft": 4.79,
+      "decode": 338.9,
+      "taskTime": 5.3,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "1m": {
+      "acc": 89.3,
+      "ci": [
+       74.3,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 50.0,
+      "list": 92.9,
+      "n": 20,
+      "solved": 17,
+      "complete": true,
+      "lost": 3,
+      "gained": 0,
+      "promptTokens": 986658.0,
+      "coldTtft": 145.6,
+      "prefill": 6790.0,
+      "warmTtft": 6.67,
+      "decode": 255.8,
+      "taskTime": 7.3,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "512k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "1m": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ]
+    },
+    "largest": "1m"
+   },
+   {
     "id": "flashnext-q4-longctx",
     "model": "flashnext-q4-1gpu-medium",
     "name": "Qwen3.8-Flash-Next",
@@ -12827,62 +13223,260 @@ window.LB_DATA = {
     "largest": "1m"
    },
    {
-    "id": "qwen38-27b-longctx",
-    "model": "qwen38-27b-medium",
-    "name": "Qwen3.8-27B",
-    "variant": "dense · effort medium",
+    "id": "qwen36-35b-mtp-longctx",
+    "model": "qwen36-35b-a3b-mtp",
+    "name": "Qwen3.6-35B-A3B",
+    "variant": "thinking + MTP",
     "vendor": "qwen",
     "engine": "llama.cpp",
     "setup": {
      "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
      "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
     },
-    "running": true,
+    "running": false,
     "closedBook": {
-     "acc": 10.0,
+     "acc": 0.0,
      "ci": [
       0.0,
-      25.0
+      0.0
      ],
-     "single": 14.3,
+     "single": 0.0,
      "chain": 0.0,
      "list": 0.0,
      "n": 20,
-     "solved": 2,
+     "solved": 0,
      "complete": true,
      "lost": null,
      "gained": null,
      "promptTokens": 172.0,
-     "coldTtft": 0.3,
-     "prefill": 679.0,
-     "warmTtft": 0.16,
-     "decode": 138.2,
-     "taskTime": 2.6,
+     "coldTtft": 0.2,
+     "prefill": 1133.0,
+     "warmTtft": 0.1,
+     "decode": 292.0,
+     "taskTime": 5.0,
      "errors": 0,
      "truncated": 0,
      "formatMisses": 0
     },
     "bySize": {
      "32k": {
-      "acc": 99.3,
+      "acc": 83.4,
       "ci": [
-       97.9,
+       67.4,
+       97.9
+      ],
+      "single": 78.6,
+      "chain": 100.0,
+      "list": 84.4,
+      "n": 20,
+      "solved": 15,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 30376.0,
+      "coldTtft": 2.5,
+      "prefill": 12260.0,
+      "warmTtft": 0.2,
+      "decode": 315.5,
+      "taskTime": 1.9,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 2
+     },
+     "128k": {
+      "acc": 79.4,
+      "ci": [
+       62.0,
+       94.4
+      ],
+      "single": 78.6,
+      "chain": 100.0,
+      "list": 44.2,
+      "n": 20,
+      "solved": 15,
+      "complete": true,
+      "lost": 3,
+      "gained": 3,
+      "promptTokens": 122044.0,
+      "coldTtft": 14.6,
+      "prefill": 8418.0,
+      "warmTtft": 0.38,
+      "decode": 224.8,
+      "taskTime": 2.5,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 3
+     },
+     "256k": {
+      "acc": 73.3,
+      "ci": [
+       53.3,
+       91.7
+      ],
+      "single": 78.6,
+      "chain": 50.0,
+      "list": 83.3,
+      "n": 20,
+      "solved": 14,
+      "complete": true,
+      "lost": 4,
+      "gained": 3,
+      "promptTokens": 248390.0,
+      "coldTtft": 43.8,
+      "prefill": 5702.0,
+      "warmTtft": 0.62,
+      "decode": 155.6,
+      "taskTime": 3.9,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 5
+     },
+     "512k": {
+      "acc": 35.0,
+      "ci": [
+       15.0,
+       55.0
+      ],
+      "single": 28.6,
+      "chain": 75.0,
+      "list": 0.0,
+      "n": 20,
+      "solved": 7,
+      "complete": true,
+      "lost": 8,
+      "gained": 0,
+      "promptTokens": 493831.0,
+      "coldTtft": 142.9,
+      "prefill": 3469.0,
+      "warmTtft": 1.2,
+      "decode": 97.2,
+      "taskTime": 5.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 11
+     },
+     "1m": {
+      "acc": 30.0,
+      "ci": [
+       10.0,
+       50.0
+      ],
+      "single": 35.7,
+      "chain": 25.0,
+      "list": 0.0,
+      "n": 20,
+      "solved": 6,
+      "complete": true,
+      "lost": 10,
+      "gained": 1,
+      "promptTokens": 986658.0,
+      "coldTtft": 504.0,
+      "prefill": 1961.0,
+      "warmTtft": 1.96,
+      "decode": 55.8,
+      "taskTime": 9.7,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 10
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      33.3,
+      100.0,
+      66.7
+     ],
+     "128k": [
+      100.0,
+      66.7,
+      100.0,
+      66.7,
+      66.7
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      66.7,
+      66.7,
+      66.7
+     ],
+     "512k": [
+      0.0,
+      0.0,
+      0.0,
+      100.0,
+      33.3
+     ],
+     "1m": [
+      33.3,
+      33.3,
+      50.0,
+      33.3,
+      33.3
+     ]
+    },
+    "largest": "1m"
+   },
+   {
+    "id": "flashnext-q4-longctx-native",
+    "model": "flashnext-q4-1gpu-medium",
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · effort medium",
+    "vendor": "qwen",
+    "engine": "llama.cpp",
+    "setup": {
+     "en": "RTX PRO 6000 · native 256K, no YaRN",
+     "zh": "RTX PRO 6000 · 原生 256K，不开 YaRN"
+    },
+    "running": false,
+    "closedBook": {
+     "acc": 5.0,
+     "ci": [
+      0.0,
+      15.0
+     ],
+     "single": 7.1,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 1,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 172.0,
+     "coldTtft": 0.5,
+     "prefill": 411.0,
+     "warmTtft": 0.17,
+     "decode": 162.4,
+     "taskTime": 2.4,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 95.0,
+      "ci": [
+       85.0,
        100.0
       ],
-      "single": 100.0,
+      "single": 92.9,
       "chain": 100.0,
-      "list": 92.9,
+      "list": 100.0,
       "n": 20,
       "solved": 19,
       "complete": true,
       "lost": null,
       "gained": null,
       "promptTokens": 30376.0,
-      "coldTtft": 8.5,
-      "prefill": 3585.0,
-      "warmTtft": 0.46,
-      "decode": 151.3,
-      "taskTime": 1.8,
+      "coldTtft": 7.3,
+      "prefill": 4171.0,
+      "warmTtft": 0.38,
+      "decode": 178.4,
+      "taskTime": 1.4,
       "errors": 0,
       "truncated": 0,
       "formatMisses": 0
@@ -12902,72 +13496,26 @@ window.LB_DATA = {
       "lost": 0,
       "gained": 1,
       "promptTokens": 122044.0,
-      "coldTtft": 47.4,
-      "prefill": 2578.0,
-      "warmTtft": 0.78,
-      "decode": 101.0,
-      "taskTime": 3.1,
-      "errors": 0,
-      "truncated": 0,
-      "formatMisses": 0
-     },
-     "256k": {
-      "acc": 100.0,
-      "ci": [
-       100.0,
-       100.0
-      ],
-      "single": 100.0,
-      "chain": 100.0,
-      "list": 100.0,
-      "n": 20,
-      "solved": 20,
-      "complete": true,
-      "lost": 0,
-      "gained": 1,
-      "promptTokens": 248390.0,
-      "coldTtft": 135.8,
-      "prefill": 1831.0,
-      "warmTtft": 1.19,
-      "decode": 69.0,
-      "taskTime": 4.8,
-      "errors": 0,
-      "truncated": 0,
-      "formatMisses": 0
-     },
-     "512k": {
-      "acc": 98.8,
-      "ci": [
-       96.2,
-       100.0
-      ],
-      "single": 100.0,
-      "chain": 100.0,
-      "list": 87.5,
-      "n": 20,
-      "solved": 19,
-      "complete": true,
-      "lost": 0,
-      "gained": 0,
-      "promptTokens": 493831.0,
-      "coldTtft": 414.8,
-      "prefill": 1191.0,
-      "warmTtft": 2.06,
-      "decode": 43.5,
-      "taskTime": 7.1,
+      "coldTtft": 29.8,
+      "prefill": 4116.0,
+      "warmTtft": 0.53,
+      "decode": 142.4,
+      "taskTime": 1.8,
       "errors": 0,
       "truncated": 0,
       "formatMisses": 0
      }
     },
-    "skipped": null,
+    "skipped": {
+     "256k": "needs 264837 tokens > n_ctx 262144"
+    },
     "depth": {
      "32k": [
       100.0,
       100.0,
       100.0,
       100.0,
-      100.0
+      66.7
      ],
      "128k": [
       100.0,
@@ -12975,58 +13523,12 @@ window.LB_DATA = {
       100.0,
       100.0,
       100.0
-     ],
-     "256k": [
-      100.0,
-      100.0,
-      100.0,
-      100.0,
-      100.0
-     ],
-     "512k": [
-      100.0,
-      100.0,
-      100.0,
-      100.0,
-      100.0
      ]
     },
-    "largest": "512k"
+    "largest": "128k"
    }
   ],
   "queued": [
-   {
-    "id": "flashnext-q4-basalt-longctx",
-    "model": "flashnext-q4-basalt",
-    "setup": {
-     "en": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV cache",
-     "zh": "Basalt · RTX PRO 6000 · YaRN ×4 · int8 KV 缓存"
-    }
-   },
-   {
-    "id": "flashnext-q4-longctx-native",
-    "model": "flashnext-q4-1gpu-medium",
-    "setup": {
-     "en": "RTX PRO 6000 · native 256K, no YaRN",
-     "zh": "RTX PRO 6000 · 原生 256K，不开 YaRN"
-    }
-   },
-   {
-    "id": "qwen36-35b-mtp-longctx",
-    "model": "qwen36-35b-a3b-mtp",
-    "setup": {
-     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
-     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
-    }
-   },
-   {
-    "id": "glm53flash-longctx",
-    "model": "glm53flash-q2-2gpu",
-    "setup": {
-     "en": "Both GPUs · native 1M context",
-     "zh": "双卡 · 原生 1M 上下文"
-    }
-   },
    {
     "id": "inkling2mini-longctx",
     "model": "inkling2mini-5090",
@@ -13047,11 +13549,11 @@ window.LB_DATA = {
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。",
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good); this workstation has run it on Basalt since 26 Nov. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），11 月 26 日起这台机器日常改用 Basalt。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。",
   "headline": {
-   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core) and fast (163 tok/s). The same weights on the Basalt engine run 1.7× faster: the recommended upgrade.",
-   "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000，质量第一梯队（文本核心 96.1），速度快（163 tok/s）。同一套权重换 Basalt 引擎快 1.7 倍，建议升级。"
+   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core) and fast (163 tok/s). Since 26 Nov it runs on the Basalt engine: the same weights at 282 tok/s, 1.7× llama.cpp.",
+   "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000，质量第一梯队（文本核心 96.1），速度快（163 tok/s）。11 月 26 日起改用 Basalt 引擎：同一套权重 282 tok/s，是 llama.cpp 的 1.7 倍。"
   },
   "findings": [
    {
@@ -13063,16 +13565,16 @@ window.LB_DATA = {
      "zh": "生成"
     },
     "title": {
-     "en": "Recommended upgrade: the Basalt engine",
-     "zh": "建议升级：Basalt 引擎"
+     "en": "Daily engine since 26 Nov: Basalt",
+     "zh": "11 月 26 日起的日常引擎：Basalt"
     },
     "text": {
      "en": "Same weights: 282 tok/s (1.7× llama.cpp), 3.2 s per task, text core 96.0 vs 96.1; agentic results at least as good.",
      "zh": "同一套权重：282 tok/s（llama.cpp 的 1.7 倍），单题 3.2 秒，文本核心 96.0 对 96.1，Agent 任务不比原来差。"
     },
     "about": {
-     "en": "Open-source (MIT), NVIDIA Blackwell GPUs only, and a fixed list of models in its own .basalt format.",
-     "zh": "开源（MIT），只支持 NVIDIA Blackwell 显卡和它列出的几个模型，用自己的 .basalt 格式。"
+     "en": "Open-source (MIT), NVIDIA Blackwell GPUs only, and a fixed list of models in its own .basalt format. Audited here: it listens on 127.0.0.1 only, has no telemetry or update checks, and fetching URLs named in requests is turned off.",
+     "zh": "开源（MIT），只支持 NVIDIA Blackwell 显卡和它列出的几个模型，用自己的 .basalt 格式。已在本机审查：只监听 127.0.0.1，没有遥测，不检查更新；请求里的网址已设为不读取。"
     },
     "link": {
      "url": "https://github.com/jesdga95/basalt",
@@ -13129,8 +13631,8 @@ window.LB_DATA = {
      "zh": "512K 以内很稳，1M 时变弱"
     },
     "text": {
-     "en": "Asked about a 986K-token code dump, the Q4 got 14 of 20 questions right (32K to 1M: 100 / 100 / 99 / 99 / 77%; closed book 10%). 3 of the misses were right answers without the required answer line. Reading the dump took 7.0 min on both GPUs with YaRN ×4; follow-up questions 1.9 s.",
-     "zh": "给 Q4 一份 986K token 的代码，20 题答对 14 题（32K 到 1M：100 / 100 / 99 / 99 / 77%；不给代码只答对 10%）。其中 3 题其实答对了，只是没按要求写答案行。双卡加 YaRN ×4，读完整份要 7.0 分钟，之后每个追问 1.9 秒。"
+     "en": "Asked about a 986K-token code dump, the Q4 got 14 of 20 questions right (32K to 1M: 100 / 100 / 99 / 99 / 77%; closed book 10%). 3 of the misses were right answers without the required answer line. Reading the dump took 7.0 min on both GPUs with YaRN ×4; follow-up questions 1.9 s. On Basalt, the daily engine, the same weights got 17 of 20 on the RTX PRO 6000 alone, read the dump in 2.4 min and decoded 256 tok/s.",
+     "zh": "给 Q4 一份 986K token 的代码，20 题答对 14 题（32K 到 1M：100 / 100 / 99 / 99 / 77%；不给代码只答对 10%）。其中 3 题其实答对了，只是没按要求写答案行。双卡加 YaRN ×4，读完整份要 7.0 分钟，之后每个追问 1.9 秒。日常用的 Basalt 引擎上，同一套权重只用 RTX PRO 6000 一张卡答对 17 题，读完整份 2.4 分钟，生成 256 tok/s。"
     },
     "href": "#long-context"
    },
