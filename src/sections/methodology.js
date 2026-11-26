@@ -26,13 +26,20 @@
 
     el.append(LB.sectionHead({ title: "Methodology", sub: "How the numbers are produced." }));
     if (items.length) {
-      // Cards sit on a 6-column grid (3 per row, 2 when narrower); a short last row stretches to fill it.
+      // 12-column grid with 4 or 3 cards per row, whichever leaves the fuller last row (8 → 4 + 4, 7 → 4 + 3, 6 → 3 + 3).
+      // Cards in a short last row stretch to fill it; a card alone on its row becomes a wide row card.
       const n = items.length;
-      const lastRow = (i, per) => { const r = n % per; return r && i >= n - r ? r : 0; };
-      el.append(h("div", { class: "me-grid" }, items.map((it, i) =>
-        LB.card(["me-card", lastRow(i, 3) === 1 && "me-full3", lastRow(i, 3) === 2 && "me-half3", lastRow(i, 2) === 1 && "me-full2"].filter(Boolean).join(" "),
+      const missing = (per) => (n % per ? per - (n % per) : 0);
+      const per = n <= 4 ? n : missing(4) <= missing(3) ? 4 : 3;
+      const rest = n % per, lastStart = n - rest;
+      el.append(h("div", { class: ["me-grid", "me-per-" + per] }, items.map((it, i) => {
+        const span = 12 / (rest && i >= lastStart ? rest : per);
+        const card = LB.card(["me-card", span === 12 && "me-wide", n % 2 === 1 && i === n - 1 && "me-wide2"].filter(Boolean).join(" "),
           h("span", { class: "me-num", "aria-hidden": "true" }, String(i + 1).padStart(2, "0")),
-          h("h3", {}, it.title || ""), it.body ? h("p", {}, it.body) : null))));
+          h("h3", {}, it.title || ""), it.body ? h("p", {}, it.body) : null);
+        card.style.setProperty("--me-span", String(span));
+        return card;
+      })));
     }
 
     if (suites.length) {

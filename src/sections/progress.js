@@ -59,6 +59,9 @@
     const rank = (m) => { const i = ORDER.indexOf(statusKey(m)); return i < 0 ? ORDER.length : i; };
     const list = all.filter((m) => !m.reference && ((m.status && m.status !== "done") || m.partial)).sort((a, b) => rank(a) - rank(b));
     const counts = ORDER.map((k) => [k, list.filter((m) => statusKey(m) === k).length]).filter(([, n]) => n);
+    // The legend explains only what's on screen; "partial" also covers the "partial run" tags on pending rows.
+    const present = new Set(counts.map(([k]) => k));
+    if (list.some((m) => m.partial)) present.add("partial");
     const right = counts.length ? h("div", { class: "pg-counts" },
       counts.map(([k, n]) => h("span", { class: "pg-count" }, dot(k), h("b", {}, String(n)), " " + STATUS[k].text.toLowerCase()))) : null;
     el.append(LB.sectionHead({
@@ -82,7 +85,7 @@
         h("span", {}, "Model"), h("span", {}, "Params"), h("span", {}, "Quant"), h("span", {}, "Runs on"), h("span", { class: "pg-cols-st" }, "Status")),
       h("ul", { class: "pg-list", role: "list", "aria-label": "Runs in progress" }, list.map(row)),
       h("div", { class: "pg-legend" },
-        ORDER.map((k) => h("span", { class: "pg-leg" }, dot(k), h("span", {}, h("b", {}, STATUS[k].text), " — " + STATUS[k].legend))))));
+        ORDER.filter((k) => present.has(k)).map((k) => h("span", { class: "pg-leg" }, dot(k), h("span", {}, h("b", {}, STATUS[k].text), " — " + STATUS[k].legend))))));
   }
 
   LB.register({ id: "in-progress", order: 95, nav: "In progress", render });
