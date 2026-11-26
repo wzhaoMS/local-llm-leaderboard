@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T21:12Z",
+ "generated": "2026-11-26T21:56Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -251,6 +251,20 @@
    "org": "Google DeepMind",
    "color": "#4285f4",
    "letter": "G",
+   "country": "US"
+  },
+  "xai": {
+   "name": "xAI",
+   "org": "xAI",
+   "color": "#52525b",
+   "letter": "X",
+   "country": "US"
+  },
+  "microsoft": {
+   "name": "Microsoft",
+   "org": "Microsoft AI",
+   "color": "#0078d4",
+   "letter": "Ms",
    "country": "US"
   }
  },
@@ -10043,6 +10057,68 @@
    "coreRows": 53
   },
   {
+   "id": "glm53-iq1s-hybrid",
+   "name": "GLM-5.3",
+   "short": "GLM-5.3 IQ1",
+   "variant": "IQ1_S · GPUs + RAM",
+   "vendor": "zai",
+   "params": "753B-A40B",
+   "quant": "UD-IQ1_S",
+   "placement": "hybrid",
+   "where": "2 GPUs + RAM",
+   "recommended": false,
+   "reference": false,
+   "partial": true,
+   "effort": null,
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": true,
+   "status": "queued",
+   "notes": "All experts at ~1.5 bits: 217 GB of weights across both GPUs and RAM.",
+   "vramGiB": [
+    89.2,
+    24.6
+   ],
+   "ramGiB": 17.0,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentFixS": null,
+   "fullSuites": null,
+   "agentic": null,
+   "speed": {
+    "decode": 3.0,
+    "decodeSource": "speed test, MTP on",
+    "inTaskDecode": null,
+    "ttft": null,
+    "firstOutput": null,
+    "taskTime": null,
+    "prefill": null,
+    "ttftAt": null,
+    "decodeAt": null,
+    "ctx": 32768,
+    "mtp": {
+     "on": 3.0,
+     "off": null,
+     "acceptance": 59.0,
+     "draft": 2
+    },
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 0,
+   "coreTasks": null,
+   "coreRows": null
+  },
+  {
    "id": "glm53flash-q2-2gpu",
    "name": "GLM-5.3-Flash",
    "short": "GLM-5.3-Flash Q2",
@@ -12313,46 +12389,6 @@
    "coreRows": null
   },
   {
-   "id": "glm53-iq1s-hybrid",
-   "name": "GLM-5.3",
-   "short": "GLM-5.3 IQ1",
-   "variant": "IQ1_S · GPUs + RAM",
-   "vendor": "zai",
-   "params": "753B-A40B",
-   "quant": "UD-IQ1_S",
-   "placement": "hybrid",
-   "where": "2 GPUs + RAM",
-   "recommended": false,
-   "reference": false,
-   "partial": true,
-   "effort": null,
-   "engineOf": null,
-   "maxEffort": false,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "All experts at ~1.5 bits: 217 GB of weights across both GPUs and RAM.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentFixS": null,
-   "fullSuites": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0,
-   "coreTasks": null,
-   "coreRows": null
-  },
-  {
    "id": "kimik3-reap55-stream",
    "name": "Kimi-K3",
    "short": "Kimi-K3",
@@ -12499,7 +12535,7 @@
   {
    "title": "Both GPUs + system RAM",
    "verdict": "avoid",
-   "metric": "9–22 tok/s",
+   "metric": "3–22 tok/s",
    "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s and GLM-5.3 753B 12 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
   },
   {
@@ -14044,7 +14080,9 @@
       "formatMisses": 1
      }
     },
-    "skipped": null,
+    "skipped": {
+     "1m": "1M needs ~14 GiB more KV cache, which would leave the RTX 5090 under 4 GB free"
+    },
     "depth": {
      "32k": [
       100.0,
@@ -14502,6 +14540,474 @@
   ],
   "queued": []
  },
+ "pelican": {
+  "prompt": "Generate an animated SVG of a pelican riding a bicycle.",
+  "system": "Reply with one complete, self-contained SVG file in a single ```svg code block. Animate it with SMIL (<animate>, <animateTransform>, <animateMotion>) or CSS keyframes inside the SVG. No JavaScript and no external files, fonts or links: the SVG will be shown in an <img> tag on a web page.",
+  "perModel": 3,
+  "credit": {
+   "name": "Simon Willison",
+   "url": "https://simonwillison.net/tags/pelican-riding-a-bicycle/"
+  },
+  "entries": [
+   {
+    "id": "qwen38-27b-max-pelican",
+    "model": "qwen38-27b-max",
+    "onBoard": true,
+    "name": "Qwen3.8-27B",
+    "variant": "dense · effort xhigh",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": "xhigh",
+    "complete": false,
+    "running": true,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/qwen38-27b-max-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 230.0,
+      "tokens": 29591,
+      "tps": 128.8
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/qwen38-27b-max-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 320.8,
+      "tokens": 39968,
+      "tps": 124.7
+     }
+    ]
+   },
+   {
+    "id": "flashnext-q4-1gpu-medium-pelican",
+    "model": "flashnext-q4-1gpu-medium",
+    "onBoard": true,
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · effort medium",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": "medium",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/flashnext-q4-1gpu-medium-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 48.1,
+      "tokens": 8030,
+      "tps": 168.4
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/flashnext-q4-1gpu-medium-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 43.9,
+      "tokens": 7252,
+      "tps": 165.6
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/flashnext-q4-1gpu-medium-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 37.8,
+      "tokens": 6459,
+      "tps": 171.5
+     }
+    ]
+   },
+   {
+    "id": "cloud-gpt-6-astra-max-pelican",
+    "model": "cloud-gpt-6-astra-max",
+    "onBoard": true,
+    "name": "GPT-6 Astra",
+    "variant": "cloud · effort max",
+    "vendor": "openai",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "max",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gpt-6-astra-max-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 416.0,
+      "tokens": 17930,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gpt-6-astra-max-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 257.4,
+      "tokens": 11514,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gpt-6-astra-max-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 312.5,
+      "tokens": 13860,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gemini-4-neon-xhigh-pelican",
+    "model": "cloud-gemini-4-neon-xhigh",
+    "onBoard": true,
+    "name": "Gemini 4 Neon",
+    "variant": "cloud · effort xhigh",
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "xhigh",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gemini-4-neon-xhigh-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 495.1,
+      "tokens": 55765,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gemini-4-neon-xhigh-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 464.7,
+      "tokens": 56716,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gemini-4-neon-xhigh-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 509.9,
+      "tokens": 59986,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-claude-opus-55-max-pelican",
+    "model": "cloud-claude-opus-55-max",
+    "onBoard": true,
+    "name": "Claude Opus 5.5",
+    "variant": "cloud · effort max",
+    "vendor": "anthropic",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "max",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "the provider's content filter blocked the reply",
+      "seconds": 482.2,
+      "tokens": 48000,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "the provider's content filter blocked the reply",
+      "seconds": 540.8,
+      "tokens": 53818,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "the provider's content filter blocked the reply",
+      "seconds": 487.4,
+      "tokens": 48000,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gpt-62-sol-max-pelican",
+    "model": "cloud-gpt-62-sol-max",
+    "onBoard": true,
+    "name": "GPT-6.2 Sol",
+    "variant": "cloud · effort max",
+    "vendor": "openai",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "max",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gpt-62-sol-max-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 108.1,
+      "tokens": 14207,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gpt-62-sol-max-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 110.5,
+      "tokens": 14933,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gpt-62-sol-max-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 127.1,
+      "tokens": 17233,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gemini-4-hydrogen-xhigh-pelican",
+    "model": "cloud-gemini-4-hydrogen-xhigh",
+    "onBoard": true,
+    "name": "Gemini 4 Hydrogen",
+    "variant": "cloud · effort xhigh",
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "xhigh",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gemini-4-hydrogen-xhigh-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 346.5,
+      "tokens": 52872,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gemini-4-hydrogen-xhigh-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 294.2,
+      "tokens": 46434,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gemini-4-hydrogen-xhigh-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 353.1,
+      "tokens": 53560,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-claude-opus-55-pelican",
+    "model": "cloud-claude-opus-55",
+    "onBoard": false,
+    "name": "Claude Opus 5.5",
+    "variant": "cloud · effort high",
+    "vendor": "anthropic",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-claude-opus-55-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 29.7,
+      "tokens": 3518,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-claude-opus-55-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 32.4,
+      "tokens": 3874,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-claude-opus-55-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 81.3,
+      "tokens": 8845,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-mai-code-2-pelican",
+    "model": "cloud-mai-code-2",
+    "onBoard": false,
+    "name": "MAI Code 2",
+    "variant": "cloud · effort max",
+    "vendor": "microsoft",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "max",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-mai-code-2-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 105.9,
+      "tokens": 7326,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-mai-code-2-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 143.6,
+      "tokens": 9815,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-mai-code-2-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 117.5,
+      "tokens": 8115,
+      "tps": null
+     }
+    ]
+   }
+  ],
+  "queued": [
+   {
+    "id": "deepseek41-coder-6000-pelican",
+    "model": "deepseek41-coder-6000",
+    "name": "DeepSeek-V4.1-Flash Coder",
+    "variant": "half the experts pruned",
+    "vendor": "deepseek",
+    "local": true,
+    "where": "RTX PRO 6000 + SSD",
+    "status": "queued"
+   },
+   {
+    "id": "inkling2mini-5090-pelican",
+    "model": "inkling2mini-5090",
+    "name": "Inkling-2-Mini",
+    "variant": "Q4 (US reference)",
+    "vendor": "tml",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "status": "queued"
+   },
+   {
+    "id": "flashnext-q5-2gpu-medium-pelican",
+    "model": "flashnext-q5-2gpu-medium",
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q5 · both GPUs",
+    "vendor": "qwen",
+    "local": true,
+    "where": "PRO 6000 + 5090",
+    "status": "queued"
+   },
+   {
+    "id": "glm53flash-q2-2gpu-pelican",
+    "model": "glm53flash-q2-2gpu",
+    "name": "GLM-5.3-Flash",
+    "variant": "Q2 · both GPUs",
+    "vendor": "zai",
+    "local": true,
+    "where": "PRO 6000 + 5090",
+    "status": "queued"
+   },
+   {
+    "id": "glm53slim-hybrid-pelican",
+    "model": "glm53slim-hybrid",
+    "name": "GLM-5.3",
+    "variant": "SLIM IQ2_M · GPUs + RAM",
+    "vendor": "zai",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "status": "queued"
+   },
+   {
+    "id": "ling31flash-hybrid-pelican",
+    "model": "ling31flash-hybrid",
+    "name": "Ling-3.1-flash",
+    "variant": "IQ2_M · GPUs + RAM",
+    "vendor": "ant",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "status": "queued"
+   }
+  ]
+ },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good); this workstation has run it on Basalt since 26 Nov. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
@@ -14612,15 +15118,15 @@
    {
     "key": "giants",
     "tone": "avoid",
-    "value": "9–22",
+    "value": "3–22",
     "unit": "tok/s",
     "title": {
      "en": "Giant models in system RAM: too slow",
      "zh": "放进内存的超大模型：太慢"
     },
     "text": {
-     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 9–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
-     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 9–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
+     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 3–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
+     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 3–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
     },
     "href": "#hardware"
    }
@@ -14658,6 +15164,10 @@
   {
    "title": "Cloud references",
    "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI at their highest reasoning effort (max; xhigh for Gemini, its top setting) with built-in tools off (published now: Gemini 4 Neon (xhigh), GPT-6 Astra (max), Claude Opus 5.5 (max), GPT-6.2 Sol (max), Gemini 4 Hydrogen (xhigh)). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
+  },
+  {
+   "title": "Pelican on a bicycle",
+   "body": "Simon Willison's informal test, animated: every model gets the same prompt (\"Generate an animated SVG of a pelican riding a bicycle\") at its board settings, 3 tries each, and every try is shown. The code only checks that the reply is a well-formed SVG that draws and animates; whether it looks like a pelican on a bicycle is for you to judge. Not part of any score."
   },
   {
    "title": "Our max vs their max",

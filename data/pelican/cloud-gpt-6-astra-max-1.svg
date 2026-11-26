@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-labelledby="title desc" stroke-linecap="round" stroke-linejoin="round">
+  <title id="title">Pelican pedal parade</title>
+  <desc id="desc">A cheerful pelican in a cycling cap pedals a coral bicycle along the seaside. Its webbed feet turn the pedals, wheels spin, a scarf flutters, and the coastal path rolls past.</desc>
+
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#fff9e8" />
+      <stop offset="1" stop-color="#ffe0ad" />
+    </linearGradient>
+    <linearGradient id="sea" x2="0" y2="1">
+      <stop stop-color="#a5d6c9" />
+      <stop offset="1" stop-color="#70b6af" />
+    </linearGradient>
+    <linearGradient id="plumage" x1="0" y1="0" x2=".65" y2="1">
+      <stop stop-color="#fffff7" />
+      <stop offset=".6" stop-color="#fffdf0" />
+      <stop offset="1" stop-color="#dce9e1" />
+    </linearGradient>
+    <linearGradient id="pouch" x2=".2" y2="1">
+      <stop stop-color="#ffe3a5" />
+      <stop offset="1" stop-color="#eaa06d" />
+    </linearGradient>
+
+    <clipPath id="scene">
+      <rect x="16" y="16" width="928" height="608" rx="32" />
+    </clipPath>
+
+    <pattern id="ripples" width="180" height="44" patternUnits="userSpaceOnUse">
+      <path d="M12 16 Q35 9 58 16 T104 16 M124 34 H157" fill="none" stroke="#e1f1d9" stroke-width="3" opacity=".5" />
+    </pattern>
+    <pattern id="paving" width="220" height="64" patternUnits="userSpaceOnUse">
+      <path d="M18 12 H61 M147 33 H171 M88 49 H98" fill="none" stroke="#c9aa7b" stroke-width="3" opacity=".6" />
+    </pattern>
+
+    <g id="wheel">
+      <circle r="80" fill="#f9f4db" fill-opacity=".28" stroke="#25494e" stroke-width="12" />
+      <circle r="73" fill="none" stroke="#fff5d9" stroke-width="3" />
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.4s" repeatCount="indefinite" />
+        <path d="M-70 0 H70 M0-70 V70 M-50-50 L50 50 M-50 50 L50-50 M-65-27 L65 27 M-27-65 L27 65 M-65 27 L65-27 M-27 65 L27-65" fill="none" stroke="#7b9c98" stroke-width="2" />
+        <path d="M0-80 A80 80 0 0 1 31-74" fill="none" stroke="#eab768" stroke-width="4" />
+        <rect x="-4" y="-59" width="8" height="15" rx="3" fill="#fff4cc" stroke="#7b9c98" stroke-width="1.5" />
+      </g>
+      <circle r="9" fill="#25494e" />
+      <circle r="3" fill="#f9efcf" />
+    </g>
+
+    <path id="frame" d="M314 470 L424 388 L478 470 Z M424 388 L596 381 L606 405 L478 470 M606 405 Q618 446 648 470" />
+
+    <path id="far-leg" d="M431 350 L487 402 L446 462">
+      <animate attributeName="d" dur="1.4s" repeatCount="indefinite" values="M431 350 L487 402 L446 462;                 M431 350 L498 386 L453 444;                 M431 350 L508 377 L471 437;                 M431 350 L513 379 L489 444;                 M431 350 L505 389 L496 462;                 M431 350 L490 406 L489 480;                 M431 350 L478 414 L471 487;                 M431 350 L478 411 L453 480;                 M431 350 L487 402 L446 462" />
+    </path>
+    <path id="near-leg" d="M439 350 L504 387 L496 462">
+      <animate attributeName="d" dur="1.4s" repeatCount="indefinite" values="M439 350 L504 387 L496 462;                 M439 350 L490 405 L489 480;                 M439 350 L480 413 L471 487;                 M439 350 L483 411 L453 480;                 M439 350 L492 403 L446 462;                 M439 350 L503 388 L453 444;                 M439 350 L510 373 L471 437;                 M439 350 L511 373 L489 444;                 M439 350 L504 387 L496 462" />
+    </path>
+    <g id="webbed-foot">
+      <rect x="-16" y="3" width="34" height="6" rx="3" fill="#25494e" />
+      <path d="M-11-10 Q-5-15-1-8 L4-4 L15-2 L11 2 L4 0 L0 3 L-6 1 L-13 2 Q-16-3-11-10Z" stroke="#25494e" stroke-width="2.5" />
+      <path d="M-3-5 L4 0 M2-4 L10 0" fill="none" stroke="#b97739" stroke-width="1.5" />
+    </g>
+  </defs>
+
+  <rect width="960" height="640" fill="#f4eddb" />
+
+  <g clip-path="url(#scene)">
+    <rect width="960" height="640" fill="url(#sky)" />
+
+    <circle cx="779" cy="150" r="79" fill="#f8cc80" opacity=".3" />
+    <circle cx="779" cy="150" r="61" fill="#f5bd68" />
+
+    <g fill="#fffdf2">
+      <path d="M108 157 C97 156 92 148 96 139 C100 130 110 128 119 131 C121 112 137 103 155 109 C166 113 170 121 171 130 C184 125 198 131 198 143 C214 141 222 148 222 157Z">
+        <animateTransform attributeName="transform" type="translate" values="0 0;22 0;0 0" dur="18s" repeatCount="indefinite" />
+      </path>
+      <path d="M596 91 C584 90 585 76 598 74 C600 57 624 54 632 70 C646 65 660 74 657 84 C674 81 683 87 681 94 H596Z" opacity=".85">
+        <animateTransform attributeName="transform" type="translate" values="0 0;-18 0;0 0" dur="14s" repeatCount="indefinite" />
+      </path>
+    </g>
+
+    <g fill="none" stroke="#71938b" stroke-width="3" opacity=".65">
+      <path d="M778 267 Q789 256 800 267 Q810 256 822 267" />
+      <path d="M837 241 Q844 234 852 241 Q860 234 868 241" />
+    </g>
+
+    <path d="M0 355 Q79 306 166 341 Q233 312 291 355Z" fill="#bed0aa" />
+    <path d="M694 355 Q766 320 819 338 Q884 307 960 350 V369Z" fill="#b2c9a7" />
+
+    <rect y="350" width="960" height="190" fill="url(#sea)" />
+    <path d="M0 351 H960" stroke="#e7efcf" stroke-width="4" />
+    <rect y="365" width="1140" height="167" fill="url(#ripples)">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-180 0" dur="4.5s" repeatCount="indefinite" />
+    </rect>
+
+    <g fill="none" stroke="#fff9e2" stroke-width="4" opacity=".65">
+      <path d="M210 225 H264 M190 242 H226 M223 259 H252" />
+      <animateTransform attributeName="transform" type="translate" values="0 0;-12 0;0 0" dur="2.8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values=".3;.8;.3" dur="2.8s" repeatCount="indefinite" />
+    </g>
+
+    <rect y="538" width="960" height="102" fill="#ead4ad" />
+    <path d="M0 539 H960" stroke="#fff0ce" stroke-width="9" />
+    <path d="M0 548 H960" stroke="#c4b98f" stroke-width="2" />
+    <rect y="566" width="1180" height="74" fill="url(#paving)">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-220 0" dur=".6s" repeatCount="indefinite" />
+    </rect>
+
+    <ellipse cx="484" cy="557" rx="258" ry="13" fill="#47685e" opacity=".15" />
+    <ellipse cx="314" cy="556" rx="70" ry="5" fill="#47685e" opacity=".15" />
+    <ellipse cx="648" cy="556" rx="70" ry="5" fill="#47685e" opacity=".15" />
+
+    
+    <g transform="translate(314 470)"><use href="#wheel" /></g>
+    <g transform="translate(648 470)"><use href="#wheel" /></g>
+
+    <use href="#far-leg" fill="none" stroke="#25494e" stroke-width="14" />
+    <use href="#far-leg" fill="none" stroke="#c88d47" stroke-width="9" />
+    <g transform="translate(478 470)">
+      <g fill="#d59b50">
+        <animateMotion path="M-25 0 A25 25 0 1 1 25 0 A25 25 0 1 1-25 0" dur="1.4s" repeatCount="indefinite" />
+        <use href="#webbed-foot" />
+      </g>
+    </g>
+
+    <path d="M314 459 L475 449 A21 21 0 0 1 480 491 L314 481 A11 11 0 0 1 314 459Z" fill="none" stroke="#526b61" stroke-width="3" />
+
+    <path d="M411 356 L424 388" fill="none" stroke="#25494e" stroke-width="10" />
+    <path d="M411 356 L424 388" fill="none" stroke="#c9d7c9" stroke-width="5" />
+    <use href="#frame" fill="none" stroke="#25494e" stroke-width="14" />
+    <use href="#frame" fill="none" stroke="#e87e5c" stroke-width="9" />
+    <path d="M431 386 L588 380 M322 467 L421 393" fill="none" stroke="#ffca95" stroke-width="2.5" />
+
+    <path d="M596 381 L578 336 Q575 328 585 324 L602 322 Q614 323 615 334" fill="none" stroke="#25494e" stroke-width="8" />
+    <path d="M593 374 L578 336 Q577 330 585 328" fill="none" stroke="#cbdace" stroke-width="3" />
+    <path d="M598 323 L610 326" stroke="#25494e" stroke-width="10" />
+    <path d="M610 335 Q650 357 620 410" fill="none" stroke="#45625d" stroke-width="2" />
+    <circle cx="584" cy="323" r="7" fill="#efbd65" stroke="#25494e" stroke-width="2.5" />
+    <path d="M581 320 L584 319" stroke="#fff4cf" stroke-width="2" />
+
+    <path d="M375 352 Q402 346 430 353 Q436 357 430 362 Q409 368 377 362 Q369 359 375 352Z" fill="#25494e" />
+    <path d="M380 354 Q400 351 422 355" fill="none" stroke="#638077" stroke-width="2" />
+
+    <g transform="translate(478 470)">
+      <circle r="23" fill="#f8e4af" stroke="#25494e" stroke-width="4" />
+      <circle r="15" fill="#e8b86b" stroke="#cf9b55" stroke-width="2" />
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.4s" repeatCount="indefinite" />
+        <path d="M-25 0 H25" stroke="#25494e" stroke-width="7" />
+        <path d="M0 0 H23" stroke="#d7dfcc" stroke-width="3" />
+      </g>
+      <circle r="5" fill="#25494e" />
+    </g>
+
+    <use href="#near-leg" fill="none" stroke="#25494e" stroke-width="14" />
+    <use href="#near-leg" fill="none" stroke="#edb45e" stroke-width="9" />
+    <g transform="translate(478 470)">
+      <g fill="#f1b961">
+        <animateMotion path="M25 0 A25 25 0 1 1-25 0 A25 25 0 1 1 25 0" dur="1.4s" repeatCount="indefinite" />
+        <use href="#webbed-foot" />
+      </g>
+    </g>
+
+    
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -2;0 0;0 -2;0 0" dur="1.4s" repeatCount="indefinite" />
+
+      <path d="M365 298 L325 278 L337 300 L308 302 L354 325Z" fill="#fffcef" stroke="#25494e" stroke-width="3.5" />
+      <path d="M325 278 L337 300 L350 309 M308 302 L338 313" fill="none" stroke="#466361" stroke-width="6" />
+
+      <path d="M356 299 C378 270 422 257 464 274                C485 275 493 254 491 235                C480 214 483 185 497 168                C512 150 535 152 551 166                C569 184 568 209 552 224                C541 234 527 237 525 250                C522 263 535 274 530 294                C522 332 484 357 441 361                C401 365 372 347 356 323                Q350 312 356 299Z" fill="url(#plumage)" stroke="#25494e" stroke-width="3.5" />
+
+      <path d="M363 319 C391 343 432 350 471 338 C497 329 514 315 525 299                C516 334 481 354 441 356 C403 361 378 344 363 319Z" fill="#cfdfd8" />
+      <path d="M497 232 C511 245 506 259 512 272 Q518 282 516 297                L525 282 C525 269 516 260 521 247 Q526 235 541 229                Q516 238 497 232Z" fill="#bcd7d1" opacity=".7" />
+      <path d="M375 302 Q388 316 403 316" fill="none" stroke="#a3beb6" stroke-width="2.5" />
+
+      <path d="M508 246 C476 231 451 250 420 234 L429 250 L416 259 C447 253 476 269 508 255Z" fill="#df7057" stroke="#25494e" stroke-width="3">
+        <animate attributeName="d" dur=".7s" repeatCount="indefinite" values="M508 246 C476 231 451 250 420 234 L429 250 L416 259 C447 253 476 269 508 255Z;                   M508 246 C476 255 450 230 413 244 L428 253 L420 270 C450 247 478 274 508 255Z;                   M508 246 C476 231 451 250 420 234 L429 250 L416 259 C447 253 476 269 508 255Z" />
+      </path>
+      <path d="M505 239 Q515 246 527 245 L529 256 Q516 259 502 252Z" fill="#ec8263" stroke="#25494e" stroke-width="3" />
+      <ellipse cx="507" cy="250" rx="7" ry="8" fill="#f39674" stroke="#25494e" stroke-width="2.5" />
+
+      <path d="M410 290 C437 276 463 289 485 307                C514 331 550 337 581 326                Q593 321 601 329 Q605 334 596 338                C557 355 518 346 488 333                C457 334 426 324 411 308                Q404 300 410 290Z" fill="#e6eee6" stroke="#25494e" stroke-width="3.5" />
+      <path d="M418 291 Q449 284 478 307" fill="none" stroke="#fffef4" stroke-width="7" />
+      <path d="M432 300 Q464 323 490 326 M449 297 Q483 316 516 333 M485 308 Q523 337 553 336" fill="none" stroke="#a5beb5" stroke-width="2.5" />
+      <path d="M572 330 Q590 321 601 329 Q605 334 596 338 Q583 343 571 342 L581 336Z" fill="#466361" />
+
+      <path d="M552 211 L729 217 C699 236 647 266 611 267                C579 268 560 246 552 211Z" fill="url(#pouch)" stroke="#25494e" stroke-width="3.5" />
+      <path d="M570 227 Q585 251 612 254 Q645 253 677 238" fill="none" stroke="#ffe7b1" stroke-width="5" />
+      <path d="M554 190 C611 192 674 200 724 212                Q735 215 737 220 Q735 228 729 230                L724 222 L555 216Z" fill="#ffcc6b" stroke="#25494e" stroke-width="3.5" />
+      <path d="M563 207 Q643 209 718 219" fill="none" stroke="#d99842" stroke-width="2" />
+      <ellipse cx="577" cy="201" rx="3" ry="1.8" fill="#b47d3c" />
+
+      <path d="M509 212 Q518 227 536 221" fill="none" stroke="#b8d1c7" stroke-width="3" />
+      <path d="M532 181 Q539 178 545 182" fill="none" stroke="#25494e" stroke-width="2.5" />
+      <g transform="translate(539 193)">
+        <g>
+          <animateTransform attributeName="transform" type="scale" values="1 1;1 1;1 .08;1 1;1 1" keyTimes="0;.46;.48;.5;1" dur="5s" repeatCount="indefinite" />
+          <circle r="5.5" fill="#25494e" />
+          <circle cx="1.5" cy="-1.8" r="1.7" fill="#fffdf1" />
+        </g>
+      </g>
+
+      <path d="M489 170 C494 144 518 134 540 145 C553 152 559 164 560 175Z" fill="#36716f" stroke="#25494e" stroke-width="3.5" />
+      <path d="M516 144 Q526 156 528 173" fill="none" stroke="#8cb4a6" stroke-width="3" />
+      <path d="M532 173 Q558 168 578 179 Q562 187 542 182Z" fill="#25494e" stroke="#25494e" stroke-width="3" />
+      <path d="M499 164 Q503 154 511 151" fill="none" stroke="#9dc5b6" stroke-width="3" />
+    </g>
+  </g>
+
+  <rect x="16" y="16" width="928" height="608" rx="32" fill="none" stroke="#31594f" stroke-opacity=".16" stroke-width="2" />
+</svg>
