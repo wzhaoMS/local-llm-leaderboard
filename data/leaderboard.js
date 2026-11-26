@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T21:56Z",
+ "generated": "2026-11-26T22:19Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -12536,7 +12536,7 @@ window.LB_DATA = {
    "title": "Both GPUs + system RAM",
    "verdict": "avoid",
    "metric": "3–22 tok/s",
-   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s and GLM-5.3 753B 12 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
+   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s, GLM-5.3 753B SLIM IQ2_M 12 tok/s and GLM-5.3 753B IQ1_S 3 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
   },
   {
    "title": "Tensor parallel (-sm tensor)",
@@ -14559,8 +14559,8 @@ window.LB_DATA = {
     "local": true,
     "where": "RTX PRO 6000",
     "effort": "xhigh",
-    "complete": false,
-    "running": true,
+    "complete": true,
+    "running": false,
     "attempts": [
      {
       "n": 1,
@@ -14581,6 +14581,16 @@ window.LB_DATA = {
       "seconds": 320.8,
       "tokens": 39968,
       "tps": 124.7
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/qwen38-27b-max-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 323.7,
+      "tokens": 41077,
+      "tps": 127.1
      }
     ]
    },
@@ -14626,6 +14636,86 @@ window.LB_DATA = {
       "seconds": 37.8,
       "tokens": 6459,
       "tps": 171.5
+     }
+    ]
+   },
+   {
+    "id": "deepseek41-coder-6000-pelican",
+    "model": "deepseek41-coder-6000",
+    "onBoard": true,
+    "name": "DeepSeek-V4.1-Flash Coder",
+    "variant": "half the experts pruned",
+    "vendor": "deepseek",
+    "local": true,
+    "where": "RTX PRO 6000 + SSD",
+    "effort": "low",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "not well-formed XML (not well-formed (invalid token): line 183, column 11)",
+      "seconds": 144.1,
+      "tokens": 13226,
+      "tps": 92.0
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/deepseek41-coder-6000-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 142.7,
+      "tokens": 12233,
+      "tps": 85.8
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/deepseek41-coder-6000-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 147.3,
+      "tokens": 13896,
+      "tps": 94.4
+     }
+    ]
+   },
+   {
+    "id": "inkling2mini-5090-pelican",
+    "model": "inkling2mini-5090",
+    "onBoard": true,
+    "name": "Inkling-2-Mini",
+    "variant": "Q4 (US reference)",
+    "vendor": "tml",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": null,
+    "complete": false,
+    "running": true,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/inkling2mini-5090-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 224.2,
+      "tokens": 27184,
+      "tps": 121.3
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/inkling2mini-5090-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 255.8,
+      "tokens": 30534,
+      "tps": 119.4
      }
     ]
    },
@@ -14900,6 +14990,31 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "cloud-grok-47-pelican",
+    "model": "cloud-grok-47",
+    "onBoard": false,
+    "name": "Grok 4.7",
+    "variant": "cloud · effort medium",
+    "vendor": "xai",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "medium",
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-grok-47-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 484.2,
+      "tokens": 34293,
+      "tps": null
+     }
+    ]
+   },
+   {
     "id": "cloud-mai-code-2-pelican",
     "model": "cloud-mai-code-2",
     "onBoard": false,
@@ -14946,26 +15061,6 @@ window.LB_DATA = {
    }
   ],
   "queued": [
-   {
-    "id": "deepseek41-coder-6000-pelican",
-    "model": "deepseek41-coder-6000",
-    "name": "DeepSeek-V4.1-Flash Coder",
-    "variant": "half the experts pruned",
-    "vendor": "deepseek",
-    "local": true,
-    "where": "RTX PRO 6000 + SSD",
-    "status": "queued"
-   },
-   {
-    "id": "inkling2mini-5090-pelican",
-    "model": "inkling2mini-5090",
-    "name": "Inkling-2-Mini",
-    "variant": "Q4 (US reference)",
-    "vendor": "tml",
-    "local": true,
-    "where": "RTX PRO 6000",
-    "status": "queued"
-   },
    {
     "id": "flashnext-q5-2gpu-medium-pelican",
     "model": "flashnext-q5-2gpu-medium",
@@ -15125,8 +15220,8 @@ window.LB_DATA = {
      "zh": "放进内存的超大模型：太慢"
     },
     "text": {
-     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 3–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
-     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 3–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
+     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B, GLM-5.3 753B SLIM IQ2_M and GLM-5.3 753B IQ1_S decode 3–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
+     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B SLIM IQ2_M、GLM-5.3 753B IQ1_S 放在两张卡加内存上只有 3–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
     },
     "href": "#hardware"
    }

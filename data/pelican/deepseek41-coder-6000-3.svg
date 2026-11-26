@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="An animated pelican riding a bicycle">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9edff7" />
+      <stop offset="0.65" stop-color="#d8f1ff" />
+      <stop offset="1" stop-color="#f7fbff" />
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9ecf68" />
+      <stop offset="1" stop-color="#6fa14f" />
+    </linearGradient>
+    <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#737b82" />
+      <stop offset="1" stop-color="#4b5258" />
+    </linearGradient>
+  </defs>
+
+  
+  <rect x="0" y="0" width="800" height="470" fill="url(#skyGrad)" />
+
+  
+  <circle cx="680" cy="92" r="52" fill="#ffe9a6" opacity="0.9" />
+  <circle cx="680" cy="92" r="35" fill="#fff4c8" />
+
+  
+  <g opacity="0.85">
+    <animateTransform attributeName="transform" type="translate" values="0 0;28 0;0 0" dur="13s" repeatCount="indefinite" />
+    <ellipse cx="130" cy="100" rx="44" ry="22" fill="#ffffff" />
+    <ellipse cx="168" cy="88" rx="36" ry="20" fill="#ffffff" />
+    <ellipse cx="98" cy="92" rx="30" ry="17" fill="#ffffff" />
+  </g>
+  <g opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0 0;-22 0;0 0" dur="16s" repeatCount="indefinite" />
+    <ellipse cx="615" cy="130" rx="36" ry="18" fill="#ffffff" />
+    <ellipse cx="645" cy="122" rx="25" ry="14" fill="#ffffff" />
+    <ellipse cx="588" cy="124" rx="24" ry="13" fill="#ffffff" />
+  </g>
+
+  
+  <path d="M0 470 Q400 458 800 470 L800 600 L0 600 Z" fill="url(#groundGrad)" />
+
+  
+  <path d="M0 510 Q400 500 800 510 L800 600 L0 600 Z" fill="url(#roadGrad)" />
+  <path d="M0 510 Q400 500 800 510" fill="none" stroke="#c4c9cc" stroke-width="3" opacity="0.5" />
+
+  
+  <g stroke="#e9ecef" stroke-width="4" stroke-linecap="round" opacity="0.55">
+    <line x1="85" y1="560" x2="135" y2="560" />
+    <line x1="235" y1="580" x2="285" y2="580" />
+    <line x1="430" y1="555" x2="480" y2="555" />
+    <line x1="610" y1="578" x2="660" y2="578" />
+  </g>
+
+  
+  <ellipse cx="410" cy="526" rx="205" ry="14" fill="#17200f" opacity="0.18" />
+
+  
+  <g transform="translate(280 450)">
+    <circle cx="0" cy="0" r="74" fill="none" stroke="#1c1f22" stroke-width="10" />
+    <circle cx="0" cy="0" r="68" fill="none" stroke="#c6d0d5" stroke-width="3" />
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.8s" repeatCount="indefinite" />
+      <line x1="0" y1="-64" x2="0" y2="64" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-64" y1="0" x2="64" y2="0" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-45" y1="-45" x2="45" y2="45" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-45" y1="45" x2="45" y2="-45" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-22" y1="-60" x2="22" y2="60" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="22" y1="-60" x2="-22" y2="60" stroke="#8d9aa0" stroke-width="3" />
+    </g>
+    <circle cx="0" cy="0" r="10" fill="#4b5054" />
+    <circle cx="0" cy="0" r="4" fill="#c7cdd1" />
+  </g>
+
+  
+  <g transform="translate(540 450)">
+    <circle cx="0" cy="0" r="74" fill="none" stroke="#1c1f22" stroke-width="10" />
+    <circle cx="0" cy="0" r="68" fill="none" stroke="#c6d0d5" stroke-width="3" />
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.8s" repeatCount="indefinite" />
+      <line x1="0" y1="-64" x2="0" y2="64" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-64" y1="0" x2="64" y2="0" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-45" y1="-45" x2="45" y2="45" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-45" y1="45" x2="45" y2="-45" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="-22" y1="-60" x2="22" y2="60" stroke="#8d9aa0" stroke-width="3" />
+      <line x1="22" y1="-60" x2="-22" y2="60" stroke="#8d9aa0" stroke-width="3" />
+    </g>
+    <circle cx="0" cy="0" r="10" fill="#4b5054" />
+    <circle cx="0" cy="0" r="4" fill="#c7cdd1" />
+  </g>
+
+  
+  <path d="M280 450 L400 450 L370 350 L500 360 L400 450 M280 450 L370 350 M370 350 L500 360 M500 360 L540 450" fill="none" stroke="#1d7075" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" />
+  <path d="M280 450 L400 450 L370 350 L500 360" fill="none" stroke="#3aa7a8" stroke-width="3" opacity="0.45" stroke-linejoin="round" stroke-linecap="round" />
+
+  
+  <ellipse cx="367" cy="344" rx="32" ry="10" fill="#31383c" />
+  <ellipse cx="367" cy="338" rx="29" ry="7" fill="#4b5559" />
+
+  
+  <path d="M500 360 C515 335 535 326 552 329" fill="none" stroke="#1d7075" stroke-width="7" stroke-linecap="round" />
+  <path d="M548 329 L562 323" fill="none" stroke="#31383c" stroke-width="8" stroke-linecap="round" />
+  <circle cx="552" cy="328" r="5" fill="#f2c744" />
+
+  
+  <g transform="translate(400 450)">
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#4d5559" stroke-width="5" />
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.2s" repeatCount="indefinite" />
+      <line x1="0" y1="0" x2="34" y2="16" stroke="#31383c" stroke-width="6" stroke-linecap="round" />
+      <line x1="0" y1="0" x2="-34" y2="-16" stroke="#31383c" stroke-width="6" stroke-linecap="round" />
+      <rect x="24" y="11" width="24" height="8" rx="4" fill="#22282b" />
+      <rect x="-48" y="-20" width="24" height="8" rx="4" fill="#22282b" />
+    </g>
+  </g>
+
+  
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0;0 -3;0 0" dur="1.5s" repeatCount="indefinite" />
+
+    
+    <path d="M275 306 C232 290 218 318 242 333 C258 338 275 326 282 318" fill="#fff3dc" stroke="#d7bf9e" stroke-width="3" stroke-linejoin="round" />
+
+    
+    <ellipse cx="345" cy="300" rx="88" ry="68" fill="#fff3dc" stroke="#d7bf9e" stroke-width="3" />
+
+    
+    <path d="M350 248 C335 208 350 189 375 184 C396 180 404 195 393 226 C382 252 366 260 350 248 Z" fill="#fff3dc" stroke="#d7bf9e" stroke-width="3" stroke-linejoin="round" />
+
+    
+    <ellipse cx="383" cy="194" rx="43" ry="38" fill="#fff3dc" stroke="#d7bf9e" stroke-width="3" />
+
+    
+    <path d="M350 174 C358 146 407 144 423 170 C406 161 371 161 350 174 Z" fill="#3fa8c8" stroke="#1d6e88" stroke-width="3" stroke-linejoin="round" />
+    <path d="M351 175 C371 184 401 184 421 171" fill="none" stroke="#1d6e88" stroke-width="3" stroke-linecap="round" />
+
+    
+    <path d="M404 190 C452 176 500 190 523 211 C501 235 455 241 417 228 C405 219 402 204 404 190 Z" fill="#f28b37" stroke="#b75f21" stroke-width="3" stroke-linejoin="round" />
+    <path d="M404 190 C450 173 490 178 523 208 L516 215 C478 200 438 202 404 198 Z" fill="#f7b064" stroke="#b75f21" stroke-width="1.5" />
+    <path d="M410 202 C444 202 480 209 511 217" fill="none" stroke="#b75f21" stroke-width="2" opacity="0.7" />
+
+    
+    <circle cx="383" cy="188" r="5.5" fill="#26333a" />
+    <circle cx="385" cy="186" r="2" fill="#ffffff" />
+
+    
+    <path d="M300 286 C326 246 382 256 402 301 C379 317 339 318 300 286 Z" fill="#ead8b9" stroke="#d7bf9e" stroke-width="2" stroke-linejoin="round" />
+    <path d="M320 285 C346 272 371 281 389 298" fill="none" stroke="#d7bf9e" stroke-width="2" opacity="0.7" />
+    <path d="M314 300 C342 292 366 300 385 312" fill="none" stroke="#d7bf9e" stroke-width="2" opacity="0.55" />
+
+    
+    <g transform="translate(330 350)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="6;-6;6" dur="1.2s" repeatCount="indefinite" />
+        <path d="M0 0 C8 32 18 68 14 100" fill="none" stroke="#e9893d" stroke-width="9" stroke-linecap="round" />
+        <ellipse cx="14" cy="103" rx="15" ry="7" fill="#e9893d" transform="rotate(-18 14 103)" />
+      </g>
+    </g>
+
+    
+    <g transform="translate(360 345)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="-6;6;-6" dur="1.2s" repeatCount="indefinite" />
+        <path d="M0 0 C20 34 50 70 68 101" fill="none" stroke="#e9893d" stroke-width="9" stroke-linecap="round" />
+        <ellipse cx="70" cy="104" rx="15" ry="7" fill="#e9893d" transform="rotate(-22 70 104)" />
+      </g>
+    </g>
+  </g>
+
+  
+  <g stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.55">
+    <path d="M90 385 C135 375 170 392 210 382">
+      <animate attributeName="opacity" values="0.2;0.65;0.2" dur="1.8s" repeatCount="indefinite" />
+    </path>
+    <path d="M70 420 C118 412 150 424 190 416">
+      <animate attributeName="opacity" values="0.15;0.5;0.15" dur="2.1s" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>

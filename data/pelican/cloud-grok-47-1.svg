@@ -1,0 +1,284 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img">
+  <title>Pelican riding a bicycle</title>
+  <desc>A white pelican with an orange pouch pedals a red bicycle along a beach while the wheels, pedals, and background scroll.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6EC5F5" />
+      <stop offset="58%" stop-color="#B9E6FB" />
+      <stop offset="100%" stop-color="#E7F6FF" />
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5EC4E6" />
+      <stop offset="100%" stop-color="#1E86C4" />
+    </linearGradient>
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6D7A6" />
+      <stop offset="100%" stop-color="#E7BC84" />
+    </linearGradient>
+    <radialGradient id="body" cx="38%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F3EBE0" />
+    </radialGradient>
+  </defs>
+  <style>
+    .spin { transform-box: fill-box; transform-origin: center; animation: spin 0.8s linear infinite; }
+    .counterspin { transform-box: fill-box; transform-origin: center; animation: spin 0.8s linear infinite reverse; }
+    .rays { transform-box: fill-box; transform-origin: center; animation: spin 28s linear infinite; }
+    .bounce { animation: bob 0.4s ease-in-out infinite; }
+    .wing { transform-box: fill-box; transform-origin: center; animation: flap 1.15s ease-in-out infinite; }
+    .pouch { transform-box: fill-box; transform-origin: 50% 10%; animation: jiggle 1.25s ease-in-out infinite; }
+    .fish { transform-box: fill-box; transform-origin: 15% 50%; animation: wiggle 0.34s ease-in-out infinite; }
+    .lid { transform-box: fill-box; transform-origin: center; animation: blink 4.2s infinite; }
+    .shadow { transform-box: fill-box; transform-origin: center; animation: squash 0.4s ease-in-out infinite; }
+    .drift { animation: drift 32s linear infinite; }
+    .waves { animation: drift 6s linear infinite; }
+    .dashes { stroke-dasharray: 16 18; animation: march 0.45s linear infinite; }
+    .speed { animation: zoom 0.7s linear infinite; }
+    .gull { animation: gfly 24s linear infinite; }
+    .gull-l { transform-box: fill-box; transform-origin: 100% 50%; animation: flapL 0.5s ease-in-out infinite; }
+    .gull-r { transform-box: fill-box; transform-origin: 0% 50%; animation: flapR 0.5s ease-in-out infinite; }
+    .boat { animation: boat 26s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes flap { 0%, 100% { transform: rotate(8deg); } 50% { transform: rotate(-24deg); } }
+    @keyframes jiggle { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, 1.08); } }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(14deg); } }
+    @keyframes blink { 0%, 91%, 100% { transform: scaleY(0.04); } 95% { transform: scaleY(1); } }
+    @keyframes squash { 0%, 100% { transform: scaleX(1); opacity: 0.2; } 50% { transform: scaleX(0.86); opacity: 0.13; } }
+    @keyframes drift { to { transform: translateX(-800px); } }
+    @keyframes march { to { stroke-dashoffset: -34; } }
+    @keyframes zoom { 0% { transform: translateX(16px); opacity: 0; } 25% { opacity: 0.55; } 100% { transform: translateX(-36px); opacity: 0; } }
+    @keyframes gfly { from { transform: translate(780px, 92px); } to { transform: translate(-80px, 64px); } }
+    @keyframes flapL { 0%, 100% { transform: rotate(16deg); } 50% { transform: rotate(-32deg); } }
+    @keyframes flapR { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(32deg); } }
+    @keyframes boat { from { transform: translateX(0); } to { transform: translateX(-140px); } }
+  </style>
+
+  <rect width="800" height="500" fill="url(#sky)" />
+
+  <g transform="translate(688,74)">
+    <circle r="46" fill="#FFE9A0" opacity="0.35" />
+    <g class="rays" stroke="#FFD76A" stroke-width="3" stroke-linecap="round">
+      <line x1="0" y1="-50" x2="0" y2="-62" />
+      <line x1="0" y1="50" x2="0" y2="62" />
+      <line x1="-50" y1="0" x2="-62" y2="0" />
+      <line x1="50" y1="0" x2="62" y2="0" />
+      <line x1="-35" y1="-35" x2="-44" y2="-44" />
+      <line x1="35" y1="-35" x2="44" y2="-44" />
+      <line x1="-35" y1="35" x2="-44" y2="44" />
+      <line x1="35" y1="35" x2="44" y2="44" />
+    </g>
+    <circle r="30" fill="#FFD34A" />
+    <circle cx="-8" cy="-8" r="10" fill="#FFF3B0" opacity="0.8" />
+  </g>
+
+  <g fill="#fff">
+    <g class="drift">
+      <g transform="translate(90,78)" opacity="0.92">
+        <ellipse cx="0" cy="8" rx="34" ry="16" />
+        <ellipse cx="24" cy="12" rx="24" ry="13" />
+        <ellipse cx="-22" cy="12" rx="20" ry="12" />
+      </g>
+      <g transform="translate(430,54)" opacity="0.95">
+        <ellipse cx="0" cy="10" rx="46" ry="18" />
+        <ellipse cx="30" cy="14" rx="28" ry="14" />
+        <ellipse cx="-30" cy="14" rx="24" ry="13" />
+      </g>
+      <g transform="translate(690,96)" opacity="0.9">
+        <ellipse cx="0" cy="6" rx="28" ry="13" />
+        <ellipse cx="20" cy="8" rx="18" ry="10" />
+      </g>
+      <g transform="translate(890,78)" opacity="0.92">
+        <ellipse cx="0" cy="8" rx="34" ry="16" />
+        <ellipse cx="24" cy="12" rx="24" ry="13" />
+        <ellipse cx="-22" cy="12" rx="20" ry="12" />
+      </g>
+      <g transform="translate(1230,54)" opacity="0.95">
+        <ellipse cx="0" cy="10" rx="46" ry="18" />
+        <ellipse cx="30" cy="14" rx="28" ry="14" />
+        <ellipse cx="-30" cy="14" rx="24" ry="13" />
+      </g>
+      <g transform="translate(1490,96)" opacity="0.9">
+        <ellipse cx="0" cy="6" rx="28" ry="13" />
+        <ellipse cx="20" cy="8" rx="18" ry="10" />
+      </g>
+    </g>
+  </g>
+
+  <g class="gull" stroke-linecap="round">
+    <g class="gull-l"><path d="M0 0 Q-14 -13 -30 -3" fill="none" stroke="#fff" stroke-width="2.2" /></g>
+    <g class="gull-r"><path d="M0 0 Q14 -13 30 -3" fill="none" stroke="#fff" stroke-width="2.2" /></g>
+    <ellipse cx="0" cy="1.5" rx="5.5" ry="2.2" fill="#fff" />
+  </g>
+
+  <rect x="0" y="300" width="800" height="58" fill="url(#sea)" />
+  <g class="boat">
+    <g transform="translate(640,304)">
+      <path d="M0 16 L0 -10 L18 16 Z" fill="#fff" />
+      <path d="M0 16 L0 -2 L-12 16 Z" fill="#F4F7FB" />
+      <line x1="0" y1="-10" x2="0" y2="20" stroke="#6A5344" stroke-width="1.4" />
+      <path d="M-16 20 Q2 15 20 20 L16 24 L-12 24 Z" fill="#8D5A34" />
+    </g>
+  </g>
+  <g class="waves" fill="none" stroke-linecap="round">
+    <path d="M0 324 Q20 312 40 324 T80 324 T120 324 T160 324 T200 324 T240 324 T280 324 T320 324 T360 324 T400 324 T440 324 T480 324 T520 324 T560 324 T600 324 T640 324 T680 324 T720 324 T760 324 T800 324" stroke="#E9F8FF" stroke-width="2.4" opacity="0.85" />
+    <path d="M800 324 Q820 312 840 324 T880 324 T920 324 T960 324 T1000 324 T1040 324 T1080 324 T1120 324 T1160 324 T1200 324 T1240 324 T1280 324 T1320 324 T1360 324 T1400 324 T1440 324 T1480 324 T1520 324 T1560 324 T1600 324" stroke="#E9F8FF" stroke-width="2.4" opacity="0.85" />
+    <path d="M0 342 Q20 334 40 342 T80 342 T120 342 T160 342 T200 342 T240 342 T280 342 T320 342 T360 342 T400 342 T440 342 T480 342 T520 342 T560 342 T600 342 T640 342 T680 342 T720 342 T760 342 T800 342" stroke="#B7E7F8" stroke-width="2" opacity="0.7" />
+    <path d="M800 342 Q820 334 840 342 T880 342 T920 342 T960 342 T1000 342 T1040 342 T1080 342 T1120 342 T1160 342 T1200 342 T1240 342 T1280 342 T1320 342 T1360 342 T1400 342 T1440 342 T1480 342 T1520 342 T1560 342 T1600 342" stroke="#B7E7F8" stroke-width="2" opacity="0.7" />
+  </g>
+
+  <path d="M0 348 Q140 328 280 350 T520 342 T800 352 V400 H0 Z" fill="#F0C992" />
+  <rect x="0" y="392" width="800" height="108" fill="url(#sand)" />
+  <rect x="0" y="408" width="800" height="46" fill="#E2B67C" opacity="0.55" />
+  <line class="dashes" x1="0" y1="430" x2="800" y2="430" stroke="#FFF8EC" stroke-width="3" opacity="0.55" />
+
+  <g fill="#D7A56C" opacity="0.7">
+    <circle cx="70" cy="468" r="1.6" />
+    <circle cx="118" cy="456" r="1.3" />
+    <circle cx="640" cy="470" r="1.7" />
+    <circle cx="700" cy="452" r="1.2" />
+    <circle cx="742" cy="478" r="1.5" />
+  </g>
+
+  <ellipse class="shadow" cx="368" cy="434" rx="158" ry="11" fill="#000" />
+
+  <g class="speed" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none">
+    <line x1="168" y1="404" x2="206" y2="404" />
+    <line x1="156" y1="418" x2="188" y2="418" />
+    <line x1="164" y1="432" x2="198" y2="432" />
+  </g>
+
+  <g class="bounce">
+    <g transform="translate(250,375)">
+      <circle r="53" fill="none" stroke="#2A2A2A" stroke-width="10" />
+      <g class="spin">
+        <circle r="44" fill="none" stroke="#F7F7F7" stroke-width="3" />
+        <circle r="39" fill="none" stroke="#D5DDE2" stroke-width="4" />
+        <g stroke="#8B979F" stroke-width="2">
+          <line x1="0" y1="-34" x2="0" y2="34" />
+          <line x1="-34" y1="0" x2="34" y2="0" />
+          <line x1="-24" y1="-24" x2="24" y2="24" />
+          <line x1="24" y1="-24" x2="-24" y2="24" />
+        </g>
+        <circle r="7" fill="#3E4850" />
+        <circle r="2.4" fill="#E8EEF1" />
+        <circle cx="0" cy="-36" r="3.4" fill="#E23C3C" />
+      </g>
+    </g>
+    <g transform="translate(490,375)">
+      <circle r="53" fill="none" stroke="#2A2A2A" stroke-width="10" />
+      <g class="spin">
+        <circle r="44" fill="none" stroke="#F7F7F7" stroke-width="3" />
+        <circle r="39" fill="none" stroke="#D5DDE2" stroke-width="4" />
+        <g stroke="#8B979F" stroke-width="2">
+          <line x1="0" y1="-34" x2="0" y2="34" />
+          <line x1="-34" y1="0" x2="34" y2="0" />
+          <line x1="-24" y1="-24" x2="24" y2="24" />
+          <line x1="24" y1="-24" x2="-24" y2="24" />
+        </g>
+        <circle r="7" fill="#3E4850" />
+        <circle r="2.4" fill="#E8EEF1" />
+        <circle cx="0" cy="-36" r="3.4" fill="#E23C3C" />
+      </g>
+    </g>
+
+    <g fill="none" stroke="#E23C3C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M250 375 L340 366" />
+      <path d="M250 375 L278 294" />
+      <path d="M340 366 L278 286" />
+      <path d="M278 294 L432 298" />
+      <path d="M340 366 L432 310" />
+      <path d="M432 300 L490 375" />
+    </g>
+    <path d="M426 304 L438 304" stroke="#B43232" stroke-width="8" stroke-linecap="round" />
+    <path d="M432 300 C446 276 462 258 486 262" fill="none" stroke="#333" stroke-width="5.5" stroke-linecap="round" />
+    <path d="M468 256 C478 250 492 254 494 264" fill="none" stroke="#333" stroke-width="5" stroke-linecap="round" />
+    <circle cx="452" cy="262" r="5" fill="#F2C14E" stroke="#333" stroke-width="1.4" />
+    <path d="M248 294 C268 280 300 280 314 292 C292 300 266 302 248 294 Z" fill="#3A291F" />
+
+    <g fill="none" stroke="#C46A32" stroke-width="7.5" stroke-linecap="round">
+      <line x1="308" y1="270" x2="340" y2="336">
+        <animate attributeName="x2" dur="0.8s" repeatCount="indefinite" calcMode="linear" values="340;355;366;370;366;355;340;325;314;310;314;325;340" />
+        <animate attributeName="y2" dur="0.8s" repeatCount="indefinite" calcMode="linear" values="336;340;351;366;381;392;396;392;381;366;351;340;336" />
+      </line>
+      <line x1="322" y1="268" x2="340" y2="396">
+        <animate attributeName="x2" dur="0.8s" repeatCount="indefinite" calcMode="linear" values="340;325;314;310;314;325;340;355;366;370;366;355;340" />
+        <animate attributeName="y2" dur="0.8s" repeatCount="indefinite" calcMode="linear" values="396;392;381;366;351;340;336;340;351;366;381;392;396" />
+      </line>
+    </g>
+
+    <g transform="translate(340,366)">
+      <circle r="15" fill="none" stroke="#C45C26" stroke-width="3" />
+      <g class="spin">
+        <circle r="15" fill="none" stroke="#7A3E16" stroke-width="2" stroke-dasharray="2.4 2.2" />
+        <line x1="0" y1="-30" x2="0" y2="30" stroke="#2F3A40" stroke-width="4" stroke-linecap="round" />
+        <circle r="5" fill="#2F3A40" />
+        <g transform="translate(0,-30)">
+          <g class="counterspin">
+            <rect x="-24" y="-24" width="48" height="48" fill="none" />
+            <rect x="-9" y="-3" width="20" height="6" rx="1.5" fill="#2C3338" />
+            <ellipse cx="5" cy="1" rx="13" ry="5.5" fill="#E86F12" />
+            <path d="M16 -1 L23 -5 M16 1 L24 1 M16 3 L23 6" stroke="#E86F12" stroke-width="1.8" stroke-linecap="round" />
+          </g>
+        </g>
+        <g transform="translate(0,30)">
+          <g class="counterspin">
+            <rect x="-24" y="-24" width="48" height="48" fill="none" />
+            <rect x="-9" y="-3" width="20" height="6" rx="1.5" fill="#2C3338" />
+            <ellipse cx="5" cy="1" rx="13" ry="5.5" fill="#E86F12" />
+            <path d="M16 -1 L23 -5 M16 1 L24 1 M16 3 L23 6" stroke="#E86F12" stroke-width="1.8" stroke-linecap="round" />
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g>
+      <polygon points="198,214 154,196 172,214" fill="#EFE6DA" />
+      <polygon points="196,224 148,222 168,234" fill="#F7F1E8" />
+      <polygon points="198,234 158,242 176,250" fill="#E7DDD0" />
+    </g>
+
+    <path d="M200 237 C192 200 220 174 268 170 C318 166 352 186 356 216 C360 248 338 276 292 280 C246 284 208 268 200 237 Z" fill="url(#body)" stroke="#E4D9CC" stroke-width="1.2" />
+    <ellipse cx="292" cy="236" rx="42" ry="28" fill="#FFF9F2" opacity="0.7" />
+
+    <g transform="translate(228,214)">
+      <g class="wing">
+        <rect x="-120" y="-48" width="240" height="96" fill="none" />
+        <ellipse cx="-46" cy="10" rx="52" ry="20" fill="#F6F0E6" stroke="#E3D8C8" stroke-width="1" />
+        <path d="M-96 6 C-108 0 -112 12 -100 18 C-112 16 -116 28 -102 30 C-110 32 -108 42 -94 38" fill="#2B2B2B" />
+        <path d="M-70 26 Q-62 36 -50 32" fill="none" stroke="#E3D8C8" stroke-width="1.4" />
+      </g>
+    </g>
+
+    <path d="M312 198 C342 178 366 162 384 154" fill="none" stroke="#E6DDD0" stroke-width="26" stroke-linecap="round" />
+    <path d="M312 198 C342 178 366 162 384 154" fill="none" stroke="#FFFCF7" stroke-width="22" stroke-linecap="round" />
+
+    <g class="head">
+      <circle cx="394" cy="150" r="25" fill="#FFFCF7" stroke="#E6DDD0" stroke-width="1.2" />
+      <path d="M372 132 Q366 118 378 124" fill="none" stroke="#FFFCF7" stroke-width="3" stroke-linecap="round" />
+      <path d="M378 128 Q374 118 386 122" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round" />
+
+      <g class="pouch">
+        <path d="M408 162 C458 172 518 170 548 160 C528 206 468 214 420 192 C398 182 396 168 408 162 Z" fill="#F6B56A" />
+        <ellipse cx="478" cy="180" rx="30" ry="12" fill="#FFD7A8" opacity="0.45" />
+        <g transform="translate(492,184)">
+          <g class="fish">
+            <polygon points="8,0 16,-5 16,5" fill="#2E86B5" />
+            <ellipse cx="0" cy="0" rx="9" ry="4.5" fill="#49A6D6" />
+            <circle cx="-3" cy="-1" r="0.9" fill="#14324A" />
+          </g>
+        </g>
+      </g>
+
+      <polygon points="404,140 552,156 404,164" fill="#F1892D" />
+      <polygon points="546,152 566,160 546,170" fill="#DE6816" />
+      <path d="M408 152 L546 162" fill="none" stroke="#C85A10" stroke-width="1.3" />
+
+      <circle cx="404" cy="146" r="8.5" fill="#F0A06A" />
+      <circle cx="405" cy="146" r="5.2" fill="#F6C431" />
+      <circle cx="406.4" cy="146.4" r="2.6" fill="#1A1A1A" />
+      <circle cx="407.3" cy="145.4" r="1" fill="#fff" />
+      <ellipse class="lid" cx="405" cy="146" rx="8.6" ry="8" fill="#FFFCF7" />
+    </g>
+  </g>
+</svg>
