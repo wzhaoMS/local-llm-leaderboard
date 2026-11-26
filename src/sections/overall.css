@@ -19,6 +19,8 @@
   background: #fff; box-shadow: 0 1px 2px rgba(16, 24, 40, .25); transition: transform .15s ease; }
 .ov-reftoggle[aria-checked="true"] .ov-switch { background: var(--ink); }
 .ov-reftoggle[aria-checked="true"] .ov-switch::after { transform: translateX(12px); }
+.ov-reftoggle:disabled { opacity: .45; cursor: default; }
+.ov-reftoggle:disabled:hover { background: transparent; }
 
 .ov-chart { position: relative; overflow-x: auto; overflow-y: hidden; padding-top: 4px; scrollbar-width: thin; }
 .ov-svg { display: block; overflow: visible; }
@@ -44,6 +46,11 @@
 .ov-xlab { fill: var(--muted); }
 .ov-xlab.ov-xrec { fill: var(--ink); font-weight: 620; }
 .ov-xpart { fill: var(--warn); font-weight: 600; }
+/* cloud references: hatched bars with a "cloud" tag; local partial runs get a tint and a dashed outline instead */
+.ov-tint { fill-opacity: .4; stroke-width: 1.5; stroke-dasharray: 4 3; }
+.ov-tag { fill: var(--track); }
+.ov-tagtext { fill: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.ov-hot .ov-tagtext { fill: var(--ink-2); }
 
 /* 95% interval whisker (text core) */
 .ov-ci { opacity: 0; pointer-events: none; transition: opacity .15s ease; }
@@ -54,21 +61,6 @@
 .ov-hot .ov-ci { opacity: 1; }
 .ov-val { transition: opacity .15s ease; }
 .ov-hot .ov-val-ci { opacity: 0; }
-
-/* cloud reference lines (behind the bars) and their pills */
-.ov-refline { fill: none; stroke-width: 1.5; opacity: .6; transition: stroke-width .15s ease, opacity .15s ease; }
-.ov-refline.ov-ref-hot { stroke-width: 2.25; opacity: 1; }
-.ov-refhit { fill: none; stroke: transparent; stroke-width: 10; }
-.ov-refpill { outline: none; transition: opacity .15s ease; }
-.ov-refpill rect { fill: #fff; stroke-width: 1; stroke-opacity: .55; transition: stroke-opacity .15s ease; }
-.ov-refpill.ov-ref-hot rect, .ov-refpill:focus-visible rect { stroke-opacity: 1; stroke-width: 1.5; }
-.ov-refleader { fill: none; stroke-width: 1; opacity: .6; }
-.ov-refletter { fill: #fff; font-weight: 760; letter-spacing: -.04em; }
-.ov-refname { fill: var(--ink-2); font-weight: 500; }
-.ov-refsep { fill: var(--faint); }
-.ov-refval { fill: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
-.ov-refdim .ov-refline:not(.ov-ref-hot) { opacity: .2; }
-.ov-refdim .ov-refpill:not(.ov-ref-hot) { opacity: .3; }
 
 /* first-render animation: bars grow up from the baseline, badges and values fade in */
 .ov-rise { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .85s cubic-bezier(.2, .75, .2, 1); }
@@ -91,13 +83,13 @@
 .ov-key i { font-style: normal; display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 5px;
   background: var(--lime); color: var(--ink); font-size: 11px; }
 .ov-refkey { display: inline-flex; gap: 7px; align-items: center; }
-.ov-dash { display: block; flex: none; }
-.ov-dash line { stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.ov-hatchkey { display: inline-block; flex: none; width: 18px; height: 12px; border-radius: 3px;
+  background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, .6) 0 2px, transparent 2px 5px), var(--ink-2); }
 .ov-refnone { color: var(--faint); }
-.ov-refnone .ov-dash line { stroke: var(--faint); }
+.ov-refnone .ov-hatchkey { opacity: .4; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ov-rise, .ov-fade, .ov-bar, .ov-ci, .ov-val, .ov-refline, .ov-refpill, .ov-refpill rect, .ov-switch, .ov-switch::after { transition: none; }
+  .ov-rise, .ov-fade, .ov-bar, .ov-ci, .ov-val, .ov-switch, .ov-switch::after { transition: none; }
 }
 @media print {
   .ov-pre .ov-rise { transform: none; }

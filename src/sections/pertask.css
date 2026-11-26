@@ -9,23 +9,30 @@
 .pt-card .lb-row .lb-row-sub { margin-top: -5px; }
 .pt-partial { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 5px; background: var(--line-2);
   color: var(--muted); font-size: 11px; font-weight: 550; line-height: 17px; vertical-align: 1px; }
-
-/* Footer line, pinned to the card bottom so footers line up across a row; dashed like the other cloud-reference marks. */
-.pt-foot { margin-top: auto; padding-top: 12px; }
-.pt-foot-in { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; padding-top: 9px; border-top: 1px dashed #dadee3;
-  font-size: 12.5px; line-height: 18px; color: var(--faint); }
-.pt-more { cursor: help; }
+.pt-more { margin-top: 12px; padding-left: 42px; font-size: 12.5px; color: var(--faint); cursor: help; align-self: flex-start; }
 .pt-more:hover { color: var(--muted); }
-.pt-ref { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; cursor: help; min-width: 0; }
-.pt-ref .lb-mono { opacity: .9; }
-.pt-ref-name { color: var(--muted); font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.pt-ref-tied { white-space: nowrap; }
-.pt-ref-val { margin-left: 5px; color: var(--ink-2); font-weight: 650; font-variant-numeric: tabular-nums; }
-.pt-ref:hover .pt-ref-k, .pt-ref:hover .pt-ref-tied { color: var(--muted); }
+.pt-more-empty { visibility: hidden; }
 
+/* Cloud references: right after the list; the spacer above keeps the dividers of a card pair level. */
+.pt-refs { padding-top: 18px; }
+.pt-refs-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 12px; line-height: 16px;
+  color: var(--faint); cursor: help; }
+.pt-refs-k { font-weight: 650; letter-spacing: .02em; color: var(--ink-2); }
+.pt-refs-line { flex: 1; border-top: 1px dashed #cfd5dc; }
+.pt-refs-more { white-space: nowrap; }
+.pt-refs-head:hover .pt-refs-more { color: var(--muted); }
+.pt-refs-list { gap: 14px; }
+.pt-ref-row { cursor: default; }
+.lb-chip.pt-cloud { justify-self: start; height: 20px; padding: 0 3px; border-radius: 6px; border-style: dashed; border-color: #b3bcc7;
+  background: #f7f9fb; color: var(--ink-2); font-size: 10px; font-weight: 650; letter-spacing: 0; }
+.pt-ref-row .lb-bar { height: 8px; border-radius: 4px; }
+.pt-ref-row .lb-bar > i { border-radius: 4px; }
+
+@media (max-width: 980px) {
+  .pt-more-empty { display: none; }
+}
 @media (max-width: 640px) {
   .pt-card { padding: 20px 18px 22px; }
   .pt-head h3 { font-size: 18px; }
-  .pt-ref { flex-basis: 100%; }
-  .pt-ref-val { margin-left: auto; }
+  .pt-more { padding-left: 0; }
 }

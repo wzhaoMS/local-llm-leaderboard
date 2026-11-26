@@ -189,6 +189,54 @@
     return { pts, noX };
   }
 
+  // ---------- cloud references: closed models run on the same tasks through the GitHub Copilot CLI ----------
+  const DIA = 8.5;                      // half-diagonal of the hollow diamond that marks a cloud reference
+  const CLOUD_TIME = "Cloud reference · time through GitHub Copilot CLI (network + start-up), not comparable to local GPU timings";
+  const CLOUD_LINE = "Cloud reference · same tasks through GitHub Copilot CLI; no decode speed, so it is drawn as a line at its text core";
+  /** References with a text core, best first; xv = median time per task through the CLI (null if not measured). */
+  function refPoints() {
+    const out = [];
+    for (const m of D.models || []) {
+      if (!m || !m.reference) continue;
+      const q = m.scores && m.scores.textCore;
+      if (!isNum(q)) continue;
+      out.push({ m, q, xv: isNum(m.cloudTaskTime) && m.cloudTaskTime > 0 ? m.cloudTaskTime : null });
+    }
+    return out.sort((a, b) => b.q - a.q || LB.label(a.m).localeCompare(LB.label(b.m)));
+  }
+  function refTipHtml(m, mode) {
+    const t = isNum(m.cloudTaskTime) ? `Median time per task <b>${fmt.sec(m.cloudTaskTime)}</b><br>` : "";
+    return LB.modelTip(m, t + `<span class="muted">${mode === "time" ? CLOUD_TIME : CLOUD_LINE}</span>`);
+  }
+  /** Centres for labels of height `size` wanted at `ys` (ascending): at least `gap` apart, each as close to its own line
+   *  as possible (overlapping runs are centred on their mean), and kept within [lo, hi]. */
+  function spread(ys, size, gap, lo, hi) {
+    const pitch = size + gap;
+    const topOf = (c) => Math.max(lo, Math.min(hi - c.n * pitch + gap, c.sum / c.n - size / 2 - ((c.n - 1) / 2) * pitch));
+    const runs = ys.map((y) => ({ n: 1, sum: y }));
+    for (let k = 0; k + 1 < runs.length; ) {
+      if (topOf(runs[k]) + runs[k].n * pitch > topOf(runs[k + 1]) + 0.01) {
+        runs.splice(k, 2, { n: runs[k].n + runs[k + 1].n, sum: runs[k].sum + runs[k + 1].sum });
+        k = Math.max(0, k - 1);
+      } else k++;
+    }
+    const out = [];
+    for (const c of runs) { const t = topOf(c); for (let j = 0; j < c.n; j++) out.push(t + size / 2 + j * pitch); }
+    return out;
+  }
+  /** Dash patterns: lines closer than 2.5 px share one pattern, each colour taking its turn, so none hides another. */
+  function dashes(ys) {
+    const out = ys.map(() => ({ arr: "6 4", off: 0 }));
+    for (let i = 0; i < ys.length;) {
+      let j = i + 1;
+      while (j < ys.length && ys[j] - ys[j - 1] < 2.5) j++;
+      for (let q = i; j - i > 1 && q < j; q++) out[q] = { arr: `6 ${6 * (j - i - 1) + 4}`, off: -6 * (q - i) };
+      i = j;
+    }
+    return out;
+  }
+  const diamond = (x, y, d) => `M${x},${y - d}L${x + d},${y}L${x},${y + d}L${x - d},${y}Z`;
+
   function tipHtml(p, mode) {
     const m = p.m, sp = m.speed || {};
     const t = isNum(sp.taskTime) ? `Median time per task <b>${fmt.sec(sp.taskTime)}</b>` : "";
@@ -200,7 +248,7 @@
     return LB.modelTip(m, lines.filter(Boolean).join("<br>"));
   }
 
-  function drawPlot(host, mode) {
+  function drawPlot(host, mode, showRefs) {
     host.textContent = "";
     const M = MODES[mode];
     const { pts } = points(mode);
@@ -208,20 +256,31 @@
       host.append(h("div", { class: "sc-empty" }, "No model has both a quality score and speed data yet."));
       return;
     }
+    // cloud references: hollow diamonds at their CLI time per task; in decode mode (no speed) dashed lines at their text core
+    const refs = showRefs ? refPoints() : [];
+    const refDots = mode === "time" ? refs.filter((r) => r.xv !== null) : [];
+    const refLines = mode === "decode" ? refs : [];
     const avail = Math.floor(host.clientWidth) || 960;
-    const W = Math.max(avail, 580);
-    const H = Math.round(Math.min(540, Math.max(500, W * 0.75)));
-    const narrow = W < 700;
+    const narrow = avail < 700;
     const fsLab = narrow ? 12 : 13;
+    const fsP = narrow ? 10.5 : 11.5, pillH = narrow ? 19 : 21, rb = narrow ? 5.5 : 6.5, LEAD = 16;
+    const pills = refLines.map((r) => {
+      const name = LB.label(r.m), val = fmt.num(r.q, 1);
+      const tw = textW(name, fsP, 500) + textW(" · ", fsP, 500) + textW(val, fsP, 650);
+      return { name, val, w: Math.ceil(pillH / 2 + rb + 6 + tw + 10) };
+    });
+    const gutter = pills.length ? LEAD + Math.max(...pills.map((p) => p.w)) + 4 : 0;   // reference pills, right of the plot
+    const W = Math.max(avail, (refDots.length ? 660 : 580) + gutter);   // diamonds crowd the 5-10 s band: a bit more room
+    const H = Math.round(Math.min(540, Math.max(500, (W - gutter) * 0.75)));
     const pad = { l: 50, r: 22, t: 48, b: 64 };
-    const x0 = pad.l, x1 = W - pad.r, y0 = pad.t, y1 = H - pad.b;
+    const x0 = pad.l, x1 = W - (gutter ? gutter + 4 : pad.r), y0 = pad.t, y1 = H - pad.b;
 
     // y: text core, from a round number at least 2 points below the weakest model, up to 100
-    const qMin = Math.min(...pts.map((p) => p.q));
+    const qMin = Math.min(...pts.map((p) => p.q), ...refDots.map((r) => r.q), ...refLines.map((r) => r.q));
     const yLo = Math.max(0, Math.min(Q_MIN - 20, Math.floor((qMin - 2) / 10) * 10));
     const Y = (v) => y1 - ((Math.min(100, Math.max(yLo, v)) - yLo) / (100 - yLo)) * (y1 - y0);
-    // x: log scale with some air around the data and the threshold
-    const xs = pts.map((p) => p.xv);
+    // x: log scale with some air around the data, the plotted references and the threshold
+    const xs = pts.map((p) => p.xv).concat(refDots.map((r) => r.xv));
     const lo = Math.min(...xs, M.thr) / 1.22, hi = Math.max(...xs, M.thr) * 1.16;
     const L = Math.log, X = (v) => x0 + ((L(v) - L(lo)) / (L(hi) - L(lo))) * (x1 - x0);
     const ticks = [];
@@ -230,8 +289,10 @@
       if (!ticks.length || X(t) - X(ticks[ticks.length - 1]) >= (narrow ? 40 : 46)) ticks.push(t);
     }
 
+    const nRef = refDots.length + refLines.length;
     const svg = s("svg", { class: ["sc-svg", `sc-${mode}`], width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "group",
-      "aria-label": `Scatter plot: text core against ${M.label.toLowerCase()} for ${pts.length} models` });
+      "aria-label": `Scatter plot: text core against ${M.label.toLowerCase()} for ${pts.length} local models` +
+        (nRef ? `, plus ${nRef} cloud reference${nRef === 1 ? "" : "s"}${refLines.length ? " drawn as lines at their text core" : ""}` : "") });
     const bg = s("g", { "aria-hidden": "true" });
     svg.append(bg);
 
@@ -263,7 +324,7 @@
     const zl1 = "Most attractive", zl2 = M.zone, zh = zone.y1 - zone.y0;
     const two = zh >= 52;
     const zw = Math.max(textW(zl1, 13, 650), two ? textW(zl2, 11.5, 500) : 0) + 4;
-    const zfree = (bx) => !pts.some((p) => {
+    const zfree = (bx) => !pts.concat(refDots).some((p) => {
       const px = X(p.xv), py = Y(p.q);
       return px > bx.x0 - 10 && px < bx.x1 + 10 && py > bx.y0 - 10 && py < bx.y1 + 10;
     });
@@ -276,32 +337,47 @@
         two ? s("text", { class: "sc-zone-s", x: zBox.x0, y: zBox.y0 + 29 }, zl2) : null);
     }
 
-    // points and labels
+    // points and labels; a reference label ends in a small "cloud" tag
+    const tagW = Math.ceil(textW("cloud", 10, 600) + 10);
     const items = pts.map((p) => {
       const lab = LB.label(p.m), part = p.m.partial ? " · partial" : "";
       const x = X(p.xv), y = Y(p.q);
       p.zone = p.q >= Q_MIN && (M.lowerBetter ? p.xv <= M.thr : p.xv >= M.thr);
       const w = textW(lab, fsLab, p.m.recommended ? 650 : 480) + (part ? textW(part, fsLab, 600) : 0) + 4;
       return { p, lab, part, x, y, r: p.m.recommended ? RING : DOT, w, h: fsLab + 4, pri: 0 };
-    });
+    }).concat(refDots.map((p) => {
+      const lab = LB.label(p.m), nameW = textW(lab, fsLab, 480);
+      return { p, lab, part: "", ref: true, nameW, x: X(p.xv), y: Y(p.q), r: DIA, w: nameW + 5 + tagW + 4, h: fsLab + 4, pri: 0 };
+    }));
     items.forEach((it) => {
       const near = items.filter((o) => o !== it && Math.hypot(o.x - it.x, o.y - it.y) < 80).length;
-      it.pri = (it.p.m.recommended ? 1000 : 0) + near * 10 + it.p.q / 100;
+      it.pri = (it.p.m.recommended ? 1000 : 0) + near * 10 + it.p.q / 100 - (it.ref ? 15 : 0);
     });
-    const bounds = { x0: x0 + 4, y0: y0 - 6, x1: x1 + 4, y1: y1 - 2 };
+    const bounds = { x0: x0 + 4, y0: 8, x1: x1 + 4, y1: y1 - 2 };    // labels may use the top padding, except the caption
+    const capBox = { x0: x0 - 4, y0: y0 - 34, x1: x0 + textW("Text core · higher is better", 12.5, 400) + 8, y1: y0 - 14 };
     const lines = [
       { x0, x1, y0: zy, y1: zy, cost: 2 }, { x0: zx, x1: zx, y0, y1, cost: 2 },                 // threshold lines
       { x0: zone.x0, x1: zone.x1, y0: zy, y1: zy, cost: 3 }, { x0: zx, x1: zx, y0: zone.y0, y1: zone.y1, cost: 3 }, // zone edges
-    ];
-    const spots = placeLabels(items, bounds, zBox ? [{ x0: zBox.x0 - 4, y0: zBox.y0 - 2, x1: zBox.x1 + 4, y1: zBox.y1 + 2 }] : [], lines);
+    ].concat(refLines.map((r) => ({ x0, x1, y0: Y(r.q), y1: Y(r.q), cost: 6 })));
+    const blockers = [capBox, { x0: W - 210, y0: 0, x1: W, y1: 26 }]       // the caption and the card's toggle (top right)
+      .concat(zBox ? [{ x0: zBox.x0 - 4, y0: zBox.y0 - 2, x1: zBox.x1 + 4, y1: zBox.y1 + 2 }] : []);
+    const spots = placeLabels(items, bounds, blockers, lines);
 
+    const refLayer = s("g", { class: "sc-reflines" });
     const leaders = s("g", { class: "sc-leaders", "aria-hidden": "true" });
     const labels = s("g", { class: "sc-labels", "aria-hidden": "true" });
     const dots = s("g", { class: "sc-dots" });
-    svg.append(leaders, labels, dots);
-    const all = [];
-    const clear = () => { svg.classList.remove("sc-dim"); all.forEach((x) => x.forEach((e) => e.classList.remove("sc-hot"))); LB.tip.hide(); };
-    const drawOrder = items.map((_, i) => i).sort((a, b) => (items[a].p.m.recommended ? 1 : 0) - (items[b].p.m.recommended ? 1 : 0));
+    const front = s("g", { class: "sc-refpills" });
+    svg.append(refLayer, leaders, labels, dots, front);
+    const all = [], refHot = [];
+    const clear = () => {
+      svg.classList.remove("sc-dim", "sc-refdim");
+      all.forEach((x) => x.forEach((e) => e.classList.remove("sc-hot")));
+      refHot.forEach((e) => e.classList.remove("sc-ref-hot"));
+      LB.tip.hide();
+    };
+    const layer = (it) => (it.p.m.recommended ? 2 : it.ref ? 0 : 1);    // references under the local points, our pick on top
+    const drawOrder = items.map((_, i) => i).sort((a, b) => layer(items[a]) - layer(items[b]));
     for (const i of drawOrder) {
       const it = items[i], sp = spots[i], m = it.p.m, col = LB.vendor(m).color, b = sp.box;
       // leader line from the dot's edge to the nearest point of its label
@@ -312,46 +388,143 @@
         leaders.append(lead);
       }
       const inZone = b.x0 >= zone.x0 - 2 && b.x1 <= zone.x1 + 2 && b.y0 >= zone.y0 - 2 && b.y1 <= zone.y1 + 2;
-      const txt = s("text", { class: ["sc-label", m.recommended && "sc-label-rec", inZone && "sc-on-zone"], x: b.x0 + 2, y: b.y1 - 4.5,
-        "font-size": fsLab }, it.lab, it.part ? s("tspan", { class: "sc-part" }, it.part) : null);
+      let txt, g;
+      if (it.ref) {
+        const th = 14, mid = (b.y0 + b.y1) / 2 - 0.5, tx = b.x0 + 2 + it.nameW + 5;
+        txt = s("g", { class: ["sc-label", "sc-reflab", inZone && "sc-on-zone"] },
+          s("text", { x: b.x0 + 2, y: b.y1 - 4.5, "font-size": fsLab }, it.lab),
+          s("rect", { class: "sc-tag", x: tx, y: mid - th / 2, width: tagW, height: th, rx: 4 }),
+          s("text", { class: "sc-tagtext", x: tx + tagW / 2, y: mid, dy: "0.35em", "text-anchor": "middle", "font-size": 10 }, "cloud"));
+        g = s("g", { class: ["sc-pt", "sc-ref"], tabindex: 0, role: "img",
+          "aria-label": `${LB.fullName(m)}, cloud reference: text core ${fmt.pct(it.p.q)}, ${fmt.sec(it.p.xv)} per task through GitHub Copilot CLI` },
+          s("path", { class: "sc-dia", d: diamond(it.x, it.y, DIA - 1), style: { stroke: col } }),
+          s("circle", { class: "sc-hit", cx: it.x, cy: it.y, r: DOT + 7 }));
+      } else {
+        txt = s("text", { class: ["sc-label", m.recommended && "sc-label-rec", inZone && "sc-on-zone"], x: b.x0 + 2, y: b.y1 - 4.5,
+          "font-size": fsLab }, it.lab, it.part ? s("tspan", { class: "sc-part" }, it.part) : null);
+        g = s("g", { class: ["sc-pt", m.recommended && "sc-rec", m.partial && "sc-partial"], tabindex: 0, role: "img",
+          "aria-label": `${LB.fullName(m)}: text core ${fmt.pct(it.p.q)}, ${M.label.toLowerCase()} ` +
+            (mode === "time" ? fmt.sec(it.p.xv) : fmt.tps(it.p.xv) + " tok/s") + (m.partial ? ", partial run" : "") +
+            (m.recommended ? ", our pick" : "") },
+          m.recommended ? s("circle", { class: "sc-ring", cx: it.x, cy: it.y, r: RING }) : null,
+          s("circle", { class: "sc-dot", cx: it.x, cy: it.y, r: DOT, fill: m.partial ? "#fff" : col, style: m.partial ? { stroke: col } : null }),
+          s("circle", { class: "sc-hit", cx: it.x, cy: it.y, r: DOT + 7 }));
+      }
       labels.append(txt);
-      const g = s("g", { class: ["sc-pt", m.recommended && "sc-rec", m.partial && "sc-partial"], tabindex: 0, role: "img",
-        "aria-label": `${LB.fullName(m)}: text core ${fmt.pct(it.p.q)}, ${M.label.toLowerCase()} ` +
-          (mode === "time" ? fmt.sec(it.p.xv) : fmt.tps(it.p.xv) + " tok/s") + (m.partial ? ", partial run" : "") +
-          (m.recommended ? ", our pick" : "") },
-        m.recommended ? s("circle", { class: "sc-ring", cx: it.x, cy: it.y, r: RING }) : null,
-        s("circle", { class: "sc-dot", cx: it.x, cy: it.y, r: DOT, fill: m.partial ? "#fff" : col, style: m.partial ? { stroke: col } : null }),
-        s("circle", { class: "sc-hit", cx: it.x, cy: it.y, r: DOT + 7 }));
       dots.append(g);
       const set = [g, txt].concat(lead ? [lead] : []);
       all.push(set);
-      const show = (e) => { clear(); svg.classList.add("sc-dim"); set.forEach((x) => x.classList.add("sc-hot")); LB.tip.show(e, tipHtml(it.p, mode)); };
+      const show = (e) => {
+        clear();
+        svg.classList.add("sc-dim");
+        set.forEach((x) => x.classList.add("sc-hot"));
+        LB.tip.show(e, it.ref ? refTipHtml(m, mode) : tipHtml(it.p, mode));
+      };
       g.addEventListener("mouseenter", show);
       g.addEventListener("mousemove", LB.tip.move);
       g.addEventListener("mouseleave", clear);
       g.addEventListener("focus", () => { const r = g.getBoundingClientRect(); show({ clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }); });
       g.addEventListener("blur", clear);
     }
+
+    // decode mode: a dashed line per reference that stops short of labels, points and the zone caption, with a pill on the right
+    if (refLines.length) {
+      const px = x1 + LEAD;
+      const ys = refLines.map((r) => Math.round(Y(r.q)));          // best first, so ys ascend
+      const centres = spread(ys, pillH, 4, y0 - 20, H - 6);
+      const dash = dashes(ys);
+      const grow = (o, d) => ({ x0: o.x0 - d, x1: o.x1 + d, y0: o.y0 - d, y1: o.y1 + d });
+      const obstacles = spots.map((sp) => grow(sp.box, 3))
+        .concat(items.map((it) => grow({ x0: it.x, x1: it.x, y0: it.y, y1: it.y }, it.r + 3)))
+        .concat(zBox ? [grow(zBox, 4)] : []);
+      refLines.forEach((r, i) => {
+        const m = r.m, col = LB.vendor(m).color, yl = ys[i], yp = centres[i], moved = Math.abs(yp - yl) > 0.75;
+        const xEnd = moved ? x1 : px + 1;
+        const cuts = obstacles.filter((o) => yl >= o.y0 && yl <= o.y1).sort((a, b) => a.x0 - b.x0);
+        const segs = [];
+        let cur = x0;
+        for (const o of cuts) {
+          if (o.x0 >= xEnd) break;
+          if (o.x0 > cur) segs.push([cur, o.x0]);
+          cur = Math.max(cur, o.x1);
+        }
+        if (cur < xEnd) segs.push([cur, xEnd]);
+        const d = segs.filter(([a, z]) => z - a > 3).map(([a, z]) => `M${a.toFixed(1)},${yl}H${z.toFixed(1)}`).join("");
+        const line = s("path", { class: "sc-refline", d: d || `M${x0},${yl}H${x0}`, stroke: col,
+          "stroke-dasharray": dash[i].arr, "stroke-dashoffset": dash[i].off });
+        const hit = d ? s("path", { class: "sc-refhit", d }) : null;
+        refLayer.append(line);
+        if (hit) refLayer.append(hit);
+        const p = pills[i], letter = String(LB.vendor(m).letter || "?"), bx = px + pillH / 2;
+        const pill = s("g", { class: "sc-refpill", tabindex: 0, role: "img",
+          "aria-label": `${LB.fullName(m)}, cloud reference: text core ${fmt.pct(r.q)}, no decode speed` },
+          moved ? s("path", { class: "sc-refleader", d: `M${x1},${yl}H${x1 + 4}L${px},${yp}`, stroke: col }) : null,
+          s("rect", { x: px, y: yp - pillH / 2, width: p.w, height: pillH, rx: pillH / 2, stroke: col }),
+          s("circle", { cx: bx, cy: yp, r: rb, fill: col }),
+          s("text", { class: "sc-refletter", x: bx, y: yp, dy: "0.35em", "text-anchor": "middle",
+            "font-size": (letter.length > 1 ? rb * 1.05 : rb * 1.3).toFixed(1) }, letter),
+          s("text", { x: bx + rb + 6, y: yp, dy: "0.35em", "font-size": fsP },
+            s("tspan", { class: "sc-refname" }, p.name), s("tspan", { class: "sc-refsep" }, " · "),
+            s("tspan", { class: "sc-refval" }, p.val)));
+        front.append(pill);
+        refHot.push(line, pill);
+        const show = (e) => {
+          clear();
+          svg.classList.add("sc-refdim");
+          line.classList.add("sc-ref-hot");
+          pill.classList.add("sc-ref-hot");
+          LB.tip.show(e, refTipHtml(m, mode));
+        };
+        for (const el of hit ? [hit, pill] : [pill]) {
+          el.addEventListener("mouseenter", show);
+          el.addEventListener("mousemove", LB.tip.move);
+          el.addEventListener("mouseleave", clear);
+        }
+        pill.addEventListener("focus", () => { const bb = pill.getBoundingClientRect(); show({ clientX: bb.left + 12, clientY: bb.bottom }); });
+        pill.addEventListener("blur", clear);
+      });
+    }
     host.append(svg);
   }
 
-  function fillFoot(foot, mode) {
+  function fillFoot(foot, mode, showRefs) {
     foot.textContent = "";
     const { pts, noX } = points(mode);
-    const count = new Map();
-    for (const p of pts) count.set(p.m.vendor, (count.get(p.m.vendor) || 0) + 1);
-    const vendors = Array.from(count.keys()).sort((a, b) => count.get(b) - count.get(a) || LB.vendor(a).name.localeCompare(LB.vendor(b).name));
+    const refs = showRefs ? refPoints() : [];
+    const shown = mode === "time" ? refs.filter((r) => r.xv !== null) : refs;
+    const vendorsOf = (list) => {
+      const count = new Map();
+      for (const p of list) count.set(p.m.vendor, (count.get(p.m.vendor) || 0) + 1);
+      return Array.from(count.keys()).sort((a, b) => count.get(b) - count.get(a) || LB.vendor(a).name.localeCompare(LB.vendor(b).name));
+    };
+    const leg = (k) => h("span", { class: "sc-leg" }, LB.mono(k, 20), LB.vendor(k).name);
+    const n = pts.length, k = shown.length;
+    const notes = [];
+    if (noX) notes.push(`${noX} without ${mode === "time" ? "a time per task" : "a decode speed"}`);
+    if (refs.length > k) notes.push(`${refs.length - k} cloud reference${refs.length - k === 1 ? "" : "s"} without a CLI time`);
     const hasRec = pts.some((p) => p.m.recommended);
-    foot.append(
-      h("span", {}, `${pts.length} model${pts.length === 1 ? "" : "s"} with a quality score and speed data`,
-        noX ? ` · ${noX} without ${mode === "time" ? "a time per task" : "a decode speed"}` : ""),
-      h("div", { class: "sc-legend" },
-        vendors.map((k) => h("span", { class: "sc-leg" }, LB.mono(k, 20), LB.vendor(k).name)),
-        hasRec ? h("span", { class: "sc-leg sc-leg-rec" }, h("i", { "aria-hidden": "true" }), "Our pick") : null));
+    const icon = mode === "time"
+      ? s("svg", { class: "sc-key-dia", width: 16, height: 16, viewBox: "0 0 16 16", "aria-hidden": "true" }, s("path", { d: diamond(8, 8, 6) }))
+      : s("svg", { class: "sc-key-dash", width: 24, height: 6, viewBox: "0 0 24 6", "aria-hidden": "true" }, s("line", { x1: 0, x2: 24, y1: 3, y2: 3 }));
+    const parts = [
+      h("span", {}, k ? [h("b", {}, String(n)), ` local model${n === 1 ? "" : "s"} + `, h("b", {}, String(k)), ` cloud reference${k === 1 ? "" : "s"}`]
+        : `${n} model${n === 1 ? "" : "s"} with a quality score and speed data`, notes.length ? " · " + notes.join(" · ") : ""),
+      h("div", { class: "sc-legend" }, vendorsOf(pts).map(leg),
+        hasRec ? h("span", { class: "sc-leg sc-leg-rec" }, h("i", { "aria-hidden": "true" }), "Our pick") : null),
+    ];
+    if (k) {
+      parts.push(h("div", { class: "sc-cloud" },
+        h("span", { class: "sc-cloud-key" }, icon, mode === "time"
+          ? "Cloud reference, timed through GitHub Copilot CLI incl. network and start-up"
+          : "Cloud reference at its text core: no decode speed through GitHub Copilot CLI"),
+        h("div", { class: "sc-legend" }, vendorsOf(shown).map(leg))));
+    }
+    foot.append(...parts);
   }
 
   function render(el) {
-    const st = { mode: "time" };
+    const st = { mode: "time", refs: true };
+    const anyRefs = (D.models || []).some((m) => m && m.reference);
     const seg = LB.seg(Object.keys(MODES).map((k) => ({ value: k, label: MODES[k].label })), st.mode, (v) => {
       st.mode = v;
       if (subP) subP.textContent = MODES[v].sub;
@@ -362,14 +535,18 @@
     const subP = head.querySelector("p");
     const plot = h("div", { class: "sc-plot" });
     const foot = h("div", { class: ["lb-card-foot", "sc-foot"] });
-    el.append(head, LB.card("sc-card", plot, foot));
+    const toggle = anyRefs ? h("button", { class: "sc-reftoggle", type: "button", role: "switch", "aria-checked": "true",
+      title: "Closed cloud models that took the same tasks through GitHub Copilot CLI",
+      onclick: () => { st.refs = !st.refs; toggle.setAttribute("aria-checked", String(st.refs)); update(); } },
+      h("span", { class: "sc-switch", "aria-hidden": "true" }), "Cloud references") : null;
+    el.append(head, LB.card("sc-card", toggle, plot, foot));
 
     let lastW = -1;
     function update() {
       lastW = plot.clientWidth;
       LB.tip.hide();
-      drawPlot(plot, st.mode);
-      fillFoot(foot, st.mode);
+      drawPlot(plot, st.mode, anyRefs && st.refs);
+      fillFoot(foot, st.mode, anyRefs && st.refs);
     }
     update();
     const relayout = () => { if (plot.clientWidth && plot.clientWidth !== lastW) update(); };

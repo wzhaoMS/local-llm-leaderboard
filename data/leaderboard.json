@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T23:51Z",
+ "generated": "2026-11-25T23:57Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2567
+  "gradedRuns": 2587
  },
  "suites": [
   {
@@ -288,7 +288,7 @@
     },
     "repo_replay": 100.0,
     "debug": 100.0,
-    "long_horizon": null
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 5.4,
@@ -318,11 +318,23 @@
      "medianTimeToFixS": 18.0,
      "reproducedFirst": 80.0,
      "rootCauseNamed": 100.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 3.7,
+     "maxPromptTokens": null
     }
    },
    "speed": null,
    "endurance": null,
-   "rows": 78
+   "cloudTaskTime": 7.2,
+   "rows": 81
   },
   {
    "id": "cloud-gemini-4-hydrogen",
@@ -378,7 +390,8 @@
    "agentic": null,
    "speed": null,
    "endurance": null,
-   "rows": 62
+   "cloudTaskTime": 13.6,
+   "rows": 65
   },
   {
    "id": "cloud-gemini-4-neon",
@@ -434,7 +447,8 @@
    "agentic": null,
    "speed": null,
    "endurance": null,
-   "rows": 60
+   "cloudTaskTime": 24.1,
+   "rows": 62
   },
   {
    "id": "cloud-gpt-6-astra",
@@ -499,7 +513,8 @@
    },
    "speed": null,
    "endurance": null,
-   "rows": 72
+   "cloudTaskTime": 10.0,
+   "rows": 76
   },
   {
    "id": "cloud-gpt-62-sol",
@@ -575,7 +590,8 @@
    },
    "speed": null,
    "endurance": null,
-   "rows": 74
+   "cloudTaskTime": 7.4,
+   "rows": 79
   },
   {
    "id": "deepseek-v41-flash-offload",
@@ -636,6 +652,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 0
   },
   {
@@ -755,6 +772,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 102
   },
   {
@@ -822,6 +840,7 @@
     "mtp": null
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 80
   },
   {
@@ -951,6 +970,7 @@
     "acceptRate": 60.4,
     "sustainRatio": 1.04
    },
+   "cloudTaskTime": null,
    "rows": 280
   },
   {
@@ -1041,6 +1061,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 80
   },
   {
@@ -1146,6 +1167,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 87
   },
   {
@@ -1254,6 +1276,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 93
   },
   {
@@ -1373,6 +1396,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 96
   },
   {
@@ -1460,6 +1484,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 74
   },
   {
@@ -1527,11 +1552,11 @@
     },
     "debug": {
      "rate": 100.0,
-     "runs": 6,
-     "tasks": 6,
-     "medianWallS": 108.0,
-     "medianTimeToFixS": 65.0,
-     "reproducedFirst": 83.3,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 111.0,
+     "medianTimeToFixS": 62.0,
+     "reproducedFirst": 88.9,
      "rootCauseNamed": 100.0
     }
    },
@@ -1568,7 +1593,8 @@
     }
    },
    "endurance": null,
-   "rows": 89
+   "cloudTaskTime": null,
+   "rows": 92
   },
   {
    "id": "qwen36-35b-a3b",
@@ -1658,6 +1684,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 317
   },
   {
@@ -1713,6 +1740,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 0
   },
   {
@@ -1832,6 +1860,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 280
   },
   {
@@ -1899,6 +1928,7 @@
     "mtp": null
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 228
   },
   {
@@ -2018,6 +2048,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 341
   },
   {
@@ -2108,6 +2139,7 @@
     }
    },
    "endurance": null,
+   "cloudTaskTime": null,
    "rows": 74
   },
   {

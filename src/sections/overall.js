@@ -64,15 +64,20 @@
     return out;
   }
 
-  function rowsFor(metric, filter) {
+  /** Bars for a metric: local models matching the placement filter, plus the cloud references with "Compare all". */
+  function rowsFor(metric, filter, withRefs) {
     const rows = [];
     for (const m of D.models || []) {
-      if (!m || !LB.matchPlacement(m, filter)) continue;
+      if (!m) continue;
+      if (m.reference ? !(withRefs && filter === "all") : !LB.matchPlacement(m, filter)) continue;
       const v = LB.score(m, metric);
-      if (isNum(v)) rows.push({ m, v });
+      if (isNum(v)) rows.push({ m, v, ref: !!m.reference });
     }
     const tc = (m) => (m.scores && isNum(m.scores.textCore) ? m.scores.textCore : -1);
-    return rows.sort((a, b) => b.v - a.v || tc(b.m) - tc(a.m) || LB.label(a.m).localeCompare(LB.label(b.m)));
+    rows.sort((a, b) => b.v - a.v || tc(b.m) - tc(a.m) || LB.label(a.m).localeCompare(LB.label(b.m)));
+    let k = 0;
+    for (const r of rows) if (!r.ref) r.rank = ++k;      // references are shown, never ranked
+    return rows;
   }
 
   const ciOf = (m) => {
@@ -117,13 +122,16 @@
     const out = parts.join(" · ");
     return out ? out[0].toUpperCase() + out.slice(1) : "";
   }
+  const REF_NOTE = "Cloud reference via GitHub Copilot · same tasks";
   function tipHtml(rows, i, mt) {
     const { m, v } = rows[i];
-    const rank = `Rank <b>#${i + 1}</b> of ${rows.length}`;
+    if (rows[i].ref) return LB.modelTip(m, (mt.value === "textCore" ? "" : `${mt.label} <b>${fmt.num(v, 1)}</b><br>`) + REF_NOTE);
+    const nLocal = rows.filter((r) => !r.ref).length;
+    const rank = `Rank <b>#${rows[i].rank}</b> of ${nLocal}${nLocal < rows.length ? " local" : ""}`;
     let extra;
     if (mt.value === "textCore") {
       const ci = ciOf(m);
-      const tied = tiedWith(rows, i).map((j) => LB.label(rows[j].m));
+      const tied = tiedWith(rows, i).map((j) => LB.label(rows[j].m) + (rows[j].ref ? " (cloud)" : ""));
       extra = rank + (ci ? ` · 95% interval <b>${fmt.num(ci[0], 1)}–${fmt.num(ci[1], 1)}</b>` : "") +
         (tied.length ? `<br><span class="muted">Statistically tied with ${tied.join(", ")}</span>` : "");
     } else {
@@ -141,73 +149,29 @@
     return `M${x},${y + hgt}V${y + r}A${r},${r} 0 0 1 ${x + r},${y}H${x + w - r}A${r},${r} 0 0 1 ${x + w},${y + r}V${y + hgt}Z`;
   }
 
-  // ---------- cloud references: closed models run on the same tasks, drawn as benchmark lines and never ranked ----------
-  const REF_NOTE = "Cloud reference via GitHub Copilot · same tasks, not ranked";
-  function refsFor(metric) {
-    const out = [];
-    for (const m of D.models || []) {
-      if (!m || !m.reference) continue;
-      const v = LB.score(m, metric);
-      if (isNum(v)) out.push({ m, v });
-    }
-    return out.sort((a, b) => b.v - a.v || LB.label(a.m).localeCompare(LB.label(b.m)));
-  }
-  function refTipHtml(r, mt) {
-    return LB.modelTip(r.m, (mt.value === "textCore" ? "" : `${mt.label} <b>${fmt.num(r.v, 1)}</b><br>`) + REF_NOTE);
-  }
-  /** Centres for labels of height `size` wanted at `ys` (ascending): at least `gap` apart, each as close to its own line
-   *  as possible (overlapping runs are centred on their mean), and kept within [lo, hi]. */
-  function spread(ys, size, gap, lo, hi) {
-    const pitch = size + gap;
-    const topOf = (c) => Math.max(lo, Math.min(hi - c.n * pitch + gap, c.sum / c.n - size / 2 - ((c.n - 1) / 2) * pitch));
-    const runs = ys.map((y) => ({ n: 1, sum: y }));
-    for (let k = 0; k + 1 < runs.length; ) {
-      if (topOf(runs[k]) + runs[k].n * pitch > topOf(runs[k + 1]) + 0.01) {
-        runs.splice(k, 2, { n: runs[k].n + runs[k + 1].n, sum: runs[k].sum + runs[k + 1].sum });
-        k = Math.max(0, k - 1);
-      } else k++;
-    }
-    const out = [];
-    for (const c of runs) { const t = topOf(c); for (let j = 0; j < c.n; j++) out.push(t + size / 2 + j * pitch); }
-    return out;
-  }
-  function dashSwatch() {
-    return s("svg", { class: "ov-dash", width: 24, height: 6, viewBox: "0 0 24 6", "aria-hidden": "true" },
-      s("line", { x1: 0, x2: 24, y1: 3, y2: 3 }));
-  }
-
-  function drawBars(chart, rows, mt, refs) {
+  function drawBars(chart, rows, mt) {
     chart.textContent = "";
     const avail = Math.floor(chart.clientWidth) || 960;
     const narrow = avail < 640;
-    const fsL = narrow ? 11 : 11.5, fsV = narrow ? 11.5 : 12.5;
-    const n = rows.length;
-    const labs = rows.map((r) => ({ main: LB.label(r.m), part: r.m.partial ? " · partial" : "" }));
-    const labW = labs.map((l) => textW(l.main, fsL, 460) + (l.part ? textW(l.part, fsL, 600) : 0));
+    const fsL = narrow ? 11 : 11.5, fsV = narrow ? 11.5 : 12.5, fsTag = narrow ? 9 : 9.5;
+    const n = rows.length, nRef = rows.filter((r) => r.ref).length;
+    const tagW = Math.ceil(textW("cloud", fsTag, 600) + 9);
+    const labs = rows.map((r) => ({ main: LB.label(r.m), part: r.m.partial ? " · partial" : "", tag: r.ref }));
+    const labW = labs.map((l) => textW(l.main, fsL, 460) + (l.part ? textW(l.part, fsL, 600) : 0) + (l.tag ? tagW + 4 : 0));
     const top = 36, plotH = narrow ? 190 : 222, axisW = Math.ceil(textW("100%", 11, 400)) + 24;
     const bottom = Math.ceil(Math.max(40, ...labW) * SIN + fsL * COS + 14);
     const minStep = narrow ? 40 : 46, maxStep = 96;
 
-    // reference label pills sit in a gutter at the right edge
-    const fsP = narrow ? 10.5 : 11.5, pillH = narrow ? 19 : 21, rb = narrow ? 5.5 : 6.5, LEAD = 16;
-    const pills = refs.map((r) => {
-      const name = LB.label(r.m) + (r.m.partial ? " (partial)" : ""), val = fmt.num(r.v, 1);
-      const tw = textW(name, fsP, 500) + textW(" · ", fsP, 500) + textW(val, fsP, 650);
-      return { name, val, w: Math.ceil(pillH / 2 + rb + 6 + tw + 10) };
-    });
-    const gutter = pills.length ? LEAD + Math.max(...pills.map((p) => p.w)) + 4 : 0;
-
     // long labels hang down-left from their bar: shift the plot right until the first ones fit
     let left = axisW, step = minStep;
     for (let pass = 0; pass < 4; pass++) {
-      step = Math.max(minStep, Math.min(maxStep, (avail - left - 4 - gutter) / n));
+      step = Math.max(minStep, Math.min(maxStep, (avail - left - 4) / n));
       let need = 0;
       labW.forEach((w, i) => { need = Math.max(need, w * COS + 6 - (left + step * (i + 0.5) + fsL * 0.3)); });
       if (need <= 0.5) break;
       left += need;
     }
-    const W = Math.max(avail, Math.ceil(left + step * n + 4 + gutter));
-    const gx = W - gutter;                        // reference lines end here; their pills start LEAD px further right
+    const W = Math.max(avail, Math.ceil(left + step * n + 4));
     const H = top + plotH + bottom, base = top + plotH;
     const yOf = (v) => base - (Math.max(0, Math.min(100, v)) / 100) * plotH;
     const bw = Math.min(54, Math.max(18, step * 0.66));
@@ -216,36 +180,30 @@
     const hasCI = mt.value === "textCore";
 
     const svg = s("svg", { class: "ov-svg", width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "group",
-      "aria-label": `${mt.label} by model, ${n} model${n === 1 ? "" : "s"}, highest first` +
-        (refs.length ? `; dashed lines mark ${refs.length} cloud reference${refs.length === 1 ? "" : "s"}` : "") });
+      "aria-label": `${mt.label} by model, highest first: ${n - nRef} local model${n - nRef === 1 ? "" : "s"}` +
+        (nRef ? ` and ${nRef} hatched cloud reference${nRef === 1 ? "" : "s"}` : "") });
     svg.append(s("defs", {}, s("pattern", { id: "ov-hatch", width: 7, height: 7, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" },
       s("rect", { width: 3, height: 7, fill: "rgba(255,255,255,.6)" }))));
 
     const grid = s("g", { class: "ov-grid", "aria-hidden": "true" });
     for (let t = 0; t <= 100; t += 20) {
       const y = Math.round(yOf(t)) + 0.5;
-      grid.append(s("line", { x1: left - 8, x2: gutter ? gx + 4 : W - 2, y1: y, y2: y }),
+      grid.append(s("line", { x1: left - 8, x2: W - 2, y1: y, y2: y }),
         s("text", { class: "ov-tick", x: left - 14, y: y + 3.5, "text-anchor": "end" }, t + "%"));
     }
     svg.append(grid);
-    const refLines = s("g", { class: ["ov-refs", "ov-fade"], "aria-hidden": "true" });   // behind the bars
-    svg.append(refLines);
 
-    const groups = [], refHot = [], zoneTop = [];
-    const clear = () => {
-      svg.classList.remove("ov-dim", "ov-refdim");
-      groups.forEach((g) => g.classList.remove("ov-hot", "ov-tied"));
-      refHot.forEach((x) => x.classList.remove("ov-ref-hot"));
-      LB.tip.hide();
-    };
+    const groups = [];
+    const clear = () => { svg.classList.remove("ov-dim"); groups.forEach((g) => g.classList.remove("ov-hot", "ov-tied")); LB.tip.hide(); };
     rows.forEach((r, i) => {
       const { m, v } = r;
       const ven = LB.vendor(m);
       const cx = left + step * (i + 0.5), x = cx - bw / 2, y = yOf(v), bh = base - y;
+      const tint = m.partial && !r.ref;          // hatching marks cloud references, so local partial runs get a tint
       const g = s("g", {
-        class: ["ov-bar", m.recommended && "ov-rec", m.partial && "ov-partial"], tabindex: 0, role: "img",
-        "aria-label": `${i + 1}. ${LB.fullName(m)}: ${mt.label} ${fmt.num(v, 1)}` +
-          (m.partial ? ", partial run" : "") + (m.recommended ? ", our pick" : ""),
+        class: ["ov-bar", m.recommended && "ov-rec", m.partial && "ov-partial", r.ref && "ov-ref"], tabindex: 0, role: "img",
+        "aria-label": (r.ref ? `${LB.fullName(m)}, cloud reference, not ranked` : `${r.rank}. ${LB.fullName(m)}`) +
+          `: ${mt.label} ${fmt.num(v, 1)}` + (m.partial ? ", partial run" : "") + (m.recommended ? ", our pick" : ""),
       });
       const rise = { transitionDelay: Math.min(i * 40, 640) + "ms" };
       const fade = { transitionDelay: 520 + Math.min(i * 40, 640) + "ms" };
@@ -253,8 +211,8 @@
       g.append(hit);
       if (bh > 0.5) {
         const d = barPath(x, y, bw, bh, br);
-        g.append(s("path", { class: "ov-rise", d, fill: ven.color, style: rise }));
-        if (m.partial) g.append(s("path", { class: "ov-rise ov-hatch", d, fill: "url(#ov-hatch)", style: rise }));
+        g.append(s("path", { class: ["ov-rise", tint && "ov-tint"], d, fill: ven.color, stroke: tint ? ven.color : null, style: rise }));
+        if (r.ref) g.append(s("path", { class: "ov-rise ov-hatch", d, fill: "url(#ov-hatch)", style: rise }));
       }
       // vendor badge: inside the top of the bar, or just above a short bar
       const inside = bh >= badgeR * 2 + 14;
@@ -264,9 +222,8 @@
         s("circle", { cx, cy: by, r: badgeR }),
         s("text", { x: cx, y: by, dy: "0.35em", "text-anchor": "middle", fill: ven.color,
           "font-size": (letter.length > 1 ? badgeR * 0.78 : badgeR * 0.98).toFixed(1) }, letter)));
-      // value label (lime pill for our pick), on a white knockout so reference lines never run through it
+      // value label (lime pill for our pick), on a white knockout so gridlines never run through it
       const vy = (inside ? y : by - badgeR) - 8;
-      zoneTop[i] = vy - fsV - 4;
       const vtxt = (m.recommended ? "★ " : "") + fmt.num(v, 1);
       const val = s("g", { class: ["ov-val", hasCI && "ov-val-ci"] });
       if (m.recommended) {
@@ -289,11 +246,19 @@
           seg(cx, ylo, cx, yhi), seg(cx - cap, ylo, cx + cap, ylo), seg(cx - cap, yhi, cx + cap, yhi),
           s("text", { x: cx, y: yhi - 8, "text-anchor": "middle" }, `${fmt.num(ci[0], 1)}–${fmt.num(ci[1], 1)}`)));
       }
-      // model label under the bar
-      const ax = cx + fsL * 0.3, ay = base + 14;
-      g.append(s("text", { class: ["ov-xlab", m.recommended && "ov-xrec"], x: ax, y: ay, "text-anchor": "end", "font-size": fsL,
-        transform: `rotate(${-ROT} ${ax.toFixed(1)} ${ay})` },
-        labs[i].main, labs[i].part ? s("tspan", { class: "ov-xpart" }, labs[i].part) : null));
+      // model label under the bar; references end in a small "cloud" tag next to the bar
+      const ax = cx + fsL * 0.3, ay = base + 14, rot = `rotate(${-ROT} ${ax.toFixed(1)} ${ay})`;
+      const name = [labs[i].main, labs[i].part ? s("tspan", { class: "ov-xpart" }, labs[i].part) : null];
+      if (r.ref) {
+        const tx = ax - tagW, mid = ay - fsL * 0.34, th = Math.round(fsL + 2);
+        g.append(s("g", { transform: rot },
+          s("text", { class: "ov-xlab", x: tx - 4, y: ay, "text-anchor": "end", "font-size": fsL }, name),
+          s("rect", { class: "ov-tag", x: tx, y: mid - th / 2, width: tagW, height: th, rx: 3.5 }),
+          s("text", { class: "ov-tagtext", x: tx + tagW / 2, y: mid, dy: "0.35em", "text-anchor": "middle", "font-size": fsTag }, "cloud")));
+      } else {
+        g.append(s("text", { class: ["ov-xlab", m.recommended && "ov-xrec"], x: ax, y: ay, "text-anchor": "end", "font-size": fsL,
+          transform: rot }, name));
+      }
 
       const show = (e) => {
         clear();
@@ -313,74 +278,6 @@
       groups.push(g);
       svg.append(g);
     });
-
-    /** Dashed benchmark line per reference (behind the bars), with a pill in the gutter; stacked pills get a leader. */
-    function drawRefs() {
-      const px = gx + LEAD;
-      const ys = refs.map((r) => Math.round(yOf(r.v)));       // refs come highest first, so ys ascend
-      const centres = spread(ys, pillH, 4, 2, base + pillH / 2);
-      // lines closer than 2.5 px share one dash pattern, each colour taking its turn, so none hides another
-      const dash = ys.map(() => ({ arr: "6 4", off: 0 }));
-      for (let i = 0; i < ys.length;) {
-        let j = i + 1;
-        while (j < ys.length && ys[j] - ys[j - 1] < 2.5) j++;
-        for (let q = i; j - i > 1 && q < j; q++) dash[q] = { arr: `6 ${6 * (j - i - 1) + 4}`, off: -6 * (q - i) };
-        i = j;
-      }
-      const front = s("g", { class: ["ov-refpills", "ov-fade"] });
-      const fade = { transitionDelay: 640 + Math.min(n * 40, 640) + "ms" };
-      refLines.style.transitionDelay = fade.transitionDelay;
-      Object.assign(front.style, fade);
-      refs.forEach((r, i) => {
-        const m = r.m, col = LB.vendor(m).color, yl = ys[i], yp = centres[i], moved = Math.abs(yp - yl) > 0.75;
-        const line = s("line", { class: "ov-refline", x1: left - 4, x2: moved ? gx : px + 1, y1: yl, y2: yl, stroke: col,
-          "stroke-dasharray": dash[i].arr, "stroke-dashoffset": dash[i].off });
-        refLines.append(line);
-        // hover the line only where it crosses empty space, so the bars keep their own hover
-        const free = [];
-        const add = (a, b) => {
-          const last = free[free.length - 1];
-          if (last && a - last[1] < 1) last[1] = b; else if (b - a >= 1) free.push([a, b]);
-        };
-        rows.forEach((_, j) => { if (yl < zoneTop[j] - 6) add(left + step * j, left + step * (j + 1)); });
-        add(left + step * n, gx);
-        const hit = free.length ? s("path", { class: "ov-refhit", d: free.map(([a, b]) => `M${a},${yl}H${b}`).join("") }) : null;
-        // the pill: vendor badge, name and value
-        const p = pills[i], letter = String(LB.vendor(m).letter || "?"), bx = px + pillH / 2;
-        const pill = s("g", { class: "ov-refpill", tabindex: 0, role: "img",
-          "aria-label": `Cloud reference ${LB.fullName(m)}: ${mt.label} ${fmt.num(r.v, 1)}, not ranked` },
-          moved ? s("path", { class: "ov-refleader", d: `M${gx},${yl}H${gx + 4}L${px},${yp}`, stroke: col }) : null,
-          s("rect", { x: px, y: yp - pillH / 2, width: p.w, height: pillH, rx: pillH / 2, stroke: col }),
-          s("circle", { cx: bx, cy: yp, r: rb, fill: col }),
-          s("text", { class: "ov-refletter", x: bx, y: yp, dy: "0.35em", "text-anchor": "middle",
-            "font-size": (letter.length > 1 ? rb * 1.05 : rb * 1.3).toFixed(1) }, letter),
-          s("text", { x: bx + rb + 6, y: yp, dy: "0.35em", "font-size": fsP },
-            s("tspan", { class: "ov-refname" }, p.name), s("tspan", { class: "ov-refsep" }, " · "),
-            s("tspan", { class: "ov-refval" }, p.val)));
-        front.append(pill);
-        refHot.push(line, pill);
-        const show = (e) => {
-          clear();
-          svg.classList.add("ov-refdim");
-          line.classList.add("ov-ref-hot");
-          pill.classList.add("ov-ref-hot");
-          LB.tip.show(e, refTipHtml(r, mt));
-        };
-        for (const el of hit ? [hit, pill] : [pill]) {
-          el.addEventListener("mouseenter", show);
-          el.addEventListener("mousemove", LB.tip.move);
-          el.addEventListener("mouseleave", clear);
-        }
-        pill.addEventListener("focus", () => {
-          const b = pill.getBoundingClientRect();
-          show({ clientX: b.left + 12, clientY: b.bottom });
-        });
-        pill.addEventListener("blur", clear);
-        if (hit) svg.append(hit);
-      });
-      svg.append(front);
-    }
-    if (refs.length) drawRefs();
     chart.append(svg);
     return svg;
   }
@@ -397,20 +294,24 @@
         h("a", { href: "#in-progress" }, "See what's running ↗")) : null));
   }
 
-  /** nRefs: reference lines drawn (0 = none has this metric); null = references hidden or absent. */
-  function fillFoot(foot, rows, st, mt, nRefs) {
+  /** refsOn: references are part of this chart (toggle on, "Compare all"). */
+  function fillFoot(foot, rows, st, mt, refsOn) {
     foot.textContent = "";
+    const local = rows.filter((r) => !r.ref), nRef = rows.length - local.length, nLocal = local.length;
     const scored = (D.models || []).filter((m) => m && LB.matchPlacement(m, st.filter) && m.scores && isNum(m.scores.textCore)).length;
-    const missing = mt.value === "textCore" ? 0 : Math.max(0, scored - rows.length);
-    const refKey = nRefs === null ? null : nRefs > 0
-      ? h("span", { class: "ov-refkey" }, dashSwatch(), "Cloud reference (same tasks via GitHub Copilot, not ranked)")
-      : h("span", { class: ["ov-refkey", "ov-refnone"] }, dashSwatch(), "No cloud reference has this score yet");
+    const missing = mt.value === "textCore" ? 0 : Math.max(0, scored - nLocal);
+    const swatch = () => h("i", { class: "ov-hatchkey", "aria-hidden": "true" });
+    const refKey = !refsOn ? null : nRef
+      ? h("span", { class: "ov-refkey" }, swatch(), "Cloud reference: same tasks via GitHub Copilot, not ranked with local setups")
+      : h("span", { class: ["ov-refkey", "ov-refnone"] }, swatch(), "No cloud reference has this score yet");
+    const count = nRef
+      ? [h("b", {}, String(nLocal)), ` local model${nLocal === 1 ? "" : "s"} + `, h("b", {}, String(nRef)), ` cloud reference${nRef === 1 ? "" : "s"}`]
+      : [h("b", {}, String(nLocal)), ` model${nLocal === 1 ? "" : "s"} shown`];
     foot.append(
       h("span", {}, mt.note),
       h("span", { class: "ov-count" }, refKey,
         rows.some((r) => r.m.recommended) ? h("span", { class: "ov-key" }, h("i", { "aria-hidden": "true" }, "★"), "Our pick") : null,
-        h("span", {}, h("b", {}, String(rows.length)), ` model${rows.length === 1 ? "" : "s"} shown`,
-          missing ? ` · ${missing} not run on this suite` : "")));
+        h("span", {}, count, missing ? ` · ${missing} not run on this suite` : "")));
   }
 
   /** LB.select, with the options grouped (Overall / Core suites / Agentic). */
@@ -445,7 +346,6 @@
     seg.setAttribute("aria-label", "Where the model runs");
     const sel = metricSelect(metrics, st.metric, (v) => { st.metric = v; sub.textContent = meta(v).sub; update("now"); });
     const toggle = anyRefs ? h("button", { class: "ov-reftoggle", type: "button", role: "switch", "aria-checked": "true",
-      title: "Closed cloud models that took the same tasks, drawn as dashed lines",
       onclick: () => { st.refs = !st.refs; toggle.setAttribute("aria-checked", String(st.refs)); update("none"); } },
       h("span", { class: "ov-switch", "aria-hidden": "true" }), "Cloud references") : null;
     el.append(LB.card("ov-card",
@@ -459,12 +359,18 @@
       if (io) { io.disconnect(); io = null; }
       LB.tip.hide();
       const mt = meta(st.metric);
-      const rows = rowsFor(st.metric, st.filter);
-      const refs = anyRefs && st.refs && rows.length ? refsFor(st.metric) : [];
+      // cloud references join the bars only with "Compare all": the placement filters are about local setups
+      const refsOn = anyRefs && st.refs && st.filter === "all";
+      if (toggle) {
+        toggle.disabled = st.filter !== "all";
+        toggle.title = toggle.disabled ? "Cloud references appear with Compare all"
+          : "Closed cloud models that took the same tasks, shown as hatched bars";
+      }
+      const rows = rowsFor(st.metric, st.filter, refsOn);
       lastW = chart.clientWidth;
-      fillFoot(foot, rows, st, mt, anyRefs && st.refs && rows.length ? refs.length : null);
+      fillFoot(foot, rows, st, mt, refsOn);
       if (!rows.length) { drawEmpty(chart, st, mt); return; }
-      const svg = drawBars(chart, rows, mt, refs);
+      const svg = drawBars(chart, rows, mt);
       if (anim === "none" || reduceMotion()) return;
       // bars grow from the baseline: on first sight (IntersectionObserver), or right away after a filter change.
       // A timer then pins the final state, so slow or throttled frame clocks (background tabs, headless) never leave bars short.
