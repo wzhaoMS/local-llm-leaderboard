@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T05:29Z",
+ "generated": "2026-11-26T05:46Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 3154,
+  "gradedRuns": 3174,
   "notes": [
    "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
    "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)"
@@ -5348,7 +5348,7 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": 100.0,
+    "repo_replay": 96.3,
     "debug": 100.0,
     "long_horizon": 100.0
    },
@@ -5418,16 +5418,16 @@ window.LB_DATA = {
    },
    "agentic": {
     "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
+     "rate": 96.3,
+     "runs": 27,
      "tasks": 9,
-     "meanScore": 1.0,
+     "meanScore": 0.96,
      "medianWallS": 40.0,
-     "medianTimeToCorrectS": 32.0,
+     "medianTimeToCorrectS": 29.0,
      "medianSteps": 21.0,
      "regressions": 0,
      "timeouts": 0,
-     "minFreeCommitGiB": 89.1
+     "minFreeCommitGiB": 61.3
     },
     "debug": {
      "rate": 100.0,
@@ -9650,7 +9650,7 @@ window.LB_DATA = {
     ]
    },
    "cloudTaskTime": null,
-   "rows": 232,
+   "rows": 250,
    "coreTasks": 59,
    "coreRows": 177
   },
@@ -11305,7 +11305,7 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
+    "repo_replay": 100.0,
     "debug": 100.0,
     "long_horizon": 100.0
    },
@@ -11374,6 +11374,18 @@ window.LB_DATA = {
     }
    },
    "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "meanScore": 1.0,
+     "medianWallS": 56.0,
+     "medianTimeToCorrectS": 48.0,
+     "medianSteps": 17.0,
+     "regressions": 0,
+     "timeouts": 0,
+     "minFreeCommitGiB": 61.0
+    },
     "debug": {
      "rate": 100.0,
      "runs": 10,
@@ -11439,7 +11451,7 @@ window.LB_DATA = {
    },
    "endurance": null,
    "cloudTaskTime": null,
-   "rows": 100,
+   "rows": 102,
    "coreTasks": 59,
    "coreRows": 59
   },
@@ -12315,7 +12327,7 @@ window.LB_DATA = {
    "title": "Basalt engine, same Q4 weights",
    "verdict": "recommended",
    "metric": "x1.7 decode",
-   "body": "Basalt runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Text core 96.0 vs 96.1 on llama.cpp. Real-repo fixes 100%, debugging 100%, long sessions 100%. Strata: 206 tok/s with DFlash2 drafting. The 27B on Basalt (its NVFP4 pack, RTX 5090): 193 vs 134 tok/s, text core 96.7 vs 92.8."
+   "body": "Basalt runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Text core 96.0 vs 96.1 on llama.cpp. Real-repo fixes 96%, debugging 100%, long sessions 100%. Strata: 206 tok/s with DFlash2 drafting. The 27B on Basalt (its NVFP4 pack, RTX 5090): 193 vs 134 tok/s, text core 96.7 vs 92.8."
   },
   {
    "title": "One model per GPU",
