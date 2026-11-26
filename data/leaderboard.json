@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T22:19Z",
+ "generated": "2026-11-26T22:31Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14550,6 +14550,51 @@
   },
   "entries": [
    {
+    "id": "flashnext-q5-2gpu-medium-pelican",
+    "model": "flashnext-q5-2gpu-medium",
+    "onBoard": true,
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q5 · both GPUs",
+    "vendor": "qwen",
+    "local": true,
+    "where": "PRO 6000 + 5090",
+    "effort": "medium",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/flashnext-q5-2gpu-medium-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 38.4,
+      "tokens": 5240,
+      "tps": 137.9
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/flashnext-q5-2gpu-medium-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 38.5,
+      "tokens": 5804,
+      "tps": 151.1
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/flashnext-q5-2gpu-medium-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 36.7,
+      "tokens": 5596,
+      "tps": 153.1
+     }
+    ]
+   },
+   {
     "id": "qwen38-27b-max-pelican",
     "model": "qwen38-27b-max",
     "onBoard": true,
@@ -14640,6 +14685,41 @@
     ]
    },
    {
+    "id": "glm53flash-q2-2gpu-pelican",
+    "model": "glm53flash-q2-2gpu",
+    "onBoard": true,
+    "name": "GLM-5.3-Flash",
+    "variant": "Q2 · both GPUs",
+    "vendor": "zai",
+    "local": true,
+    "where": "PRO 6000 + 5090",
+    "effort": "high",
+    "complete": false,
+    "running": true,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/glm53flash-q2-2gpu-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 213.3,
+      "tokens": 20508,
+      "tps": 96.4
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/glm53flash-q2-2gpu-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 121.4,
+      "tokens": 11738,
+      "tps": 96.9
+     }
+    ]
+   },
+   {
     "id": "deepseek41-coder-6000-pelican",
     "model": "deepseek41-coder-6000",
     "onBoard": true,
@@ -14694,8 +14774,8 @@
     "local": true,
     "where": "RTX PRO 6000",
     "effort": null,
-    "complete": false,
-    "running": true,
+    "complete": true,
+    "running": false,
     "attempts": [
      {
       "n": 1,
@@ -14716,6 +14796,16 @@
       "seconds": 255.8,
       "tokens": 30534,
       "tps": 119.4
+     },
+     {
+      "n": 3,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "ran out of tokens before the SVG was complete",
+      "seconds": 277.2,
+      "tokens": 32768,
+      "tps": 118.3
      }
     ]
    },
@@ -15011,6 +15101,16 @@
       "seconds": 484.2,
       "tokens": 34293,
       "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-grok-47-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 585.3,
+      "tokens": 43459,
+      "tps": null
      }
     ]
    },
@@ -15061,26 +15161,6 @@
    }
   ],
   "queued": [
-   {
-    "id": "flashnext-q5-2gpu-medium-pelican",
-    "model": "flashnext-q5-2gpu-medium",
-    "name": "Qwen3.8-Flash-Next",
-    "variant": "Q5 · both GPUs",
-    "vendor": "qwen",
-    "local": true,
-    "where": "PRO 6000 + 5090",
-    "status": "queued"
-   },
-   {
-    "id": "glm53flash-q2-2gpu-pelican",
-    "model": "glm53flash-q2-2gpu",
-    "name": "GLM-5.3-Flash",
-    "variant": "Q2 · both GPUs",
-    "vendor": "zai",
-    "local": true,
-    "where": "PRO 6000 + 5090",
-    "status": "queued"
-   },
    {
     "id": "glm53slim-hybrid-pelican",
     "model": "glm53slim-hybrid",
