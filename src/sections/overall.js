@@ -522,6 +522,8 @@
       errors: (n) => (n === 1 ? "error" : "errors"), ratio: "late vs early speed",
       steady: "No slowdown over the run", slowed: (p) => `Slowed to ${p}% of its early speed`,
       ctx: (k) => `, with context up to ${k}K tokens.`, end: ".", noEndurance: "No endurance run for this model yet.",
+      keys: "Other findings", tones: { recommended: "Recommended", works: "Works", avoid: "Avoid", note: "Note" },
+      newTab: "opens in a new tab",
     },
     zh: {
       lang: "zh-CN", title: "结论与建议", why: "为什么选它", star: "★ 主力", details: "详情 ↓",
@@ -551,13 +553,32 @@
       errors: () => "报错", ratio: "后段 / 前段速度",
       steady: "全程没有变慢", slowed: (p) => `后段速度降到前段的 ${p}%`,
       ctx: (k) => `，上下文最长 ${k}K tokens。`, end: "。", noEndurance: "这个模型还没做耐久测试。",
+      keys: "其他结论", tones: { recommended: "推荐", works: "可用", avoid: "不建议", note: "备注" },
+      newTab: "在新标签页打开",
     },
   };
+
+  /** A key finding's text in the panel's language (the exporter sends {en, zh} objects; plain strings pass through). */
+  const loc = (o, lang) => (o && typeof o === "object" ? o[lang] || o.en || "" : o == null ? "" : String(o));
+  const TONE_ICON = { recommended: "M3.5 8.5l3 3 6-7", works: "M4 8h8", avoid: "M4.5 4.5l7 7M11.5 4.5l-7 7" };
+  /** Verdict chip in the Hardware section's look, on the shared .lb-chip colours (Recommended = lime, Avoid = warn). */
+  function toneChip(tone, T) {
+    const tones = T.tones || {};
+    return h("span", { class: ["lb-chip", "ov-v-tone", tone === "recommended" && "lime", tone === "avoid" && "warn"] },
+      TONE_ICON[tone] ? s("svg", { width: 12, height: 12, viewBox: "0 0 16 16", fill: "none", stroke: "currentColor", "stroke-width": 2.2,
+        "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" }, s("path", { d: TONE_ICON[tone] })) : null,
+      tones[tone] || tones.note || String(tone || ""));
+  }
 
   function verdictPanel() {
     const V = D.verdict || {};
     const pick = LB.byId(pickId());
     if (!pick) return null;
+    // key findings from the exporter: "engine" and "second-gpu" go inside "Why this pick", the rest form one row
+    const F = (Array.isArray(V.findings) ? V.findings : []).filter((f) => f && f.title && f.text);
+    const fEngine = F.find((f) => f.key === "engine");
+    const fGpu = F.find((f) => f.key === "second-gpu");
+    const fRow = F.filter((f) => f !== fEngine && f !== fGpu).slice(0, 3);
     const { lead, ci, tier } = topTier();
     const inTier = tier.includes(pick), multi = inTier && tier.length > 1;
     const sp = pick.speed || {};
@@ -586,7 +607,7 @@
       const T = VT[lang] || VT.en;
       title.lang = body.lang = T.lang;
       title.textContent = T.title;
-      const text = typeof V[lang] === "string" && V[lang] ? V[lang] : null;
+      const text = (V.headline && loc(V.headline, lang)) || (typeof V[lang] === "string" && V[lang] ? V[lang] : null);
 
       // why this pick: the top tier, the pick's speed inside it, and the GPU it needs
       const chip = (m) => h("button", { type: "button", class: ["ov-v-chip", m === pick && "ov-v-chip-pick"], title: T.compare,
@@ -597,7 +618,19 @@
         { label: T.task, val: fmt.num(sp.taskTime, 1), unit: T.sec, r: rTask },
       ];
       const speedHead = !multi ? T.speed : fastest ? T.fastest : firsts.length ? T.fastestOn(firsts.map((k) => T.on[k])) : T.tierSpeed;
-      const engines = pickEngines(pick, T);
+      // the Basalt upgrade has its own block below the stats; the plain line for other engines shows only without it
+      const engines = fEngine ? [] : pickEngines(pick, T);
+      const extLink = (f) => (f.link && f.link.url ? h("a", { class: "ov-v-ext", href: f.link.url, target: "_blank", rel: "noopener",
+        "aria-label": `${loc(f.link.label, lang)} (${T.newTab})` }, loc(f.link.label, lang), " ↗") : null);
+      /** A recommendation inside "Why this pick": title, one line of numbers, then the about line or a trailing action. */
+      const upBlock = (f, lead, tail) => h("div", { class: "ov-v-up" },
+        h("div", { class: "ov-v-uphead" }, lead || null, h("b", {}, loc(f.title, lang))),
+        h("p", {}, loc(f.text, lang)),
+        f.about ? h("p", { class: "ov-v-about" }, loc(f.about, lang), " ", extLink(f)) : extLink(f) ? h("p", { class: "ov-v-about" }, extLink(f)) : null,
+        tail || null);
+      const gm = fGpu && fGpu.model ? LB.byId(fGpu.model) : null;
+      const gpuUp = fGpu ? upBlock(fGpu, null,
+        gm ? h("button", { type: "button", class: "ov-v-linkbtn", onclick: () => compareFor(gm) }, T.compare + " →") : null) : null;
       let gpuHead = T.hardware, gpuText = pick.where || "—";
       if (used.length === 1 && gpus.length > 1 && gpus[used[0]]) {
         gpuHead = T.oneGpu;
@@ -622,8 +655,9 @@
           h("div", { class: "ov-v-item" }, h("b", {}, speedHead),
             h("div", { class: "ov-v-stats" }, speedFacts.map((f) => h("span", { class: ["ov-v-stat", multi && f.r === 1 && "ov-v-first"] },
               h("b", {}, f.val, f.val !== "—" ? h("small", {}, " " + f.unit) : null), h("span", {}, f.label)))),
+            fEngine ? upBlock(fEngine) : null,
             engines.length ? h("p", { class: "ov-v-engine" }, T.engines(engines)) : null),
-          h("div", { class: "ov-v-item" }, h("b", {}, gpuHead), h("p", {}, gpuText))));
+          h("div", { class: "ov-v-item" }, h("b", {}, gpuHead), h("p", {}, gpuText), gpuUp)));
 
       // the pick's agentic results
       const passed = (a) => (isNum(a.runs) ? Math.round((a.rate * a.runs) / 100) : null);
@@ -654,9 +688,21 @@
             (isNum(en.nCtx) ? T.ctx(Math.round(en.nCtx / 1024)) : T.end)) : null,
         ] : h("p", { class: "ov-v-none" }, T.noEndurance));
 
+      // the other key findings: one row in the same grid rhythm as "Why this pick"
+      const keyItem = (f) => h("div", { class: "ov-v-key", role: "listitem" },
+        h("div", { class: "ov-v-keytop" },
+          h("span", { class: "ov-v-keyval" }, h("b", {}, String(f.value == null ? "" : f.value)),
+            f.unit ? h("small", {}, " " + loc(f.unit, lang)) : null),
+          toneChip(f.tone, T)),
+        h("b", { class: "ov-v-keytitle" }, loc(f.title, lang)),
+        h("p", {}, loc(f.text, lang)),
+        typeof f.href === "string" && f.href.charAt(0) === "#" ? secLink(f.href.slice(1), T.details) : null);
+      const keys = fRow.length ? h("div", { class: ["ov-v-col", "ov-v-keys"] }, h("h4", {}, T.keys),
+        h("div", { class: "ov-v-keygrid", role: "list" }, fRow.map(keyItem))) : null;
+
       body.textContent = "";
       body.append(...[text ? h("p", { class: "ov-v-headline" }, text) : null, why,
-        h("div", { class: "ov-v-grid" }, agentic, endurance)].filter(Boolean));
+        h("div", { class: "ov-v-grid" }, agentic, endurance), keys].filter(Boolean));
     }
     paint();
     return LB.card("ov-verdict", h("div", { class: "ov-v-head", id: "verdict" }, title, seg), body);

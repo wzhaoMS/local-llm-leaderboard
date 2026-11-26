@@ -69,6 +69,30 @@
 .ov-v-rtop > b small { margin-left: 1px; font-size: 12px; font-weight: 550; color: var(--muted); }
 .ov-v-rdetail { margin-bottom: 8px; font-size: 12px; color: var(--muted); }
 .ov-v-row .lb-bar { margin-top: auto; }
+/* recommendations inside "Why this pick" (the Basalt upgrade, a model for the free GPU) */
+.ov-v-up { margin-top: 10px; padding: 9px 11px 10px; background: var(--lime-soft); border: 1px solid #dcefb0; border-radius: 10px; }
+.ov-v-uphead { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 3px; }
+.ov-v-uphead b { font-size: 13px; font-weight: 620; color: var(--ink); }
+.ov-v-item .ov-v-up p { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+.ov-v-item .ov-v-up p.ov-v-about { margin-top: 5px; font-size: 12px; color: var(--muted); }
+.ov-v-ext { font-weight: 550; color: var(--ink); white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; }
+.ov-v-linkbtn { margin-top: 6px; padding: 0; border: 0; background: none; font: inherit; font-size: 12.5px; font-weight: 550;
+  color: var(--muted); cursor: pointer; }
+.ov-v-linkbtn:hover, .ov-v-ext:hover { color: var(--ink); text-decoration: underline; }
+.ov-v-linkbtn:focus-visible, .ov-v-ext:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+/* other key findings: one row of three, the same rhythm as the facts above */
+.ov-v-keys { margin-top: 16px; }
+.ov-v-keygrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 22px; }
+.ov-v-key { display: flex; flex-direction: column; min-width: 0; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.ov-v-keytop { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+.ov-v-keyval { min-width: 0; }
+.ov-v-keyval b { font-size: 19px; font-weight: 650; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.ov-v-keyval small { font-size: 11.5px; font-weight: 550; color: var(--muted); }
+.ov-v-tone { flex: none; gap: 4px; padding: 2px 8px 2px 6px; font-size: 11.5px; font-weight: 600; }
+.ov-v-tone:not(.lime):not(.warn) { color: var(--ink-2); background: var(--line-2); }
+.ov-v-keytitle { display: block; margin-bottom: 3px; font-size: 13px; font-weight: 620; }
+.ov-v-key p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.ov-v-key .ov-v-link { margin-top: auto; align-self: flex-start; }
 .ov-card { padding: 26px 28px 18px; }
 .ov-head { margin-bottom: 14px; align-items: flex-start; }
 .ov-title { min-width: 0; flex: 1 1 300px; }
@@ -177,6 +201,7 @@
 }
 @media (max-width: 980px) {
   .ov-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ov-v-keygrid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
   .ov-card { padding: 20px 18px 14px; }

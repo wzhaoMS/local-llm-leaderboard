@@ -112,9 +112,15 @@ in-progress `pg-`, methodology `me-`.
     For a single-GPU setup `gpus` and `gpuSeries` only contain the GPU the model runs on
 - `mtpSweep {model, points [{draft, tps}]}`, `nvme [{drive, seq, rand2m, rand256k, rand64k}]`
 - `hardwareFindings [{title, verdict: recommended|works|avoid, metric, body}]`
-- `pairs [[idA, idB]]`, `verdict {pick, en, zh}`, `methodology [{title, body}]`. `verdict.en/zh` are generated from the
-  data: top tier = local setups whose text core is at least the leader's `textCoreCI[0]` (the verdict panel uses the
-  same rule); every cloud reference tied for the best score is named with its effort
+- `pairs [[idA, idB]]`, `verdict {pick, en, zh, headline, findings}`, `methodology [{title, body}]`. `verdict.en/zh` are
+  generated from the data: top tier = local setups whose text core is at least the leader's `textCoreCI[0]` (the verdict
+  panel uses the same rule); every cloud reference tied for the best score is named with its effort
+- `verdict.headline {en, zh}`: the verdict panel's short lead (the pick, then the recommended upgrade); the panel falls back
+  to `verdict.en/zh` without it. `verdict.findings [{key, tone: recommended|works|avoid|note, value, unit, title {en, zh},
+  text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href}]`: key findings, every number computed from the
+  results; one is left out when its runs are missing. `unit` may be a plain string. The panel shows `engine` (the pick's
+  weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick", and up to three others
+  (`max-vs-max`, `effort`, `giants`) as one "Other findings" row; `href` is the section with the details
 
 Any value can be `null` (not measured yet); every section must render "—" or skip the model rather than fail.
 
