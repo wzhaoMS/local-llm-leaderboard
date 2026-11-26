@@ -5,9 +5,9 @@
 """Smoke test for the leaderboard page in headless Chrome (via the DevTools protocol).
 
 Serves the repo over http on 127.0.0.1 (like GitHub Pages), loads the page at desktop and phone widths, clicks every
-segmented control, tab, sortable column header and treemap tile, types into the search box, opens the compare dialog
-and closes it with a real Escape key press, and fails on any uncaught exception, console error, sideways page scroll or
-section that rendered its "failed to render" card.
+segmented control, tab, sortable column header, treemap tile and pelican attempt, types into the search box, opens the
+pelican viewer and closes it, opens the compare dialog and closes it with a real Escape key press, and fails on any
+uncaught exception, console error, sideways page scroll or section that rendered its "failed to render" card.
 
     uv run tools/smoke.py [--url https://.../index.html]
 """
@@ -42,7 +42,7 @@ CHROME_PATHS = [
 EXERCISE = r"""
 (async () => {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const out = { sections: [], failed: [], clicks: 0, dialog: null, sorted: 0, searched: null, tiles: 0 };
+  const out = { sections: [], failed: [], clicks: 0, dialog: null, viewer: null, sorted: 0, searched: null, tiles: 0 };
   out.sections = [...document.querySelectorAll("#lb-main > section")].map((s) => s.id);
   out.failed = [...document.querySelectorAll("#lb-main .lb-empty")].map((e) => e.textContent).filter((t) => /failed to render/.test(t));
   const click = async (el) => { el.click(); out.clicks++; await sleep(20); };
@@ -60,6 +60,15 @@ EXERCISE = r"""
     }
   }
   for (const t of document.querySelectorAll("#heatmap button[class*='hm-tile']")) { await click(t); out.tiles++; }
+  for (const b of document.querySelectorAll("#pelican .pel-try")) await click(b);
+  const pelFrame = document.querySelector("#pelican button.pel-frame");
+  if (pelFrame) {
+    await click(pelFrame); await sleep(100);
+    const v = document.querySelector("dialog.pel-dlg");
+    const opened = !!v && v.open;
+    if (v && v.querySelector(".pel-x")) await click(v.querySelector(".pel-x"));
+    out.viewer = { opened, closed: !!v && !v.open };
+  }
   for (const th of document.querySelectorAll("#models thead th")) {
     const target = th.querySelector("button") || th;
     await click(target); await click(target); out.sorted++;
@@ -217,11 +226,13 @@ def main() -> int:
             bad = errs + [f"section failed: {t}" for t in result["failed"]]
             if result["dialog"] and not (result["dialog"]["opened"] and result["dialog"]["closedByEsc"]):
                 bad.append(f"compare dialog: {result['dialog']}")
+            if result["viewer"] and not (result["viewer"]["opened"] and result["viewer"]["closed"]):
+                bad.append(f"pelican viewer: {result['viewer']}")
             if result["overflowX"] > 1:
                 bad.append(f"page scrolls sideways by {result['overflowX']} px")
             print(f"[{name}] sections={len(result['sections'])} ({', '.join(result['sections'])})")
             print(f"[{name}] clicks={result['clicks']} tiles={result['tiles']} sortable={result['sorted']} "
-                  f"search={result['searched']} dialog={result['dialog']}")
+                  f"search={result['searched']} dialog={result['dialog']} viewer={result['viewer']}")
             for b in bad:
                 print(f"[{name}] PROBLEM {b}")
             failures += len(bad)

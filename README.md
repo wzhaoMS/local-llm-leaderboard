@@ -12,7 +12,7 @@ A static leaderboard of open-weight LLMs benchmarked on one desktop workstation.
 
 Every model answers the same private task set: daily work, coding, agents and long sessions. The answers are graded automatically. Models that don't fit in VRAM run with their experts in system RAM or streamed from the NVMe drives.
 
-The site publishes aggregates only: scores with 95% intervals, speed and what worked on this hardware. Prompts, answers and task ids stay private.
+The site publishes aggregates only: scores with 95% intervals, speed and what worked on this hardware. Prompts, answers and task ids stay private. The one exception is the pelican test: its prompt is public, and the drawings the models returned are published with anything that isn't drawing (scripts, links, external references) stripped.
 
 ## View it locally
 
@@ -35,6 +35,7 @@ powershell -File tools/shot.ps1 -Only heatmap -Width 390
 |---|---|
 | `index.html` | Page shell |
 | `data/leaderboard.js` | Generated data (`window.LB_DATA`). `leaderboard.json` holds the same content. |
+| `data/pelican/` | Generated pelican drawings (SVG). The page shows them only through `<img>`. |
 | `src/base.js`, `src/base.css` | Design system, shared helpers, header, hero and footer |
 | `src/sections/*` | One JS and CSS pair per section, registered with `LB.register` |
 | `assets/fonts/` | Geist font (SIL Open Font License 1.1) |
@@ -50,7 +51,7 @@ The private benchmark harness exports the data:
 uv run export_leaderboard.py --out <path to this repo>/data
 ```
 
-Then commit `data/leaderboard.js` and `data/leaderboard.json`.
+Then commit `data/leaderboard.js`, `data/leaderboard.json` and `data/pelican/`.
 
 ## Hosting
 
