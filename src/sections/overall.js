@@ -622,12 +622,18 @@
       const engines = fEngine ? [] : pickEngines(pick, T);
       const extLink = (f) => (f.link && f.link.url ? h("a", { class: "ov-v-ext", href: f.link.url, target: "_blank", rel: "noopener",
         "aria-label": `${loc(f.link.label, lang)} (${T.newTab})` }, loc(f.link.label, lang), " ↗") : null);
-      /** A recommendation inside "Why this pick": title, one line of numbers, then the about line or a trailing action. */
-      const upBlock = (f, lead, tail) => h("div", { class: "ov-v-up" },
-        h("div", { class: "ov-v-uphead" }, lead || null, h("b", {}, loc(f.title, lang))),
-        h("p", {}, loc(f.text, lang)),
-        f.about ? h("p", { class: "ov-v-about" }, loc(f.about, lang), " ", extLink(f)) : extLink(f) ? h("p", { class: "ov-v-about" }, extLink(f)) : null,
-        tail || null);
+      /** A recommendation inside "Why this pick": title, one line of numbers, then the about line (project link and
+       *  "Details ↓" to the section with the full numbers) or a trailing action. */
+      const detailsOf = (f) => (typeof f.href === "string" && f.href.charAt(0) === "#" ? secLink(f.href.slice(1), T.details) : null);
+      const upBlock = (f, lead, tail) => {
+        const links = [extLink(f), detailsOf(f)].filter(Boolean);
+        const linkRow = links.length ? h("span", { class: "ov-v-uplinks" }, links) : null;
+        return h("div", { class: "ov-v-up" },
+          h("div", { class: "ov-v-uphead" }, lead || null, h("b", {}, loc(f.title, lang))),
+          h("p", {}, loc(f.text, lang)),
+          f.about ? h("p", { class: "ov-v-about" }, loc(f.about, lang), " ", linkRow) : linkRow ? h("p", { class: "ov-v-about" }, linkRow) : null,
+          tail || null);
+      };
       const gm = fGpu && fGpu.model ? LB.byId(fGpu.model) : null;
       const gpuUp = fGpu ? upBlock(fGpu, null,
         gm ? h("button", { type: "button", class: "ov-v-linkbtn", onclick: () => compareFor(gm) }, T.compare + " →") : null) : null;
@@ -696,7 +702,7 @@
           toneChip(f.tone, T)),
         h("b", { class: "ov-v-keytitle" }, loc(f.title, lang)),
         h("p", {}, loc(f.text, lang)),
-        typeof f.href === "string" && f.href.charAt(0) === "#" ? secLink(f.href.slice(1), T.details) : null);
+        detailsOf(f));
       const keys = fRow.length ? h("div", { class: ["ov-v-col", "ov-v-keys"] }, h("h4", {}, T.keys),
         h("div", { class: "ov-v-keygrid", role: "list" }, fRow.map(keyItem))) : null;
 

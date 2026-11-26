@@ -117,10 +117,11 @@ in-progress `pg-`, methodology `me-`.
   panel uses the same rule); every cloud reference tied for the best score is named with its effort
 - `verdict.headline {en, zh}`: the verdict panel's short lead (the pick, then the recommended upgrade); the panel falls back
   to `verdict.en/zh` without it. `verdict.findings [{key, tone: recommended|works|avoid|note, value, unit, title {en, zh},
-  text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href}]`: key findings, every number computed from the
+  text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href?}]`: key findings, every number computed from the
   results; one is left out when its runs are missing. `unit` may be a plain string. The panel shows `engine` (the pick's
   weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick", and up to three others
-  (`max-vs-max`, `effort`, `giants`) as one "Other findings" row; `href` is the section with the details
+  (`max-vs-max`, `effort`, `giants`) as one "Other findings" row; `href` is the section with the details, `model` a model
+  id the panel offers to compare
 
 Any value can be `null` (not measured yet); every section must render "—" or skip the model rather than fail.
 

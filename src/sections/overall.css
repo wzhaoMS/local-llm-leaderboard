@@ -76,6 +76,7 @@
 .ov-v-item .ov-v-up p { margin: 0; font-size: 12.5px; color: var(--ink-2); }
 .ov-v-item .ov-v-up p.ov-v-about { margin-top: 5px; font-size: 12px; color: var(--muted); }
 .ov-v-ext { font-weight: 550; color: var(--ink); white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; }
+.ov-v-uplinks { display: inline-flex; gap: 12px; white-space: nowrap; }
 .ov-v-linkbtn { margin-top: 6px; padding: 0; border: 0; background: none; font: inherit; font-size: 12.5px; font-weight: 550;
   color: var(--muted); cursor: pointer; }
 .ov-v-linkbtn:hover, .ov-v-ext:hover { color: var(--ink); text-decoration: underline; }
