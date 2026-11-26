@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T10:37Z",
+ "generated": "2026-11-26T11:15Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -10213,6 +10213,72 @@
    "coreRows": 159
   },
   {
+   "id": "glm53slim-hybrid",
+   "name": "GLM-5.3",
+   "short": "GLM-5.3 SLIM",
+   "variant": "SLIM IQ2_M · GPUs + RAM",
+   "vendor": "zai",
+   "params": "753B-A40B (192/256 experts)",
+   "quant": "UD-IQ2_M-E192",
+   "placement": "hybrid",
+   "where": "2 GPUs + RAM",
+   "recommended": false,
+   "reference": false,
+   "partial": true,
+   "effort": null,
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": true,
+   "status": "queued",
+   "notes": "Pruned to 192 of 256 experts: 180 GB of weights across both GPUs and RAM.",
+   "vramGiB": [
+    89.8,
+    28.9
+   ],
+   "ramGiB": 12.8,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentFixS": null,
+   "fullSuites": null,
+   "agentic": null,
+   "speed": {
+    "decode": 11.7,
+    "decodeSource": "speed test, short prompts",
+    "inTaskDecode": null,
+    "ttft": null,
+    "firstOutput": null,
+    "taskTime": null,
+    "prefill": {
+     "8k": 282.0,
+     "32k": 257.0
+    },
+    "ttftAt": {
+     "8k": 29.2,
+     "32k": 141.6
+    },
+    "decodeAt": {
+     "8k": 11.0,
+     "32k": 9.0
+    },
+    "ctx": 65536,
+    "mtp": null,
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 0,
+   "coreTasks": null,
+   "coreRows": null
+  },
+  {
    "id": "inkling2mini-5090",
    "name": "Inkling-2-Mini",
    "short": "Inkling-2-Mini",
@@ -12179,46 +12245,6 @@
    "coreRows": null
   },
   {
-   "id": "glm53slim-hybrid",
-   "name": "GLM-5.3",
-   "short": "GLM-5.3 SLIM",
-   "variant": "SLIM IQ2_M · GPUs + RAM",
-   "vendor": "zai",
-   "params": "753B-A40B (192/256 experts)",
-   "quant": "UD-IQ2_M-E192",
-   "placement": "hybrid",
-   "where": "2 GPUs + RAM",
-   "recommended": false,
-   "reference": false,
-   "partial": true,
-   "effort": null,
-   "engineOf": null,
-   "maxEffort": false,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "Pruned to 192 of 256 experts: 180 GB of weights across both GPUs and RAM.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentFixS": null,
-   "fullSuites": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0,
-   "coreTasks": null,
-   "coreRows": null
-  },
-  {
    "id": "glm53-iq1s-hybrid",
    "name": "GLM-5.3",
    "short": "GLM-5.3 IQ1",
@@ -12275,7 +12301,7 @@
    "engineOf": null,
    "maxEffort": false,
    "speedOnly": true,
-   "status": "queued",
+   "status": "running",
    "notes": "227 GB of weights across both GPUs and RAM.",
    "vramGiB": null,
    "ramGiB": null,
@@ -12428,7 +12454,7 @@
    "title": "Basalt engine, same Q4 weights",
    "verdict": "recommended",
    "metric": "x1.7 decode",
-   "body": "Basalt runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Text core 96.0 vs 96.1 on llama.cpp. Real-repo fixes 96%, debugging 100%, long sessions 100%. Strata: 206 tok/s with DFlash2 drafting. The 27B on Basalt (its NVFP4 pack, RTX 5090): 193 vs 134 tok/s, text core 94.4 vs 92.8."
+   "body": "Basalt is an open-source (MIT) inference engine for NVIDIA Blackwell GPUs; it runs a fixed list of models from its own converted .basalt packs. It runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Text core 96.0 vs 96.1 on llama.cpp. Real-repo fixes 96%, debugging 100%, long sessions 100%. Strata: 206 tok/s with DFlash2 drafting. The 27B on Basalt (its NVFP4 pack, RTX 5090): 193 vs 134 tok/s, text core 94.4 vs 92.8."
   },
   {
    "title": "One model per GPU",
@@ -12444,9 +12470,9 @@
   },
   {
    "title": "Both GPUs + system RAM",
-   "verdict": "works",
-   "metric": "17-22 tok/s",
-   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B decodes 22 tok/s and DeepSeek-V4.1-Flash 748B 17 tok/s, about 1/7 of the single-GPU Q4. MiniMax scored 78 on its 24 core tasks."
+   "verdict": "avoid",
+   "metric": "12–22 tok/s",
+   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s and GLM-5.3 753B 12 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
   },
   {
    "title": "Tensor parallel (-sm tensor)",
@@ -12539,7 +12565,109 @@
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。"
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。",
+  "headline": {
+   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core) and fast (163 tok/s). The same weights on the Basalt engine run 1.7× faster: the recommended upgrade.",
+   "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000，质量第一梯队（文本核心 96.1），速度快（163 tok/s）。同一套权重换 Basalt 引擎快 1.7 倍，建议升级。"
+  },
+  "findings": [
+   {
+    "key": "engine",
+    "tone": "recommended",
+    "value": "1.7×",
+    "unit": {
+     "en": "decode",
+     "zh": "生成"
+    },
+    "title": {
+     "en": "Recommended upgrade: the Basalt engine",
+     "zh": "建议升级：Basalt 引擎"
+    },
+    "text": {
+     "en": "Same weights: 282 tok/s (1.7× llama.cpp), 3.2 s per task, text core 96.0 vs 96.1; agentic results at least as good.",
+     "zh": "同一套权重：282 tok/s（llama.cpp 的 1.7 倍），单题 3.2 秒，文本核心 96.0 对 96.1，Agent 任务不比原来差。"
+    },
+    "about": {
+     "en": "Open-source (MIT), NVIDIA Blackwell GPUs only, and a fixed list of models in its own .basalt format.",
+     "zh": "开源（MIT），只支持 NVIDIA Blackwell 显卡和它列出的几个模型，用自己的 .basalt 格式。"
+    },
+    "link": {
+     "url": "https://github.com/jesdga95/basalt",
+     "label": {
+      "en": "Project",
+      "zh": "项目主页"
+     }
+    },
+    "href": "#hardware"
+   },
+   {
+    "key": "second-gpu",
+    "tone": "recommended",
+    "value": "193",
+    "unit": "tok/s",
+    "title": {
+     "en": "Second model: Qwen3.8-27B on Basalt",
+     "zh": "第二个模型：Qwen3.8-27B（Basalt）"
+    },
+    "text": {
+     "en": "On the RTX 5090: 193 tok/s with Basalt's NVFP4 pack, text core 94.4, 3.7 s per task, 9/9 real-repo fixes.",
+     "zh": "放在 RTX 5090 上，用 Basalt 的 NVFP4 权重包：193 tok/s，文本核心 94.4，单题 3.7 秒，真实仓库修 bug 9/9。"
+    },
+    "model": "qwen38-27b-basalt",
+    "href": "#models"
+   },
+   {
+    "key": "max-vs-max",
+    "tone": "note",
+    "value": "−0.4",
+    "unit": {
+     "en": "pts",
+     "zh": "分"
+    },
+    "title": {
+     "en": "Our max vs the cloud's max",
+     "zh": "本地最强对云端最强"
+    },
+    "text": {
+     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20).",
+     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。"
+    },
+    "href": "#max-vs-max"
+   },
+   {
+    "key": "effort",
+    "tone": "avoid",
+    "value": "86.5",
+    "unit": {
+     "en": "at xhigh",
+     "zh": "xhigh 时"
+    },
+    "title": {
+     "en": "More reasoning hurt the Q4",
+     "zh": "Q4 思考强度开高反而变差"
+    },
+    "text": {
+     "en": "Flash-Next Q4 at xhigh scored 86.5 vs 96.1 at medium; 2 answers hit the 64K-token cap. The 27B went the other way: 92.8 to 96.3.",
+     "zh": "Flash-Next Q4 开到 xhigh 是 86.5 分，medium 是 96.1，有 2 道题写满了 64K token 上限。27B 正好相反：92.8 升到 96.3。"
+    },
+    "href": "#max-vs-max"
+   },
+   {
+    "key": "giants",
+    "tone": "avoid",
+    "value": "12–22",
+    "unit": "tok/s",
+    "title": {
+     "en": "Giant models in system RAM: too slow",
+     "zh": "放进内存的超大模型：太慢"
+    },
+    "text": {
+     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 12–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
+     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 12–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
+    },
+    "href": "#hardware"
+   }
+  ]
  },
  "methodology": [
   {
