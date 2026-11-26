@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T15:13Z",
+ "generated": "2026-11-26T16:04Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -13590,6 +13590,173 @@
     "largest": "512k"
    },
    {
+    "id": "deepseek41-coder-longctx",
+    "model": "deepseek41-coder-6000",
+    "name": "DeepSeek-V4.1-Flash Coder",
+    "variant": "half the experts pruned",
+    "vendor": "deepseek",
+    "engine": "llama.cpp",
+    "setup": {
+     "en": "RTX PRO 6000 · native 1M context · no drafter",
+     "zh": "RTX PRO 6000 · 原生 1M 上下文 · 不开草稿模型"
+    },
+    "running": true,
+    "closedBook": {
+     "acc": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "single": 0.0,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 0,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 191.5,
+     "coldTtft": 0.4,
+     "prefill": 509.0,
+     "warmTtft": 0.16,
+     "decode": 74.1,
+     "taskTime": 1.9,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 99.0,
+      "ci": [
+       97.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 90.0,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 29468.5,
+      "coldTtft": 23.5,
+      "prefill": 1256.0,
+      "warmTtft": 0.79,
+      "decode": 74.7,
+      "taskTime": 1.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 94.4,
+      "ci": [
+       83.9,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 75.0,
+      "list": 94.4,
+      "n": 20,
+      "solved": 18,
+      "complete": true,
+      "lost": 2,
+      "gained": 1,
+      "promptTokens": 119679.5,
+      "coldTtft": 121.5,
+      "prefill": 987.0,
+      "warmTtft": 1.67,
+      "decode": 67.0,
+      "taskTime": 2.9,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 1
+     },
+     "256k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 1,
+      "promptTokens": 245309.5,
+      "coldTtft": 347.4,
+      "prefill": 707.0,
+      "warmTtft": 2.8,
+      "decode": 61.2,
+      "taskTime": 4.2,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "512k": {
+      "acc": 94.3,
+      "ci": [
+       83.6,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 42.9,
+      "n": 20,
+      "solved": 18,
+      "complete": true,
+      "lost": 1,
+      "gained": 0,
+      "promptTokens": 487234.5,
+      "coldTtft": 1044.3,
+      "prefill": 467.0,
+      "warmTtft": 5.65,
+      "decode": 49.1,
+      "taskTime": 7.2,
+      "errors": 0,
+      "truncated": 1,
+      "formatMisses": 0
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "512k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ]
+    },
+    "largest": "512k"
+   },
+   {
     "id": "flashnext-q4-longctx-native",
     "model": "flashnext-q4-1gpu-medium",
     "name": "Qwen3.8-Flash-Next",
@@ -13699,19 +13866,11 @@
   ],
   "queued": [
    {
-    "id": "deepseek41-coder-longctx",
-    "model": "deepseek41-coder-6000",
-    "setup": {
-     "en": "RTX PRO 6000 · native 1M context · no drafter",
-     "zh": "RTX PRO 6000 · 原生 1M 上下文 · 不开草稿模型"
-    }
-   },
-   {
     "id": "glm53flash-longctx",
     "model": "glm53flash-q2-2gpu",
     "setup": {
-     "en": "Both GPUs · native 1M context · no MTP drafter",
-     "zh": "双卡 · 原生 1M 上下文 · 不开 MTP 草稿"
+     "en": "Both GPUs · up to 512K (1M doesn't fit) · no MTP drafter",
+     "zh": "双卡 · 最多 512K（1M 装不下）· 不开 MTP 草稿"
     }
    }
   ]
