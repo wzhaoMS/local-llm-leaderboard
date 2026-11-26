@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T12:37Z",
+ "generated": "2026-11-26T13:17Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -12825,6 +12825,173 @@
      ]
     },
     "largest": "1m"
+   },
+   {
+    "id": "qwen38-27b-longctx",
+    "model": "qwen38-27b-medium",
+    "name": "Qwen3.8-27B",
+    "variant": "dense · effort medium",
+    "vendor": "qwen",
+    "engine": "llama.cpp",
+    "setup": {
+     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
+     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
+    },
+    "running": true,
+    "closedBook": {
+     "acc": 10.0,
+     "ci": [
+      0.0,
+      25.0
+     ],
+     "single": 14.3,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 2,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 172.0,
+     "coldTtft": 0.3,
+     "prefill": 679.0,
+     "warmTtft": 0.16,
+     "decode": 138.2,
+     "taskTime": 2.6,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 99.3,
+      "ci": [
+       97.9,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 92.9,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 30376.0,
+      "coldTtft": 8.5,
+      "prefill": 3585.0,
+      "warmTtft": 0.46,
+      "decode": 151.3,
+      "taskTime": 1.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 1,
+      "promptTokens": 122044.0,
+      "coldTtft": 47.4,
+      "prefill": 2578.0,
+      "warmTtft": 0.78,
+      "decode": 101.0,
+      "taskTime": 3.1,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "256k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 1,
+      "promptTokens": 248390.0,
+      "coldTtft": 135.8,
+      "prefill": 1831.0,
+      "warmTtft": 1.19,
+      "decode": 69.0,
+      "taskTime": 4.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "512k": {
+      "acc": 98.8,
+      "ci": [
+       96.2,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 87.5,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 0,
+      "gained": 0,
+      "promptTokens": 493831.0,
+      "coldTtft": 414.8,
+      "prefill": 1191.0,
+      "warmTtft": 2.06,
+      "decode": 43.5,
+      "taskTime": 7.1,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "512k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ]
+    },
+    "largest": "512k"
    }
   ],
   "queued": [
@@ -12834,14 +13001,6 @@
     "setup": {
      "en": "Basalt · both GPUs · YaRN ×4 · int8 KV cache",
      "zh": "Basalt · 双卡 · YaRN ×4 · int8 KV 缓存"
-    }
-   },
-   {
-    "id": "qwen38-27b-longctx",
-    "model": "qwen38-27b-medium",
-    "setup": {
-     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
-     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
     }
    },
    {
