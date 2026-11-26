@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-25T23:57Z",
+ "generated": "2026-11-26T00:55Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2587
+  "gradedRuns": 2564
  },
  "suites": [
   {
@@ -263,6 +263,8 @@
    "recommended": false,
    "reference": true,
    "partial": false,
+   "effort": "high",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
@@ -349,6 +351,8 @@
    "recommended": false,
    "reference": true,
    "partial": false,
+   "effort": "high",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
@@ -372,7 +376,7 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
+    "repo_replay": 100.0,
     "debug": null,
     "long_horizon": null
    },
@@ -387,11 +391,20 @@
     "agent_e2e": 53.3,
     "repo_qa": 7.2
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 125.0,
+     "medianTimeToCorrectS": 117.0,
+     "medianSteps": 11.0
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 13.6,
-   "rows": 65
+   "rows": 72
   },
   {
    "id": "cloud-gemini-4-neon",
@@ -406,6 +419,8 @@
    "recommended": false,
    "reference": true,
    "partial": false,
+   "effort": "high",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
@@ -429,7 +444,7 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
+    "repo_replay": 100.0,
     "debug": null,
     "long_horizon": null
    },
@@ -444,17 +459,26 @@
     "agent_e2e": 107.2,
     "repo_qa": 9.5
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 172.0,
+     "medianTimeToCorrectS": 148.0,
+     "medianSteps": 12.0
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 24.1,
-   "rows": 62
+   "rows": 68
   },
   {
-   "id": "cloud-gpt-6-astra",
+   "id": "cloud-gpt-6-astra-max",
    "name": "GPT-6 Astra",
    "short": "GPT-6 Astra",
-   "variant": "cloud · effort high",
+   "variant": "cloud · effort max",
    "vendor": "openai",
    "params": "undisclosed",
    "quant": "—",
@@ -463,21 +487,23 @@
    "recommended": false,
    "reference": true,
    "partial": false,
+   "effort": "max",
+   "maxEffort": true,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
    "vramGiB": null,
    "ramGiB": null,
    "scores": {
-    "textCore": 96.4,
+    "textCore": 96.7,
     "textCoreCI": [
-     91.1,
+     91.7,
      100.0
     ],
-    "allSuites": 96.8,
+    "allSuites": 97.0,
     "suites": {
      "tool_calling": 100.0,
-     "zh_intent": 91.2,
+     "zh_intent": 93.3,
      "finance_extract": 100.0,
      "ts_coding": 100.0,
      "reasoning": 100.0,
@@ -486,41 +512,32 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": 100.0,
+    "repo_replay": null,
     "debug": null,
     "long_horizon": null
    },
    "suiteTimeS": {
-    "tool_calling": 6.0,
-    "zh_intent": 12.1,
-    "finance_extract": 8.9,
-    "ts_coding": 35.9,
-    "reasoning": 12.3,
-    "vision": 5.4,
-    "browser_agent": 16.3,
-    "agent_e2e": 40.3,
-    "repo_qa": 8.0
+    "tool_calling": 7.2,
+    "zh_intent": 32.3,
+    "finance_extract": 18.3,
+    "ts_coding": 95.9,
+    "reasoning": 20.9,
+    "vision": 7.4,
+    "browser_agent": 24.0,
+    "agent_e2e": 101.4,
+    "repo_qa": 9.2
    },
-   "agentic": {
-    "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 40.0,
-     "medianTimeToCorrectS": 37.0,
-     "medianSteps": 7.0
-    }
-   },
+   "agentic": null,
    "speed": null,
    "endurance": null,
-   "cloudTaskTime": 10.0,
-   "rows": 76
+   "cloudTaskTime": 18.5,
+   "rows": 59
   },
   {
-   "id": "cloud-gpt-62-sol",
+   "id": "cloud-gpt-62-sol-max",
    "name": "GPT-6.2 Sol",
    "short": "GPT-6.2 Sol",
-   "variant": "cloud · effort high",
+   "variant": "cloud · effort max",
    "vendor": "openai",
    "params": "undisclosed",
    "quant": "—",
@@ -529,69 +546,51 @@
    "recommended": false,
    "reference": true,
    "partial": false,
+   "effort": "max",
+   "maxEffort": true,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
    "vramGiB": null,
    "ramGiB": null,
    "scores": {
-    "textCore": 90.9,
+    "textCore": 95.4,
     "textCoreCI": [
-     84.0,
-     97.6
+     88.8,
+     100.0
     ],
-    "allSuites": 91.9,
+    "allSuites": 95.9,
     "suites": {
-     "tool_calling": 66.7,
-     "zh_intent": 97.2,
+     "tool_calling": 83.3,
+     "zh_intent": 100.0,
      "finance_extract": 100.0,
      "ts_coding": 100.0,
      "reasoning": 100.0,
      "vision": 100.0,
      "browser_agent": 80.0,
      "agent_e2e": 100.0,
-     "repo_qa": 83.3
+     "repo_qa": 100.0
     },
-    "repo_replay": 100.0,
+    "repo_replay": null,
     "debug": null,
-    "long_horizon": 100.0
+    "long_horizon": null
    },
    "suiteTimeS": {
-    "tool_calling": 5.5,
-    "zh_intent": 7.2,
-    "finance_extract": 6.4,
-    "ts_coding": 13.0,
-    "reasoning": 7.4,
-    "vision": 6.6,
-    "browser_agent": 9.3,
-    "agent_e2e": 21.5,
-    "repo_qa": 5.7
+    "tool_calling": 7.3,
+    "zh_intent": 12.4,
+    "finance_extract": 9.7,
+    "ts_coding": 34.1,
+    "reasoning": 11.4,
+    "vision": 8.8,
+    "browser_agent": 22.4,
+    "agent_e2e": 35.7,
+    "repo_qa": 9.0
    },
-   "agentic": {
-    "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 27.0,
-     "medianTimeToCorrectS": 26.0,
-     "medianSteps": 8.0
-    },
-    "long_horizon": {
-     "rate": 100.0,
-     "score": 100.0,
-     "sessions": 3,
-     "stagesPassed": 19,
-     "stagesTotal": 19,
-     "recall": 100.0,
-     "violations": 0,
-     "medianWallMin": 2.7,
-     "maxPromptTokens": null
-    }
-   },
+   "agentic": null,
    "speed": null,
    "endurance": null,
-   "cloudTaskTime": 7.4,
-   "rows": 79
+   "cloudTaskTime": 10.7,
+   "rows": 59
   },
   {
    "id": "deepseek-v41-flash-offload",
@@ -606,6 +605,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "done",
    "notes": "Speed only: too slow and RAM-hungry for daily use (~114 GiB private RAM).",
@@ -668,6 +669,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": "low",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "72 GB transformer on one GPU; the 111 GB Engram table stays on NVMe and is read one row per token, so it needs ~8 GB of RAM.",
@@ -788,6 +791,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": "low",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Same weights with reasoning effort low: faster, less accurate.",
@@ -856,6 +861,8 @@
    "recommended": true,
    "reference": false,
    "partial": false,
+   "effort": "medium",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "MTP draft 3, reasoning effort medium. The default model on this PC.",
@@ -986,6 +993,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": "medium",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Higher-precision weights split across both cards; scored on 1 run.",
@@ -1077,6 +1086,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Fast but weak at coding on these tasks.",
@@ -1183,6 +1194,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": "high",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Best Chinese-intent score; built-in MTP layer (draft 2). Text only on this build.",
@@ -1292,6 +1305,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "US open-weight reference model; no draft model on this llama.cpp build.",
@@ -1412,6 +1427,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Fast decoder; weak at coding and math here.",
@@ -1500,6 +1517,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Separate MTP head (draft 3, ~45-55% acceptance).",
@@ -1552,12 +1571,12 @@
     },
     "debug": {
      "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 111.0,
-     "medianTimeToFixS": 62.0,
-     "reproducedFirst": 88.9,
-     "rootCauseNamed": 100.0
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 117.0,
+     "medianTimeToFixS": 65.0,
+     "reproducedFirst": 90.0,
+     "rootCauseNamed": 90.0
     }
    },
    "speed": {
@@ -1594,7 +1613,7 @@
    },
    "endurance": null,
    "cloudTaskTime": null,
-   "rows": 92
+   "rows": 93
   },
   {
    "id": "qwen36-35b-a3b",
@@ -1609,6 +1628,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Small MoE, thinking on, no draft model.",
@@ -1700,6 +1721,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "done",
    "notes": "Speed only: the CPU alone is a fallback, not a daily driver.",
@@ -1756,6 +1779,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Fastest decoder here; good for batch jobs and quick answers.",
@@ -1876,6 +1901,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Answers in about a second; weak on coding and math.",
@@ -1944,6 +1971,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": "medium",
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Dense model; strongest on agentic coding (real-repo fixes, debugging, long sessions).",
@@ -2064,6 +2093,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": false,
    "status": "done",
    "notes": "Several reasoning and coding answers looped until the 32K token limit.",
@@ -2155,6 +2186,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": "high",
+   "maxEffort": false,
    "speedOnly": true,
    "status": "queued",
    "notes": "Experts that don't fit in VRAM are memory-mapped from RAM.",
@@ -2188,6 +2221,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "queued",
    "notes": "All experts; Engram table on NVMe.",
@@ -2221,6 +2256,8 @@
    "recommended": false,
    "reference": false,
    "partial": false,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "queued",
    "notes": "",
@@ -2254,6 +2291,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "waiting",
    "notes": "",
@@ -2287,6 +2326,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "waiting",
    "notes": "",
@@ -2320,6 +2361,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "waiting",
    "notes": "",
@@ -2353,6 +2396,8 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "waiting",
    "notes": "",
@@ -2386,9 +2431,81 @@
    "recommended": false,
    "reference": false,
    "partial": true,
+   "effort": null,
+   "maxEffort": false,
    "speedOnly": true,
    "status": "waiting",
    "notes": "",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "rows": 0
+  },
+  {
+   "id": "flashnext-q4-1gpu-max",
+   "name": "Qwen3.8-Flash-Next",
+   "short": "Flash-Next Q4 max",
+   "variant": "Q4 · effort xhigh",
+   "vendor": "qwen",
+   "params": "125B-A6B",
+   "quant": "UD-Q4_K_XL",
+   "placement": "1gpu",
+   "where": "RTX PRO 6000",
+   "recommended": false,
+   "reference": false,
+   "partial": false,
+   "effort": "xhigh",
+   "maxEffort": true,
+   "speedOnly": true,
+   "status": "running",
+   "notes": "The daily driver's weights at the highest reasoning effort (xhigh).",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "rows": 0
+  },
+  {
+   "id": "qwen38-27b-max",
+   "name": "Qwen3.8-27B",
+   "short": "Qwen3.8-27B max",
+   "variant": "dense · effort xhigh",
+   "vendor": "qwen",
+   "params": "27B dense",
+   "quant": "UD-Q5_K_XL",
+   "placement": "1gpu",
+   "where": "RTX 5090",
+   "recommended": false,
+   "reference": false,
+   "partial": false,
+   "effort": "xhigh",
+   "maxEffort": true,
+   "speedOnly": true,
+   "status": "running",
+   "notes": "Dense model at the highest reasoning effort (xhigh).",
    "vramGiB": null,
    "ramGiB": null,
    "scores": {
@@ -2508,7 +2625,7 @@
   ],
   [
    "flashnext-q4-1gpu-medium",
-   "cloud-gpt-6-astra"
+   "cloud-gpt-6-astra-max"
   ],
   [
    "qwen38-27b-medium",
@@ -2535,10 +2652,30 @@
    "step37flash-2gpu"
   ]
  ],
+ "maxEffort": {
+  "local": [],
+  "cloud": [
+   "cloud-gpt-6-astra-max",
+   "cloud-gpt-62-sol-max"
+  ],
+  "pending": {
+   "local": [
+    "Qwen3.8-Flash-Next Q4 (xhigh)",
+    "Qwen3.8-27B dense (xhigh)"
+   ],
+   "cloud": [
+    "GPT-6.2 Sol",
+    "Gemini 4 Hydrogen",
+    "GPT-6 Astra",
+    "Gemini 4 Neon",
+    "Claude Opus 5.5"
+   ]
+  }
+ },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model. Cloud references on the same tasks: Claude Opus 5.5 scores 100.0; the local pick is ahead of Gemini 4 Hydrogen and GPT-6.2 Sol.",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。云端参照（同一套题）：Claude Opus 5.5 100.0 分，本地主力高于 Gemini 4 Hydrogen、GPT-6.2 Sol。"
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model. Cloud references on the same tasks: Claude Opus 5.5 scores 100.0; the local pick is ahead of GPT-6.2 Sol and Gemini 4 Hydrogen.",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。云端参照（同一套题）：Claude Opus 5.5 100.0 分，本地主力高于 GPT-6.2 Sol、Gemini 4 Hydrogen。"
  },
  "methodology": [
   {
@@ -2567,7 +2704,11 @@
   },
   {
    "title": "Cloud references",
-   "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI (reasoning effort high, built-in tools off). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
+   "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI at their highest reasoning effort (max; xhigh for Gemini, its top setting) with built-in tools off (published now: Claude Opus 5.5 (high), Gemini 4 Neon (high), GPT-6 Astra (max), GPT-6.2 Sol (max), Gemini 4 Hydrogen (high)). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
+  },
+  {
+   "title": "Our max vs their max",
+   "body": "The comparison pits the best local result at the highest reasoning effort our models accept (Qwen3.8: xhigh) against the best cloud reference at its highest effort, suite by suite, on the same questions and graders. Local max runs get a 65,536-token output budget per reply (32,768 for the other local runs) so long xhigh reasoning isn't cut off; the cloud CLI sets its own."
   }
  ]
 }
