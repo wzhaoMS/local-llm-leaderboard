@@ -31,8 +31,8 @@ LB.register({
 
 `index.html?only=<id>` renders just that section (used by `tools/shot.ps1 -Only <id>`).
 
-Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, quality-vs-speed `sc-`, heatmap `hm-`, per-task `pt-`,
-agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`, pelican `pel-`, hardware `hw-`,
+Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, quality-vs-speed `sc-`, pelican `pel-`, heatmap `hm-`,
+per-task `pt-`, agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`, hardware `hw-`,
 models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
 
 ## LB API (src/base.js)
@@ -157,4 +157,5 @@ uv run export_leaderboard.py --out <this repo>\data
 ```
 
 Only aggregates are exported. Task prompts, answers, task ids and anything that identifies the owner's accounts stay
-private. The pelican test is the one exception: its prompt is public, and its drawings are published as they came back.
+private. The pelican test is the one exception: its prompt is public, and its drawings are published with anything that
+isn't drawing (scripts, links, external references) stripped.
