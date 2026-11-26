@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T04:17Z",
+ "generated": "2026-11-26T04:46Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,9 +51,9 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 2900,
+  "gradedRuns": 2924,
   "notes": [
-   "vision: not run by flashnext-q4-basalt, glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
+   "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
    "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)"
   ]
  },
@@ -5336,21 +5336,21 @@ window.LB_DATA = {
      92.9,
      100.0
     ],
-    "allSuites": 97.1,
+    "allSuites": 97.4,
     "suites": {
      "tool_calling": 83.3,
      "zh_intent": 93.3,
      "finance_extract": 100.0,
      "ts_coding": 100.0,
      "reasoning": 100.0,
-     "vision": null,
+     "vision": 100.0,
      "browser_agent": 100.0,
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 0.8,
@@ -5358,16 +5358,16 @@ window.LB_DATA = {
     "finance_extract": 2.8,
     "ts_coding": 16.2,
     "reasoning": 16.0,
-    "vision": null,
+    "vision": 0.9,
     "browser_agent": 4.0,
     "agent_e2e": 7.8,
     "repo_qa": 2.6
    },
    "agentFixS": 4.3,
    "fullSuites": {
-    "score": 96.4,
-    "tasks": 59,
-    "rows": 59,
+    "score": 96.8,
+    "tasks": 65,
+    "rows": 65,
     "suites": {
      "tool_calling": {
       "score": 83.3,
@@ -5394,6 +5394,11 @@ window.LB_DATA = {
       "tasks": 6,
       "rows": 6
      },
+     "vision": {
+      "score": 100.0,
+      "tasks": 6,
+      "rows": 6
+     },
      "browser_agent": {
       "score": 100.0,
       "tasks": 5,
@@ -5411,14 +5416,55 @@ window.LB_DATA = {
      }
     }
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "meanScore": 1.0,
+     "medianWallS": 40.0,
+     "medianTimeToCorrectS": 32.0,
+     "medianSteps": 21.0,
+     "regressions": 0,
+     "timeouts": 0,
+     "minFreeCommitGiB": 89.1
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "meanScore": 1.0,
+     "medianWallS": 34.0,
+     "medianTimeToFixS": 14.0,
+     "reproducedFirst": 90.0,
+     "rootCauseNamed": 90.0,
+     "medianSteps": 18.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "meanScore": 1.0,
+     "sessions": 3,
+     "runs": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 2.3,
+     "maxPromptTokens": 67675,
+     "medianSteps": 39.0,
+     "regressions": 0,
+     "stuckEvents": 0,
+     "lateEarlyDecode": 0.86
+    }
+   },
    "speed": {
     "decode": 281.6,
     "decodeSource": "speed test, MTP on",
     "inTaskDecode": 386.8,
     "ttft": 0.47,
-    "firstOutput": 2.16,
-    "taskTime": 3.3,
+    "firstOutput": 1.9,
+    "taskTime": 3.2,
     "prefill": {
      "8k": 6563.0,
      "32k": 9297.0,
@@ -5446,11 +5492,1688 @@ window.LB_DATA = {
     },
     "concurrency": null
    },
-   "endurance": null,
+   "endurance": {
+    "minutes": 4.0,
+    "requests": 66,
+    "sessionRequests": 53,
+    "sideRequests": 13,
+    "errors": 0,
+    "ladderErrors": 0,
+    "restarts": 1,
+    "nCtx": 131072,
+    "thinking": "server",
+    "decodeMedian": 270.0,
+    "decodeP10": 251.1,
+    "decodeP90": 306.3,
+    "ttftMedian": 1.05,
+    "cacheHit": 69.1,
+    "acceptRate": 66.6,
+    "sustainRatio": 0.93,
+    "sustained": {
+     "windowS": 71.3,
+     "first": 277.3,
+     "last": 259.1,
+     "ratio": 0.934,
+     "probeFirst": 283.4,
+     "probeLast": 294.1,
+     "probeRatio": 1.038,
+     "depthAdjustedRatio": 0.978
+    },
+    "byDepth": [
+     {
+      "bucket": "0-16k",
+      "n": 20,
+      "decode": 286.9,
+      "ttft": 0.21,
+      "prefill": 3748.0
+     },
+     {
+      "bucket": "16-64k",
+      "n": 23,
+      "decode": 274.7,
+      "ttft": 1.19,
+      "prefill": 4690.0
+     },
+     {
+      "bucket": "64-128k",
+      "n": 23,
+      "decode": 259.6,
+      "ttft": 0.99,
+      "prefill": 4506.0
+     }
+    ],
+    "ladder": [
+     {
+      "label": "8k",
+      "promptTokens": 8194,
+      "ttft": 1.6,
+      "prefill": 5221.0,
+      "decode": 277.9,
+      "clamped": false,
+      "skipped": false
+     },
+     {
+      "label": "32k",
+      "promptTokens": 32441,
+      "ttft": 4.42,
+      "prefill": 7423.0,
+      "decode": 284.2,
+      "clamped": false,
+      "skipped": false
+     },
+     {
+      "label": "64k",
+      "promptTokens": 65130,
+      "ttft": 6.53,
+      "prefill": 10045.0,
+      "decode": 283.9,
+      "clamped": false,
+      "skipped": false
+     },
+     {
+      "label": "128k",
+      "promptTokens": 130070,
+      "ttft": 12.95,
+      "prefill": 10100.0,
+      "decode": 251.7,
+      "clamped": true,
+      "skipped": false
+     },
+     {
+      "label": "256k",
+      "promptTokens": null,
+      "ttft": null,
+      "prefill": null,
+      "decode": null,
+      "clamped": false,
+      "skipped": true
+     },
+     {
+      "label": "512k",
+      "promptTokens": null,
+      "ttft": null,
+      "prefill": null,
+      "decode": null,
+      "clamped": false,
+      "skipped": true
+     },
+     {
+      "label": "1m",
+      "promptTokens": null,
+      "ttft": null,
+      "prefill": null,
+      "decode": null,
+      "clamped": false,
+      "skipped": true
+     }
+    ],
+    "gpus": [
+     {
+      "index": 0,
+      "name": "RTX PRO 6000",
+      "tempMax": 84,
+      "tempMean": 75.6,
+      "powerMax": 591.0,
+      "powerMean": 491.0,
+      "smClockMedian": 2741.0,
+      "utilMean": 94.0,
+      "throttledPct": 17.2,
+      "powerCappedPct": 17.2,
+      "thermalPct": 0.0
+     }
+    ],
+    "serverMem": {
+     "startGiB": 84.3,
+     "endGiB": 85.15,
+     "maxGiB": 85.55,
+     "growthGiB": 0.85
+    },
+    "commitFreeMinGiB": 89.8,
+    "serverCpuPct": 166.0,
+    "restartsAt": [
+     2.19
+    ],
+    "timeline": [
+     {
+      "t": 0.0,
+      "decode": 335.9,
+      "prompt": 2297,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.02,
+      "decode": 282.0,
+      "prompt": 4836,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.07,
+      "decode": 266.1,
+      "prompt": 10169,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.11,
+      "decode": 295.6,
+      "prompt": 12363,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.14,
+      "decode": 305.8,
+      "prompt": 68,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 0.16,
+      "decode": 284.0,
+      "prompt": 16425,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.22,
+      "decode": 273.3,
+      "prompt": 19008,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.25,
+      "decode": 274.7,
+      "prompt": 21653,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.3,
+      "decode": 334.5,
+      "prompt": 25834,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.34,
+      "decode": 267.0,
+      "prompt": 30677,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.37,
+      "decode": 297.5,
+      "prompt": 69,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 0.38,
+      "decode": 308.6,
+      "prompt": 34868,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.46,
+      "decode": 254.5,
+      "prompt": 40283,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.51,
+      "decode": 290.3,
+      "prompt": 43901,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.56,
+      "decode": 306.8,
+      "prompt": 47625,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.59,
+      "decode": 294.9,
+      "prompt": 53752,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.64,
+      "decode": 269.2,
+      "prompt": 67,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 0.66,
+      "decode": 263.5,
+      "prompt": 59548,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.78,
+      "decode": 279.9,
+      "prompt": 63043,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.8,
+      "decode": 251.8,
+      "prompt": 67167,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.86,
+      "decode": 323.6,
+      "prompt": 69988,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.89,
+      "decode": 260.6,
+      "prompt": 74320,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 0.94,
+      "decode": 269.4,
+      "prompt": 67,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 0.95,
+      "decode": 257.5,
+      "prompt": 76707,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.1,
+      "decode": 242.2,
+      "prompt": 79440,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.16,
+      "decode": 251.1,
+      "prompt": 83283,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.22,
+      "decode": 263.2,
+      "prompt": 73,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 1.23,
+      "decode": 302.8,
+      "prompt": 88702,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.41,
+      "decode": 277.5,
+      "prompt": 91916,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.44,
+      "decode": 267.4,
+      "prompt": 97977,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.49,
+      "decode": 265.6,
+      "prompt": 103442,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.55,
+      "decode": 291.9,
+      "prompt": 69,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 1.56,
+      "decode": 279.8,
+      "prompt": 107139,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.78,
+      "decode": 258.5,
+      "prompt": 112136,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.83,
+      "decode": 267.6,
+      "prompt": 114577,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.87,
+      "decode": 259.6,
+      "prompt": 120473,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 1.93,
+      "decode": 264.7,
+      "prompt": 82,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 1.95,
+      "decode": 273.2,
+      "prompt": 124042,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.19,
+      "decode": 248.1,
+      "prompt": 5250,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.23,
+      "decode": 296.9,
+      "prompt": 9172,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.27,
+      "decode": 271.6,
+      "prompt": 11829,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.31,
+      "decode": 300.1,
+      "prompt": 17355,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.36,
+      "decode": 285.3,
+      "prompt": 68,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 2.38,
+      "decode": 309.5,
+      "prompt": 22580,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.45,
+      "decode": 251.1,
+      "prompt": 28972,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.51,
+      "decode": 251.0,
+      "prompt": 34734,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.55,
+      "decode": 288.4,
+      "prompt": 82,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 2.57,
+      "decode": 293.2,
+      "prompt": 38451,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.65,
+      "decode": 268.8,
+      "prompt": 43762,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.69,
+      "decode": 336.3,
+      "prompt": 46921,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.72,
+      "decode": 297.3,
+      "prompt": 65,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 2.74,
+      "decode": 262.4,
+      "prompt": 51583,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.85,
+      "decode": 258.2,
+      "prompt": 56507,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.89,
+      "decode": 259.0,
+      "prompt": 58935,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.93,
+      "decode": 233.5,
+      "prompt": 63933,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 2.97,
+      "decode": 246.5,
+      "prompt": 65,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 2.98,
+      "decode": 279.8,
+      "prompt": 67799,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.12,
+      "decode": 242.8,
+      "prompt": 73275,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.16,
+      "decode": 254.4,
+      "prompt": 75822,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.2,
+      "decode": 259.1,
+      "prompt": 78672,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.25,
+      "decode": 294.2,
+      "prompt": 69,
+      "side": true,
+      "error": false
+     },
+     {
+      "t": 3.26,
+      "decode": 258.2,
+      "prompt": 81436,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.42,
+      "decode": 270.6,
+      "prompt": 84256,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.47,
+      "decode": 244.4,
+      "prompt": 86995,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.52,
+      "decode": 255.9,
+      "prompt": 89477,
+      "side": false,
+      "error": false
+     },
+     {
+      "t": 3.55,
+      "decode": 294.1,
+      "prompt": 70,
+      "side": true,
+      "error": false
+     }
+    ],
+    "gpuSeries": [
+     {
+      "t": 0.0,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 69,
+        "power": 416.0
+       }
+      ]
+     },
+     {
+      "t": 0.04,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 69,
+        "power": 432.0
+       }
+      ]
+     },
+     {
+      "t": 0.07,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 69,
+        "power": 438.0
+       }
+      ]
+     },
+     {
+      "t": 0.1,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 67,
+        "power": 414.0
+       }
+      ]
+     },
+     {
+      "t": 0.14,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 67,
+        "power": 427.0
+       }
+      ]
+     },
+     {
+      "t": 0.17,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 471.0
+       }
+      ]
+     },
+     {
+      "t": 0.2,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 70,
+        "power": 415.0
+       }
+      ]
+     },
+     {
+      "t": 0.24,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 70,
+        "power": 409.0
+       }
+      ]
+     },
+     {
+      "t": 0.27,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 70,
+        "power": 410.0
+       }
+      ]
+     },
+     {
+      "t": 0.3,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 70,
+        "power": 459.0
+       }
+      ]
+     },
+     {
+      "t": 0.34,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 503.0
+       }
+      ]
+     },
+     {
+      "t": 0.37,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 71,
+        "power": 422.0
+       }
+      ]
+     },
+     {
+      "t": 0.4,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 545.0
+       }
+      ]
+     },
+     {
+      "t": 0.44,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 0.47,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 399.0
+       }
+      ]
+     },
+     {
+      "t": 0.5,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 446.0
+       }
+      ]
+     },
+     {
+      "t": 0.54,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 73,
+        "power": 466.0
+       }
+      ]
+     },
+     {
+      "t": 0.57,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 451.0
+       }
+      ]
+     },
+     {
+      "t": 0.6,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 73,
+        "power": 430.0
+       }
+      ]
+     },
+     {
+      "t": 0.64,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 73,
+        "power": 458.0
+       }
+      ]
+     },
+     {
+      "t": 0.67,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 518.0
+       }
+      ]
+     },
+     {
+      "t": 0.7,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 571.0
+       }
+      ]
+     },
+     {
+      "t": 0.74,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 580.0
+       }
+      ]
+     },
+     {
+      "t": 0.77,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 72,
+        "power": 425.0
+       }
+      ]
+     },
+     {
+      "t": 0.8,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 439.0
+       }
+      ]
+     },
+     {
+      "t": 0.84,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 471.0
+       }
+      ]
+     },
+     {
+      "t": 0.87,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 478.0
+       }
+      ]
+     },
+     {
+      "t": 0.9,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 440.0
+       }
+      ]
+     },
+     {
+      "t": 0.94,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 453.0
+       }
+      ]
+     },
+     {
+      "t": 0.97,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 534.0
+       }
+      ]
+     },
+     {
+      "t": 1.0,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 590.0
+       }
+      ]
+     },
+     {
+      "t": 1.04,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 583.0
+       }
+      ]
+     },
+     {
+      "t": 1.07,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 1.1,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 73,
+        "power": 460.0
+       }
+      ]
+     },
+     {
+      "t": 1.14,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 522.0
+       }
+      ]
+     },
+     {
+      "t": 1.17,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 465.0
+       }
+      ]
+     },
+     {
+      "t": 1.2,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 456.0
+       }
+      ]
+     },
+     {
+      "t": 1.24,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 463.0
+       }
+      ]
+     },
+     {
+      "t": 1.27,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 581.0
+       }
+      ]
+     },
+     {
+      "t": 1.3,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 583.0
+       }
+      ]
+     },
+     {
+      "t": 1.34,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 581.0
+       }
+      ]
+     },
+     {
+      "t": 1.37,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 587.0
+       }
+      ]
+     },
+     {
+      "t": 1.4,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 467.0
+       }
+      ]
+     },
+     {
+      "t": 1.44,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 434.0
+       }
+      ]
+     },
+     {
+      "t": 1.47,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 466.0
+       }
+      ]
+     },
+     {
+      "t": 1.5,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 461.0
+       }
+      ]
+     },
+     {
+      "t": 1.54,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 454.0
+       }
+      ]
+     },
+     {
+      "t": 1.57,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 424.0
+       }
+      ]
+     },
+     {
+      "t": 1.6,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 583.0
+       }
+      ]
+     },
+     {
+      "t": 1.64,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 587.0
+       }
+      ]
+     },
+     {
+      "t": 1.67,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 589.0
+       }
+      ]
+     },
+     {
+      "t": 1.7,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 585.0
+       }
+      ]
+     },
+     {
+      "t": 1.74,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 587.0
+       }
+      ]
+     },
+     {
+      "t": 1.77,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 447.0
+       }
+      ]
+     },
+     {
+      "t": 1.8,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 448.0
+       }
+      ]
+     },
+     {
+      "t": 1.84,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 478.0
+       }
+      ]
+     },
+     {
+      "t": 1.87,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 464.0
+       }
+      ]
+     },
+     {
+      "t": 1.9,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 461.0
+       }
+      ]
+     },
+     {
+      "t": 1.94,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 462.0
+       }
+      ]
+     },
+     {
+      "t": 1.97,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 505.0
+       }
+      ]
+     },
+     {
+      "t": 2.0,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 591.0
+       }
+      ]
+     },
+     {
+      "t": 2.04,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 585.0
+       }
+      ]
+     },
+     {
+      "t": 2.07,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 580.0
+       }
+      ]
+     },
+     {
+      "t": 2.1,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 84,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 2.14,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 2.17,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 418.0
+       }
+      ]
+     },
+     {
+      "t": 2.2,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 476.0
+       }
+      ]
+     },
+     {
+      "t": 2.24,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 467.0
+       }
+      ]
+     },
+     {
+      "t": 2.27,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 80,
+        "power": 481.0
+       }
+      ]
+     },
+     {
+      "t": 2.3,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 488.0
+       }
+      ]
+     },
+     {
+      "t": 2.34,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 437.0
+       }
+      ]
+     },
+     {
+      "t": 2.37,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 487.0
+       }
+      ]
+     },
+     {
+      "t": 2.4,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 591.0
+       }
+      ]
+     },
+     {
+      "t": 2.44,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 447.0
+       }
+      ]
+     },
+     {
+      "t": 2.47,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 436.0
+       }
+      ]
+     },
+     {
+      "t": 2.5,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 472.0
+       }
+      ]
+     },
+     {
+      "t": 2.54,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 455.0
+       }
+      ]
+     },
+     {
+      "t": 2.57,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 393.0
+       }
+      ]
+     },
+     {
+      "t": 2.6,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 578.0
+       }
+      ]
+     },
+     {
+      "t": 2.64,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 540.0
+       }
+      ]
+     },
+     {
+      "t": 2.67,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 418.0
+       }
+      ]
+     },
+     {
+      "t": 2.7,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 409.0
+       }
+      ]
+     },
+     {
+      "t": 2.74,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 465.0
+       }
+      ]
+     },
+     {
+      "t": 2.77,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 563.0
+       }
+      ]
+     },
+     {
+      "t": 2.8,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 577.0
+       }
+      ]
+     },
+     {
+      "t": 2.84,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 458.0
+       }
+      ]
+     },
+     {
+      "t": 2.87,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 73,
+        "power": 422.0
+       }
+      ]
+     },
+     {
+      "t": 2.9,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 74,
+        "power": 382.0
+       }
+      ]
+     },
+     {
+      "t": 2.94,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 379.0
+       }
+      ]
+     },
+     {
+      "t": 2.97,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 439.0
+       }
+      ]
+     },
+     {
+      "t": 3.0,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 561.0
+       }
+      ]
+     },
+     {
+      "t": 3.04,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 83,
+        "power": 589.0
+       }
+      ]
+     },
+     {
+      "t": 3.07,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 584.0
+       }
+      ]
+     },
+     {
+      "t": 3.1,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 421.0
+       }
+      ]
+     },
+     {
+      "t": 3.14,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 387.0
+       }
+      ]
+     },
+     {
+      "t": 3.17,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 435.0
+       }
+      ]
+     },
+     {
+      "t": 3.2,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 75,
+        "power": 506.0
+       }
+      ]
+     },
+     {
+      "t": 3.24,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 500.0
+       }
+      ]
+     },
+     {
+      "t": 3.27,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 79,
+        "power": 413.0
+       }
+      ]
+     },
+     {
+      "t": 3.3,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 81,
+        "power": 577.0
+       }
+      ]
+     },
+     {
+      "t": 3.34,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 82,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 3.37,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 84,
+        "power": 588.0
+       }
+      ]
+     },
+     {
+      "t": 3.4,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 390.0
+       }
+      ]
+     },
+     {
+      "t": 3.44,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 77,
+        "power": 431.0
+       }
+      ]
+     },
+     {
+      "t": 3.47,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 489.0
+       }
+      ]
+     },
+     {
+      "t": 3.5,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 76,
+        "power": 511.0
+       }
+      ]
+     },
+     {
+      "t": 3.54,
+      "gpus": [
+       {
+        "i": 0,
+        "temp": 78,
+        "power": 416.0
+       }
+      ]
+     }
+    ]
+   },
    "cloudTaskTime": null,
-   "rows": 78,
-   "coreTasks": 53,
-   "coreRows": 53
+   "rows": 102,
+   "coreTasks": 59,
+   "coreRows": 59
   },
   {
    "id": "flashnext-q4-strata",
@@ -7882,6 +9605,46 @@ window.LB_DATA = {
    "rows": 0,
    "coreTasks": null,
    "coreRows": null
+  },
+  {
+   "id": "qwen38-27b-basalt",
+   "name": "Qwen3.8-27B",
+   "short": "Qwen3.8-27B Basalt",
+   "variant": "NVFP4 · Basalt engine",
+   "vendor": "qwen",
+   "params": "27B dense",
+   "quant": "QUASAR-NVFP4 (.basalt pack)",
+   "placement": "1gpu",
+   "where": "RTX 5090",
+   "recommended": false,
+   "reference": false,
+   "partial": false,
+   "effort": "medium",
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": true,
+   "status": "queued",
+   "notes": "The 27B on the Basalt engine with its NVFP4 pack (4-bit floating point, not the Q5 GGUF used above) and DFlash 2 drafting, reasoning effort medium.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentFixS": null,
+   "fullSuites": null,
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "rows": 0,
+   "coreTasks": null,
+   "coreRows": null
   }
  ],
  "mtpSweep": {
@@ -7933,7 +9696,7 @@ window.LB_DATA = {
    "title": "Basalt engine, same Q4 weights",
    "verdict": "recommended",
    "metric": "x1.7 decode",
-   "body": "Basalt runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Vision not scored yet. Text core 97.1 vs 96.1 on llama.cpp. Strata: 206 tok/s with DFlash2 drafting."
+   "body": "Basalt runs the daily driver's Q4 weights at 282 tok/s vs 163 on llama.cpp; at 117k context 271 vs 99 tok/s, prefill about 10K vs 5K tok/s. Text core 97.1 vs 96.1 on llama.cpp. Real-repo fixes 100%, debugging 100%, long sessions 100%. Strata: 206 tok/s with DFlash2 drafting."
   },
   {
    "title": "One model per GPU",
@@ -8037,8 +9800,8 @@ window.LB_DATA = {
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 5 local setups score inside the leader's 95% interval, with Flash-Next Q4 Basalt, Flash-Next Q5, Qwen3.8-27B max and GLM-5.3-Flash Q2), the fastest of them (163 tok/s, 5.2 s per task), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster (vision not scored there yet). Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 5 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q4 Basalt、Flash-Next Q5、Qwen3.8-27B max、GLM-5.3-Flash Q2），其中速度最快（163 tok/s，单题 5.2 秒），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍（视觉还没测）。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。"
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 5 local setups score inside the leader's 95% interval, with Flash-Next Q4 Basalt, Flash-Next Q5, Qwen3.8-27B max and GLM-5.3-Flash Q2), the fastest of them (163 tok/s, 5.2 s per task), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 97.1, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 5 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q4 Basalt、Flash-Next Q5、Qwen3.8-27B max、GLM-5.3-Flash Q2），其中速度最快（163 tok/s，单题 5.2 秒），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 97.1，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），建议升级。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。"
  },
  "methodology": [
   {
