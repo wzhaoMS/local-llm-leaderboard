@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T11:21Z",
+ "generated": "2026-11-26T12:37Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -10466,6 +10466,74 @@
    "coreRows": 59
   },
   {
+   "id": "ling31flash-hybrid",
+   "name": "Ling-3.1-flash",
+   "short": "Ling-3.1-flash",
+   "variant": "IQ2_M · GPUs + RAM",
+   "vendor": "ant",
+   "params": "572B-A25B",
+   "quant": "AD-IQ2_M",
+   "placement": "hybrid",
+   "where": "2 GPUs + RAM",
+   "recommended": false,
+   "reference": false,
+   "partial": true,
+   "effort": null,
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": true,
+   "status": "queued",
+   "notes": "227 GB of weights across both GPUs and RAM.",
+   "vramGiB": [
+    89.4,
+    28.9
+   ],
+   "ramGiB": 12.5,
+   "scores": {
+    "textCore": null,
+    "textCoreCI": null,
+    "allSuites": null,
+    "suites": null,
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": null,
+   "agentFixS": null,
+   "fullSuites": null,
+   "agentic": null,
+   "speed": {
+    "decode": 8.8,
+    "decodeSource": "speed test, MTP on",
+    "inTaskDecode": null,
+    "ttft": null,
+    "firstOutput": null,
+    "taskTime": null,
+    "prefill": {
+     "8k": 37.0
+    },
+    "ttftAt": {
+     "8k": 224.0
+    },
+    "decodeAt": {
+     "8k": 6.0
+    },
+    "ctx": 65536,
+    "mtp": {
+     "on": 8.8,
+     "off": null,
+     "acceptance": 61.0,
+     "draft": 2
+    },
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 0,
+   "coreTasks": null,
+   "coreRows": null
+  },
+  {
    "id": "ling32air-6000",
    "name": "Ling-3.2-air",
    "short": "Ling-3.2-air",
@@ -12285,46 +12353,6 @@
    "coreRows": null
   },
   {
-   "id": "ling31flash-hybrid",
-   "name": "Ling-3.1-flash",
-   "short": "Ling-3.1-flash",
-   "variant": "IQ2_M · GPUs + RAM",
-   "vendor": "ant",
-   "params": "572B-A25B",
-   "quant": "AD-IQ2_M",
-   "placement": "hybrid",
-   "where": "2 GPUs + RAM",
-   "recommended": false,
-   "reference": false,
-   "partial": true,
-   "effort": null,
-   "engineOf": null,
-   "maxEffort": false,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "227 GB of weights across both GPUs and RAM.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentFixS": null,
-   "fullSuites": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0,
-   "coreTasks": null,
-   "coreRows": null
-  },
-  {
    "id": "kimik3-reap55-stream",
    "name": "Kimi-K3",
    "short": "Kimi-K3",
@@ -12471,7 +12499,7 @@
   {
    "title": "Both GPUs + system RAM",
    "verdict": "avoid",
-   "metric": "12–22 tok/s",
+   "metric": "9–22 tok/s",
    "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s and GLM-5.3 753B 12 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
   },
   {
@@ -12562,6 +12590,302 @@
    "cloud": []
   }
  },
+ "longContext": {
+  "sizes": [
+   {
+    "key": "32k",
+    "label": "32K",
+    "tokens": 30194
+   },
+   {
+    "key": "128k",
+    "label": "128K",
+    "tokens": 121807
+   },
+   {
+    "key": "256k",
+    "label": "256K",
+    "tokens": 248164
+   },
+   {
+    "key": "512k",
+    "label": "512K",
+    "tokens": 493583
+   },
+   {
+    "key": "1m",
+    "label": "1M",
+    "tokens": 986280
+   }
+  ],
+  "questions": 20,
+  "answerBudget": 16384,
+  "depthBins": [
+   "0-20%",
+   "20-40%",
+   "40-60%",
+   "60-80%",
+   "80-100%"
+  ],
+  "runs": [
+   {
+    "id": "flashnext-q4-longctx",
+    "model": "flashnext-q4-1gpu-medium",
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · effort medium",
+    "vendor": "qwen",
+    "engine": "llama.cpp",
+    "setup": {
+     "en": "Both GPUs · YaRN ×4 · q8_0 KV cache",
+     "zh": "双卡 · YaRN ×4 · q8_0 KV 缓存"
+    },
+    "running": false,
+    "closedBook": {
+     "acc": 10.0,
+     "ci": [
+      0.0,
+      25.0
+     ],
+     "single": 14.3,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 2,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 172.0,
+     "coldTtft": 0.5,
+     "prefill": 390.0,
+     "warmTtft": 0.19,
+     "decode": 137.9,
+     "taskTime": 2.2,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 30376.0,
+      "coldTtft": 7.7,
+      "prefill": 3963.0,
+      "warmTtft": 0.4,
+      "decode": 158.4,
+      "taskTime": 1.7,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 0,
+      "promptTokens": 122044.0,
+      "coldTtft": 30.8,
+      "prefill": 3979.0,
+      "warmTtft": 0.54,
+      "decode": 129.8,
+      "taskTime": 2.1,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "256k": {
+      "acc": 98.8,
+      "ci": [
+       96.2,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 87.5,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 1,
+      "gained": 0,
+      "promptTokens": 248390.0,
+      "coldTtft": 67.6,
+      "prefill": 3683.0,
+      "warmTtft": 0.71,
+      "decode": 106.7,
+      "taskTime": 2.4,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "512k": {
+      "acc": 99.3,
+      "ci": [
+       97.9,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 92.9,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 1,
+      "gained": 0,
+      "promptTokens": 493831.0,
+      "coldTtft": 157.6,
+      "prefill": 3143.0,
+      "warmTtft": 1.11,
+      "decode": 73.8,
+      "taskTime": 3.5,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "1m": {
+      "acc": 76.6,
+      "ci": [
+       58.6,
+       92.9
+      ],
+      "single": 78.6,
+      "chain": 75.0,
+      "list": 66.1,
+      "n": 20,
+      "solved": 14,
+      "complete": true,
+      "lost": 6,
+      "gained": 0,
+      "promptTokens": 986658.0,
+      "coldTtft": 419.2,
+      "prefill": 2359.0,
+      "warmTtft": 1.95,
+      "decode": 46.9,
+      "taskTime": 5.8,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 3
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "512k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "1m": [
+      66.7,
+      66.7,
+      100.0,
+      66.7,
+      100.0
+     ]
+    },
+    "largest": "1m"
+   }
+  ],
+  "queued": [
+   {
+    "id": "flashnext-q4-basalt-longctx",
+    "model": "flashnext-q4-basalt",
+    "setup": {
+     "en": "Basalt · both GPUs · YaRN ×4 · int8 KV cache",
+     "zh": "Basalt · 双卡 · YaRN ×4 · int8 KV 缓存"
+    }
+   },
+   {
+    "id": "qwen38-27b-longctx",
+    "model": "qwen38-27b-medium",
+    "setup": {
+     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
+     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
+    }
+   },
+   {
+    "id": "glm53flash-longctx",
+    "model": "glm53flash-q2-2gpu",
+    "setup": {
+     "en": "Both GPUs · native 1M context",
+     "zh": "双卡 · 原生 1M 上下文"
+    }
+   },
+   {
+    "id": "inkling2mini-longctx",
+    "model": "inkling2mini-5090",
+    "setup": {
+     "en": "RTX PRO 6000 · native 1M context",
+     "zh": "RTX PRO 6000 · 原生 1M 上下文"
+    }
+   },
+   {
+    "id": "deepseek41-coder-longctx",
+    "model": "deepseek41-coder-6000",
+    "setup": {
+     "en": "Both GPUs · native 1M context",
+     "zh": "双卡 · 原生 1M 上下文"
+    }
+   },
+   {
+    "id": "qwen36-35b-mtp-longctx",
+    "model": "qwen36-35b-a3b-mtp",
+    "setup": {
+     "en": "RTX PRO 6000 · YaRN ×4 · q8_0 KV cache",
+     "zh": "RTX PRO 6000 · YaRN ×4 · q8_0 KV 缓存"
+    }
+   },
+   {
+    "id": "flashnext-q4-longctx-native",
+    "model": "flashnext-q4-1gpu-medium",
+    "setup": {
+     "en": "RTX PRO 6000 · native 256K, no YaRN",
+     "zh": "RTX PRO 6000 · 原生 256K，不开 YaRN"
+    }
+   }
+  ]
+ },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
   "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good): the recommended upgrade. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
@@ -12634,6 +12958,24 @@
     "href": "#max-vs-max"
    },
    {
+    "key": "long-context",
+    "tone": "works",
+    "value": "14/20",
+    "unit": {
+     "en": "at 1M tokens",
+     "zh": "1M token 时"
+    },
+    "title": {
+     "en": "Solid to 512K, weaker at 1M",
+     "zh": "512K 以内很稳，1M 时变弱"
+    },
+    "text": {
+     "en": "Asked about a 986K-token code dump, the Q4 got 14 of 20 questions right (32K to 1M: 100 / 100 / 99 / 99 / 77%; closed book 10%). 3 of the misses were right answers without the required answer line. Reading the dump took 7.0 min on both GPUs with YaRN ×4; follow-up questions 1.9 s.",
+     "zh": "给 Q4 一份 986K token 的代码，20 题答对 14 题（32K 到 1M：100 / 100 / 99 / 99 / 77%；不给代码只答对 10%）。其中 3 题其实答对了，只是没按要求写答案行。双卡加 YaRN ×4，读完整份要 7.0 分钟，之后每个追问 1.9 秒。"
+    },
+    "href": "#long-context"
+   },
+   {
     "key": "effort",
     "tone": "avoid",
     "value": "86.5",
@@ -12654,15 +12996,15 @@
    {
     "key": "giants",
     "tone": "avoid",
-    "value": "12–22",
+    "value": "9–22",
     "unit": "tok/s",
     "title": {
      "en": "Giant models in system RAM: too slow",
      "zh": "放进内存的超大模型：太慢"
     },
     "text": {
-     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 12–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
-     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 12–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
+     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B and GLM-5.3 753B decode 9–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
+     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B 放在两张卡加内存上只有 9–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
     },
     "href": "#hardware"
    }
@@ -12684,6 +13026,10 @@
   {
    "title": "Agentic suites are separate",
    "body": "Real-repo bug fixes, debugging and long sessions run real tools in scratch clones with a sandbox that blocks network, child processes and writes outside the working copy. They are reported apart from the core score."
+  },
+  {
+   "title": "Long context to 1M tokens",
+   "body": "One dump of real code per size (30K to 986K tokens) and the same 20 questions at every size, their answers at the same relative depths: look-ups, chains of constants planted far apart, and lists of tagged files (F1). A closed-book run of the same questions shows what guessing earns. A size runs only if the dump plus a fixed 16,384-token answer budget fits the setup's context, counted by the server's own tokenizer. Qwen3.8 models go past their trained 262K tokens with YaRN ×4."
   },
   {
    "title": "Speed is measured on this PC",
