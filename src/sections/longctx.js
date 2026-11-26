@@ -40,6 +40,7 @@
       `<hr>Accuracy <b>${r0(d.acc)}%</b>${ci}<br>${kinds}${lost}` +
       `<hr>Cold prefill <b>${secs(d.coldTtft)} s</b>${isNum(d.prefill) ? ` (${fmt.int(d.prefill)} tok/s)` : ""}` +
       `<br>Follow-up first token ${secs(d.warmTtft)} s · decode ${isNum(d.decode) ? fmt.num(d.decode, 0) : "—"} tok/s` +
+      (d.formatMisses ? `<br><span class="muted">${d.formatMisses} right answer${d.formatMisses > 1 ? "s" : ""} without the required ANSWER: line (counted wrong)</span>` : "") +
       (d.errors ? `<br><span class="muted">${d.errors} request error${d.errors > 1 ? "s" : ""}</span>` : "") +
       (d.complete === false ? `<br><span class="muted">Partial: ${d.n} of the questions so far.</span>` : "");
   }
