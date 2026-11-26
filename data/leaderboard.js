@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T22:34Z",
+ "generated": "2026-11-26T22:42Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15099,7 +15099,7 @@ window.LB_DATA = {
     "local": false,
     "where": "Cloud (GitHub Copilot)",
     "effort": "medium",
-    "complete": false,
+    "complete": true,
     "running": false,
     "attempts": [
      {
@@ -15120,6 +15120,16 @@ window.LB_DATA = {
       "problem": null,
       "seconds": 585.3,
       "tokens": 43459,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-grok-47-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 435.9,
+      "tokens": 31064,
       "tps": null
      }
     ]
