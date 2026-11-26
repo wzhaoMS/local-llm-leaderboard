@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T00:55Z",
+ "generated": "2026-11-26T01:37Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -251,10 +251,10 @@
  },
  "models": [
   {
-   "id": "cloud-claude-opus-55",
+   "id": "cloud-claude-opus-55-max",
    "name": "Claude Opus 5.5",
    "short": "Claude Opus 5.5",
-   "variant": "cloud · effort high",
+   "variant": "cloud · effort max",
    "vendor": "anthropic",
    "params": "undisclosed",
    "quant": "—",
@@ -263,179 +263,82 @@
    "recommended": false,
    "reference": true,
    "partial": false,
-   "effort": "high",
-   "maxEffort": false,
+   "effort": "max",
+   "maxEffort": true,
    "speedOnly": false,
    "status": "done",
    "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
    "vramGiB": null,
    "ramGiB": null,
    "scores": {
-    "textCore": 100.0,
+    "textCore": 95.8,
     "textCoreCI": [
-     100.0,
+     89.6,
      100.0
     ],
-    "allSuites": 100.0,
-    "suites": {
-     "tool_calling": 100.0,
-     "zh_intent": 100.0,
-     "finance_extract": 100.0,
-     "ts_coding": 100.0,
-     "reasoning": 100.0,
-     "vision": 100.0,
-     "browser_agent": 100.0,
-     "agent_e2e": 100.0,
-     "repo_qa": 100.0
-    },
-    "repo_replay": 100.0,
-    "debug": 100.0,
-    "long_horizon": 100.0
-   },
-   "suiteTimeS": {
-    "tool_calling": 5.4,
-    "zh_intent": 10.0,
-    "finance_extract": 6.8,
-    "ts_coding": 15.1,
-    "reasoning": 8.9,
-    "vision": 3.7,
-    "browser_agent": 10.8,
-    "agent_e2e": 22.5,
-    "repo_qa": 3.8
-   },
-   "agentic": {
-    "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 36.0,
-     "medianTimeToCorrectS": 32.0,
-     "medianSteps": 9.0
-    },
-    "debug": {
-     "rate": 100.0,
-     "runs": 10,
-     "tasks": 10,
-     "medianWallS": 54.0,
-     "medianTimeToFixS": 18.0,
-     "reproducedFirst": 80.0,
-     "rootCauseNamed": 100.0
-    },
-    "long_horizon": {
-     "rate": 100.0,
-     "score": 100.0,
-     "sessions": 3,
-     "stagesPassed": 19,
-     "stagesTotal": 19,
-     "recall": 100.0,
-     "violations": 0,
-     "medianWallMin": 3.7,
-     "maxPromptTokens": null
-    }
-   },
-   "speed": null,
-   "endurance": null,
-   "cloudTaskTime": 7.2,
-   "rows": 81
-  },
-  {
-   "id": "cloud-gemini-4-hydrogen",
-   "name": "Gemini 4 Hydrogen",
-   "short": "Gemini 4 Hydrogen",
-   "variant": "cloud · effort high",
-   "vendor": "google",
-   "params": "undisclosed",
-   "quant": "—",
-   "placement": "cloud",
-   "where": "Cloud (GitHub Copilot)",
-   "recommended": false,
-   "reference": true,
-   "partial": false,
-   "effort": "high",
-   "maxEffort": false,
-   "speedOnly": false,
-   "status": "done",
-   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": 92.9,
-    "textCoreCI": [
-     87.9,
-     97.9
-    ],
-    "allSuites": 93.7,
-    "suites": {
-     "tool_calling": 50.0,
-     "zh_intent": 93.3,
-     "finance_extract": 100.0,
-     "ts_coding": 100.0,
-     "reasoning": 100.0,
-     "vision": 100.0,
-     "browser_agent": 100.0,
-     "agent_e2e": 100.0,
-     "repo_qa": 100.0
-    },
-    "repo_replay": 100.0,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": {
-    "tool_calling": 6.8,
-    "zh_intent": 15.7,
-    "finance_extract": 13.5,
-    "ts_coding": 40.6,
-    "reasoning": 27.6,
-    "vision": 6.3,
-    "browser_agent": 21.9,
-    "agent_e2e": 53.3,
-    "repo_qa": 7.2
-   },
-   "agentic": {
-    "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 125.0,
-     "medianTimeToCorrectS": 117.0,
-     "medianSteps": 11.0
-    }
-   },
-   "speed": null,
-   "endurance": null,
-   "cloudTaskTime": 13.6,
-   "rows": 72
-  },
-  {
-   "id": "cloud-gemini-4-neon",
-   "name": "Gemini 4 Neon",
-   "short": "Gemini 4 Neon",
-   "variant": "cloud · effort high",
-   "vendor": "google",
-   "params": "undisclosed",
-   "quant": "—",
-   "placement": "cloud",
-   "where": "Cloud (GitHub Copilot)",
-   "recommended": false,
-   "reference": true,
-   "partial": false,
-   "effort": "high",
-   "maxEffort": false,
-   "speedOnly": false,
-   "status": "done",
-   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": 97.1,
-    "textCoreCI": [
-     92.9,
-     100.0
-    ],
-    "allSuites": 97.4,
+    "allSuites": 96.3,
     "suites": {
      "tool_calling": 83.3,
-     "zh_intent": 93.3,
+     "zh_intent": 100.0,
+     "finance_extract": 100.0,
+     "ts_coding": 83.3,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 7.9,
+    "zh_intent": 49.9,
+    "finance_extract": 13.2,
+    "ts_coding": 285.7,
+    "reasoning": 25.3,
+    "vision": 6.0,
+    "browser_agent": 18.0,
+    "agent_e2e": 219.7,
+    "repo_qa": 6.0
+   },
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "cloudTaskTime": 13.0,
+   "rows": 59
+  },
+  {
+   "id": "cloud-gemini-4-hydrogen-xhigh",
+   "name": "Gemini 4 Hydrogen",
+   "short": "Gemini 4 Hydrogen",
+   "variant": "cloud · effort xhigh",
+   "vendor": "google",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "effort": "xhigh",
+   "maxEffort": true,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 92.5,
+    "textCoreCI": [
+     87.1,
+     97.9
+    ],
+    "allSuites": 93.3,
+    "suites": {
+     "tool_calling": 50.0,
+     "zh_intent": 90.0,
      "finance_extract": 100.0,
      "ts_coding": 100.0,
      "reasoning": 100.0,
@@ -444,35 +347,85 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": 100.0,
+    "repo_replay": null,
     "debug": null,
     "long_horizon": null
    },
    "suiteTimeS": {
-    "tool_calling": 9.9,
-    "zh_intent": 38.4,
-    "finance_extract": 24.5,
-    "ts_coding": 108.4,
-    "reasoning": 60.8,
-    "vision": 21.6,
-    "browser_agent": 43.3,
-    "agent_e2e": 107.2,
-    "repo_qa": 9.5
+    "tool_calling": 12.4,
+    "zh_intent": 70.0,
+    "finance_extract": 34.9,
+    "ts_coding": 147.4,
+    "reasoning": 79.7,
+    "vision": 9.2,
+    "browser_agent": 34.4,
+    "agent_e2e": 136.4,
+    "repo_qa": 9.7
    },
-   "agentic": {
-    "repo_replay": {
-     "rate": 100.0,
-     "runs": 9,
-     "tasks": 9,
-     "medianWallS": 172.0,
-     "medianTimeToCorrectS": 148.0,
-     "medianSteps": 12.0
-    }
-   },
+   "agentic": null,
    "speed": null,
    "endurance": null,
-   "cloudTaskTime": 24.1,
-   "rows": 68
+   "cloudTaskTime": 29.6,
+   "rows": 59
+  },
+  {
+   "id": "cloud-gemini-4-neon-xhigh",
+   "name": "Gemini 4 Neon",
+   "short": "Gemini 4 Neon",
+   "variant": "cloud · effort xhigh",
+   "vendor": "google",
+   "params": "undisclosed",
+   "quant": "—",
+   "placement": "cloud",
+   "where": "Cloud (GitHub Copilot)",
+   "recommended": false,
+   "reference": true,
+   "partial": false,
+   "effort": "xhigh",
+   "maxEffort": true,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Closed cloud model run through the GitHub Copilot CLI on the same tasks and graders, as a reference. Not comparable on speed.",
+   "vramGiB": null,
+   "ramGiB": null,
+   "scores": {
+    "textCore": 96.7,
+    "textCoreCI": [
+     92.1,
+     100.0
+    ],
+    "allSuites": 97.0,
+    "suites": {
+     "tool_calling": 83.3,
+     "zh_intent": 90.0,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 100.0,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 17.2,
+    "zh_intent": 127.1,
+    "finance_extract": 52.8,
+    "ts_coding": 210.8,
+    "reasoning": 102.5,
+    "vision": 9.1,
+    "browser_agent": 47.3,
+    "agent_e2e": 149.7,
+    "repo_qa": 11.7
+   },
+   "agentic": null,
+   "speed": null,
+   "endurance": null,
+   "cloudTaskTime": 41.7,
+   "rows": 59
   },
   {
    "id": "cloud-gpt-6-astra-max",
@@ -512,9 +465,9 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 7.2,
@@ -527,11 +480,40 @@
     "agent_e2e": 101.4,
     "repo_qa": 9.2
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 68.0,
+     "medianTimeToCorrectS": 64.0,
+     "medianSteps": 7.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 253.0,
+     "medianTimeToFixS": 129.0,
+     "reproducedFirst": 70.0,
+     "rootCauseNamed": 100.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 12.0,
+     "maxPromptTokens": null
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 18.5,
-   "rows": 59
+   "rows": 81
   },
   {
    "id": "cloud-gpt-62-sol-max",
@@ -571,9 +553,9 @@
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 7.3,
@@ -586,11 +568,40 @@
     "agent_e2e": 35.7,
     "repo_qa": 9.0
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "medianWallS": 45.0,
+     "medianTimeToCorrectS": 43.0,
+     "medianSteps": 8.0
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "medianWallS": 98.0,
+     "medianTimeToFixS": 43.0,
+     "reproducedFirst": 70.0,
+     "rootCauseNamed": 100.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "sessions": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 3.7,
+     "maxPromptTokens": null
+    }
+   },
    "speed": null,
    "endurance": null,
    "cloudTaskTime": 10.7,
-   "rows": 59
+   "rows": 81
   },
   {
    "id": "deepseek-v41-flash-offload",
@@ -2621,7 +2632,7 @@
  "pairs": [
   [
    "flashnext-q4-1gpu-medium",
-   "cloud-claude-opus-55"
+   "cloud-claude-opus-55-max"
   ],
   [
    "flashnext-q4-1gpu-medium",
@@ -2629,7 +2640,7 @@
   ],
   [
    "qwen38-27b-medium",
-   "cloud-gemini-4-neon"
+   "cloud-gemini-4-neon-xhigh"
   ],
   [
    "flashnext-q4-1gpu-medium",
@@ -2655,6 +2666,9 @@
  "maxEffort": {
   "local": [],
   "cloud": [
+   "cloud-claude-opus-55-max",
+   "cloud-gemini-4-hydrogen-xhigh",
+   "cloud-gemini-4-neon-xhigh",
    "cloud-gpt-6-astra-max",
    "cloud-gpt-62-sol-max"
   ],
@@ -2664,9 +2678,7 @@
     "Qwen3.8-27B dense (xhigh)"
    ],
    "cloud": [
-    "GPT-6.2 Sol",
     "Gemini 4 Hydrogen",
-    "GPT-6 Astra",
     "Gemini 4 Neon",
     "Claude Opus 5.5"
    ]
@@ -2674,8 +2686,8 @@
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model. Cloud references on the same tasks: Claude Opus 5.5 scores 100.0; the local pick is ahead of GPT-6.2 Sol and Gemini 4 Hydrogen.",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。云端参照（同一套题）：Claude Opus 5.5 100.0 分，本地主力高于 GPT-6.2 Sol、Gemini 4 Hydrogen。"
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core, tied within error with Q5 and GLM-5.3-Flash), the fastest of the top tier (163 tok/s, 5.2 s per task), and it leaves the RTX 5090 free for a second model. Cloud references on the same tasks: Gemini 4 Neon scores 96.7; the local pick is ahead of Claude Opus 5.5, GPT-6.2 Sol and Gemini 4 Hydrogen.",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1），速度最快（163 tok/s，单题 5.2 秒），5090 空出来跑第二个模型。云端参照（同一套题）：Gemini 4 Neon 96.7 分，本地主力高于 Claude Opus 5.5、GPT-6.2 Sol、Gemini 4 Hydrogen。"
  },
  "methodology": [
   {
@@ -2704,7 +2716,7 @@
   },
   {
    "title": "Cloud references",
-   "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI at their highest reasoning effort (max; xhigh for Gemini, its top setting) with built-in tools off (published now: Claude Opus 5.5 (high), Gemini 4 Neon (high), GPT-6 Astra (max), GPT-6.2 Sol (max), Gemini 4 Hydrogen (high)). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
+   "body": "Claude Opus 5.5, GPT-6 Astra, GPT-6.2 Sol, Gemini 4 Neon and Gemini 4 Hydrogen answer the same tasks through the GitHub Copilot CLI at their highest reasoning effort (max; xhigh for Gemini, its top setting) with built-in tools off (published now: Gemini 4 Neon (xhigh), GPT-6 Astra (max), Claude Opus 5.5 (max), GPT-6.2 Sol (max), Gemini 4 Hydrogen (xhigh)). Each task's own tools are given to the model over MCP and run by the same harness and graders. They are references, not ranked with the local setups, and their speed is not comparable."
   },
   {
    "title": "Our max vs their max",
