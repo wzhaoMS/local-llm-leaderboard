@@ -31,8 +31,8 @@ LB.register({
 `index.html?only=<id>` renders just that section (used by `tools/shot.ps1 -Only <id>`).
 
 Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, quality-vs-speed `sc-`, heatmap `hm-`, per-task `pt-`,
-agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, hardware `hw-`, models `mt-`, compare `cmp-`,
-in-progress `pg-`, methodology `me-`.
+agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`, hardware `hw-`, models `mt-`,
+compare `cmp-`, in-progress `pg-`, methodology `me-`.
 
 ## LB API (src/base.js)
 
@@ -111,6 +111,14 @@ in-progress `pg-`, methodology `me-`.
     gpuSeries [{t, gpus [{i, temp, power}]}]}`: sustained-load test (cold context ladder + 20-min agent-style session).
     For a single-GPU setup `gpus` and `gpuSeries` only contain the GPU the model runs on
 - `mtpSweep {model, points [{draft, tps}]}`, `nvme [{drive, seq, rand2m, rand256k, rand64k}]`
+- `longContext {sizes [{key, label, tokens}], questions, answerBudget, depthBins [label], runs [...], queued [{id, model,
+  setup {en, zh}}]}` or `null`: the long-context test (bench suite `long_ctx`). The same `questions` are asked at every size
+  over one dump of real code per size (`tokens` = dump tokens with the Qwen3.8 tokenizer). Each run: `{id, model (a model
+  id on the board), name, variant, vendor, engine, setup {en, zh}, running, closedBook {acc, ...} (the same questions with
+  no files), bySize {<key>: {acc, ci [lo, hi], single, chain, list, n, solved, complete, lost, gained (vs 32K, paired),
+  promptTokens, coldTtft, prefill, warmTtft, decode, taskTime, errors, truncated}}, skipped {<key>: reason}, depth {<key>:
+  [single-hop % per depth bin, null when no question]}, largest}`. A size appears once all its questions are answered
+  while the run is still going
 - `hardwareFindings [{title, verdict: recommended|works|avoid, metric, body}]`
 - `pairs [[idA, idB]]`, `verdict {pick, en, zh, headline, findings}`, `methodology [{title, body}]`. `verdict.en/zh` are
   generated from the data: top tier = local setups whose text core is at least the leader's `textCoreCI[0]` (the verdict
@@ -119,9 +127,9 @@ in-progress `pg-`, methodology `me-`.
   to `verdict.en/zh` without it. `verdict.findings [{key, tone: recommended|works|avoid|note, value, unit, title {en, zh},
   text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href?}]`: key findings, every number computed from the
   results; one is left out when its runs are missing. `unit` may be a plain string. The panel shows `engine` (the pick's
-  weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick", and up to three others
-  (`max-vs-max`, `effort`, `giants`) as one "Other findings" row; `href` is the section with the details, `model` a model
-  id the panel offers to compare
+  weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick", and the first three others
+  (`max-vs-max`, `long-context`, `effort`, then `giants`) as one "Other findings" row; `href` is the section with the
+  details, `model` a model id the panel offers to compare
 
 Any value can be `null` (not measured yet); every section must render "—" or skip the model rather than fail.
 

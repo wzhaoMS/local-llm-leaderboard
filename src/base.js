@@ -276,7 +276,7 @@
         h("h1", {}, "Local LLM leaderboard", h("br"), h("span", {}, "for one workstation")),
         h("p", {}, `Every model here ran on the same PC — an RTX PRO 6000 (96 GB) plus an RTX 5090 (32 GB), a Ryzen 9 9950X3D2 and ` +
           `128 GB of RAM — through the same ${D.core ? D.core.tasks : ""} tasks built from real daily work: tool calls, Chinese requests, ` +
-          `statement extraction, TypeScript, finance math, vision, browser agents, repo QA, plus real-repo bug fixes, debugging and long sessions.`),
+          `statement extraction, TypeScript, finance math, vision, browser agents, repo QA, plus real-repo bug fixes, debugging, long sessions and prompts of up to 1M tokens.`),
         h("div", { class: "lb-meta" },
           h("span", {}, "Updated: ", h("b", {}, new Date(D.generated || Date.now()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))),
           h("span", {}, h("b", {}, String(newest)), " models scored"),
