@@ -114,15 +114,16 @@
     const draw = () => {
       el.textContent = "";
       for (const o of options) {
-        el.appendChild(h("button", { class: o.value === value ? "on" : "", role: "tab",
+        el.appendChild(h("button", { class: o.value === value ? "on" : "", role: "tab", "aria-selected": String(o.value === value),
           onclick: () => { if (o.value !== value) { value = o.value; draw(); onChange(value); } } }, o.label));
       }
     };
     draw();
     return el;
   }
-  function select(options, value, onChange) {
-    const sel = h("select", { onchange: (e) => onChange(e.target.value) },
+  /** Dropdown; pass `label` so screen readers announce what it selects (it has no visible <label> text). */
+  function select(options, value, onChange, label) {
+    const sel = h("select", { onchange: (e) => onChange(e.target.value), ...(label ? { "aria-label": label } : {}) },
       options.map((o) => h("option", { value: o.value, selected: o.value === value }, o.label)));
     return h("label", { class: "lb-select" }, sel);
   }
@@ -289,9 +290,14 @@
           h("div", {}, h("b", {}, fmt.pct(pick.scores.textCore)), h("span", {}, "text core")),
           h("div", {}, h("b", {}, fmt.tps(pick.speed && pick.speed.decode)), h("span", {}, "tok/s decode")),
           h("div", {}, h("b", {}, fmt.num(pick.speed && pick.speed.taskTime, 1) + " s"), h("span", {}, "per task"))),
-        refs.length ? h("div", { class: "lb-pick-ref" }, mono(refs[0], 20), h("span", {}, "Best cloud reference: ",
-          h("b", {}, refs[0].name), ` · ${fmt.pct(refs[0].scores.textCore)} text core`)) : null,
-        h("p", {}, D.verdict.en), h("p", { class: "zh", lang: "zh" }, D.verdict.zh)) : null);
+        refs.length ? (() => {
+          // every reference tied at the top score is named (e.g. two at 96.7), not just the first one sorted
+          const best = refs.filter((m) => m.scores.textCore === refs[0].scores.textCore);
+          return h("div", { class: "lb-pick-ref" }, mono(best[0], 20), h("span", {}, `Best cloud reference${best.length > 1 ? "s" : ""}: `,
+            ...best.flatMap((m, i) => [i ? (i === best.length - 1 ? " and " : ", ") : null, h("b", {}, m.name)]).filter(Boolean),
+            ` · ${fmt.pct(refs[0].scores.textCore)} text core`));
+        })() : null,
+        h("a", { class: "lb-pick-why", href: "#verdict" }, "Why this pick ↓")) : null);
     const main = document.getElementById("lb-main");
     main.before(hero);
     const foot = document.getElementById("lb-footer");

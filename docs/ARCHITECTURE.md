@@ -30,8 +30,9 @@ LB.register({
 
 `index.html?only=<id>` renders just that section (used by `tools/shot.ps1 -Only <id>`).
 
-Sections and their prefixes: overall `ov-`, quality-vs-speed `sc-`, heatmap `hm-`, per-task `pt-`, speed `sp-`,
-hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
+Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, quality-vs-speed `sc-`, heatmap `hm-`, per-task `pt-`,
+agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, hardware `hw-`, models `mt-`, compare `cmp-`,
+in-progress `pg-`, methodology `me-`.
 
 ## LB API (src/base.js)
 
@@ -47,8 +48,8 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
 | `LB.label(m)`, `LB.fullName(m)` | short chart label / "Name · variant" |
 | `LB.PLACEMENTS`, `LB.matchPlacement(m, f)`, `LB.PLACEMENT_LABEL` | the "Compare all / Single GPU / Both GPUs / GPU + RAM / SSD" filter |
 | `LB.seg(options, value, onChange)` | segmented control (black active pill) |
-| `LB.tabs(options, value, onChange)` | tabs (lime active pill) |
-| `LB.select(options, value, onChange)` | dropdown |
+| `LB.tabs(options, value, onChange)` | tabs (lime active pill, `aria-selected` on the active tab) |
+| `LB.select(options, value, onChange, label)` | dropdown; `label` sets the `<select>`'s `aria-label` (always pass one) |
 | `LB.sectionHead({title, sub, right})`, `LB.card(cls, ...kids)` | section header, card |
 | `LB.rank(i)`, `LB.bar(frac, color)`, `LB.chip(text, cls)` | "01" badge (lime when i = 0), progress bar, chip (`lime`, `dark`, `warn`) |
 | `LB.rankRow(i, m, valueText, frac, sub, unit)` | ranked list row: badge, vendor badge, name, value, sub line, bar |
@@ -59,8 +60,9 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
 ## Data (data/leaderboard.json, schema `local-llm-leaderboard@1`)
 
 - `generated`, `site`, `hardware {gpus[], cpu, ramGB, storage[], os, engine}`
-- `core {perSuite, tasks, textTasks, suites[], textSuites[], gradedRuns}`: `tasks` = core questions every model answers
-  (all 9 core suites), `textTasks` = the subset behind the text core (vision excluded)
+- `core {perSuite, tasks, textTasks, suites[], textSuites[], gradedRuns, notes[]}`: `tasks` = core questions every model
+  answers (all 9 core suites), `textTasks` = the subset behind the text core (vision excluded); `notes` = coverage notes
+  from the common-task intersection (e.g. which models skipped vision), naming models by id
 - `suites[] {key, name, short, group: daily|coding|agents, desc, inCore, tasks}`: 9 core suites + `repo_replay`, `debug`,
   `long_horizon` (agentic, reported separately). `tasks` = questions compared per model (sessions for `long_horizon`)
 - `vendors {key: {name, org, color, letter, country}}`
@@ -71,19 +73,48 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
     the local setups. `LB.matchPlacement` only lets references through for the `"cloud"` filter, so `LB.quality("all")`
     and every placement filter leave them out; `LB.references()` returns them (best text core first). References have
     no speed, VRAM or endurance data.
-  - memory: `vramGiB [gpu0, gpu1] | null, ramGiB`
-  - `scores {textCore, textCoreCI [lo, hi], allSuites, suites {core suite: 0-100}, repo_replay, debug, long_horizon}`
-  - `suiteTimeS {core suite: median seconds}`
-  - `agentic {repo_replay {rate, runs, tasks, medianWallS, medianTimeToCorrectS, medianSteps}, debug {rate, runs, tasks,
-    medianWallS, medianTimeToFixS, reproducedFirst, rootCauseNamed}, long_horizon {rate, score, sessions, stagesPassed,
-    stagesTotal, recall, violations, medianWallMin, maxPromptTokens}}`
-  - `speed {decode, inTaskDecode, ttft, firstOutput, taskTime, prefill {8k, 32k, 64k, 117k}, ttftAt {...}, decodeAt {...},
-    ctx, mtp {on, off, acceptance, draft}}`. `firstOutput` = median seconds until the first answer token or tool call of a
-    core task (after any thinking); `taskTime` = median wall time per core task
-  - `endurance {minutes, requests, errors, restarts, decodeMedian, ttftMedian, cacheHit, acceptRate, sustainRatio}`
+  - memory: `vramGiB [gpu0, gpu1] | null, ramGiB`. A single-GPU setup has `null` for the GPU it doesn't use (the
+    per-device reading there belongs to whatever the other benchmark lane had loaded)
+  - `engineOf`: id of the model whose weights this entry runs on a different inference engine (engine A/B, e.g. the
+    pick's Q4 weights on Basalt or Strata), else `null`. Such entries are an engine option, not a different model
+  - `coreTasks, coreRows`: questions and graded rows behind the core score (rows = tasks x repeats), as "59 (177)"
+  - `rows`: all graded rows of the model (every suite and repeat); `core.gradedRuns` is their sum
+  - `scores {textCore, textCoreCI [lo, hi], allSuites, suites {core suite: 0-100}, repo_replay, debug, long_horizon}`.
+    A model that skipped vision has `suites.vision = null` and `allSuites` covering its 8 text suites only
+  - `suiteTimeS {core suite: median seconds}`; `agentFixS` = median seconds to the first correct fix in the core
+    `agent_e2e` suite (solved runs only), the "fastest correct agent fix" metric
+  - `fullSuites {score, tasks, rows, suites {core suite: {score, tasks, rows}}}`: each model's own full task set (more
+    tasks / repeats where it had time), not directly comparable across models; `score` = mean of the unrounded suite
+    accuracies
+  - `effort, maxEffort`: reasoning effort of the run and whether it is the highest its family accepts; top-level
+    `maxEffort {local[], cloud[], pending {local[], cloud[]}}` lists the max-effort runs and those still running
+  - `agentic {repo_replay {rate, runs, tasks, meanScore, medianWallS, medianTimeToCorrectS, medianSteps, regressions,
+    timeouts, minFreeCommitGiB}, debug {rate, runs, tasks, meanScore, medianWallS, medianTimeToFixS, reproducedFirst,
+    rootCauseNamed, medianSteps}, long_horizon {rate, score, meanScore, sessions, runs, stagesPassed, stagesTotal, recall,
+    violations, medianWallMin, maxPromptTokens, medianSteps, regressions, stuckEvents, lateEarlyDecode}}`. Every
+    `meanScore` is on a 0-1 scale with 2 decimals; `long_horizon.score` is the same value on 0-100 (kept for
+    compatibility; display and sort by `meanScore`)
+  - `speed {decode, decodeSource, inTaskDecode, ttft, firstOutput, taskTime, prefill {8k, 32k, 64k, 117k}, ttftAt {...},
+    decodeAt {...}, ctx, mtp {on, off, acceptance, draft} | null, concurrency [{streams, aggregate, perStream}]}`.
+    `firstOutput` = median seconds until the first answer token or tool call of a core task (after any thinking);
+    `ttft` and `firstOutput` have 2 decimals; `taskTime` = median wall time per core task; `decodeSource` = where
+    `decode` comes from, in priority order: `"speed test, MTP on"`, `"speed test, short prompts"`, `"median during
+    benchmark tasks"`. `mtp` is `null` unless on, off or acceptance was measured (a model can have only `acceptance`,
+    e.g. speculative decoding through a separate draft model)
+  - `cloudTaskTime`: references only, median wall time per core task through the Copilot CLI (not comparable with local speed)
+  - `endurance {minutes, requests, sessionRequests, sideRequests, errors, ladderErrors, restarts, nCtx, thinking,
+    decodeMedian, decodeP10, decodeP90, ttftMedian, cacheHit, acceptRate, sustainRatio, sustained {windowS, first, last,
+    ratio, probeFirst, probeLast, probeRatio, depthAdjustedRatio}, byDepth [{bucket, n, decode, ttft, prefill}],
+    ladder [{label, promptTokens, ttft, prefill, decode, clamped, skipped}], gpus [{index, name, tempMax, tempMean,
+    powerMax, powerMean, smClockMedian, utilMean, throttledPct, powerCappedPct, thermalPct}], serverMem {startGiB, endGiB,
+    maxGiB, growthGiB}, commitFreeMinGiB, serverCpuPct, restartsAt [min], timeline [{t, decode, prompt, side, error}],
+    gpuSeries [{t, gpus [{i, temp, power}]}]}`: sustained-load test (cold context ladder + 20-min agent-style session).
+    For a single-GPU setup `gpus` and `gpuSeries` only contain the GPU the model runs on
 - `mtpSweep {model, points [{draft, tps}]}`, `nvme [{drive, seq, rand2m, rand256k, rand64k}]`
 - `hardwareFindings [{title, verdict: recommended|works|avoid, metric, body}]`
-- `pairs [[idA, idB]]`, `verdict {pick, en, zh}`, `methodology [{title, body}]`
+- `pairs [[idA, idB]]`, `verdict {pick, en, zh}`, `methodology [{title, body}]`. `verdict.en/zh` are generated from the
+  data: top tier = local setups whose text core is at least the leader's `textCoreCI[0]` (the verdict panel uses the
+  same rule); every cloud reference tied for the best score is named with its effort
 
 Any value can be `null` (not measured yet); every section must render "—" or skip the model rather than fail.
 

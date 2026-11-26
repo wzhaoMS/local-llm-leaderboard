@@ -1,0 +1,153 @@
+/* Latency & memory (#latency) - every class starts with lat- */
+.lat-card { padding: 24px 26px 22px; }
+.lat-card + .lat-card { margin-top: 20px; }
+.lat-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.lat-head h3 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+.lat-chip { margin-top: 2px; color: var(--ink-2); }
+.lat-caption { margin: 6px 0 14px; font-size: 12.5px; color: var(--muted); }
+.lat-foot { margin-top: 16px; }
+.lat-foot span:last-child { white-space: nowrap; }
+
+/* phase colours: dark = reading the prompt, grey = hidden thinking, lime = everything after the first visible output */
+.lat-ttft { background: var(--ink); }
+.lat-think { background: #aab2be; }
+.lat-rest { background: var(--lime); }
+.lat-open { background: repeating-linear-gradient(-45deg, #c3c9d2 0 3px, #e6e9ee 3px 6px); }
+
+.lat-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 12px; font-size: 12.5px; color: var(--ink-2); }
+.lat-leg { display: inline-flex; align-items: center; gap: 7px; }
+.lat-leg i { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+.lat-leg small { margin-left: -4px; font-size: 12px; color: var(--muted); }
+
+/* shared row bits */
+.lat-plot { --lat-name: 220px; --lat-gap: 20px; }
+.lat-mtable { --lat-name: 270px; --lat-gap: 20px; }
+.lat-row, .lat-mlist .lat-mrow { position: relative; isolation: isolate; outline: none; }
+.lat-row::before, .lat-mlist .lat-mrow::before { content: ""; position: absolute; inset: 0 -10px; z-index: -1; border-radius: 9px; }
+.lat-row:hover::before, .lat-mlist .lat-mrow:hover::before { background: rgba(240, 242, 244, .7); }
+.lat-row:focus-visible::before, .lat-mlist .lat-mrow:focus-visible::before { box-shadow: inset 0 0 0 2px var(--ink); }
+.lat-name { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lat-name-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.lat-name-top { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.lat-name-txt b { min-width: 0; font-size: 14px; font-weight: 550; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lat-name-txt small { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lat-flag { flex: none; display: inline-block; padding: 0 6px; border-radius: 5px; background: var(--line-2); color: var(--muted);
+  font-size: 11px; font-weight: 550; line-height: 17px; white-space: nowrap; }
+
+/* ---------- latency: stacked bars on one seconds axis ---------- */
+.lat-rows { position: relative; display: flex; flex-direction: column; gap: 2px; }
+.lat-grid { position: absolute; top: 0; bottom: 0; left: calc(var(--lat-name) + var(--lat-gap)); right: 0; pointer-events: none; }
+.lat-grid i { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--line); }
+.lat-grid i.base { border-left: 1px solid #d5d9df; }
+.lat-row { display: grid; grid-template-columns: var(--lat-name) minmax(0, 1fr); column-gap: var(--lat-gap); align-items: center;
+  padding: 6px 0; cursor: default; }
+.lat-track { position: relative; height: 24px; }
+.lat-bar { position: absolute; left: 0; top: 0; bottom: 0; display: flex; min-width: 2px; overflow: hidden; border-radius: 6px; }
+.lat-seg { flex: none; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; font-style: normal; }
+.lat-seg + .lat-seg { border-left: 1.5px solid #fff; }
+.lat-seg span { padding: 0 4px; font-size: 11px; font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lat-total { position: absolute; top: 50%; transform: translate(8px, -50%); font-size: 13.5px; font-weight: 650; color: var(--ink);
+  white-space: nowrap; font-variant-numeric: tabular-nums; pointer-events: none; }
+.lat-total small { margin-left: 2px; font-size: 11.5px; font-weight: 500; color: var(--muted); }
+.lat-total.in { transform: translate(calc(-100% - 7px), -50%); }
+.lat-total.in small { color: var(--ink-2); }
+.lat-axis { display: grid; grid-template-columns: var(--lat-name) minmax(0, 1fr); column-gap: var(--lat-gap); row-gap: 6px; margin-top: 8px; }
+.lat-ticks { position: relative; height: 15px; }
+.lat-ticks span { position: absolute; top: 0; transform: translateX(-50%); font-size: 11.5px; line-height: 15px; color: var(--faint);
+  font-variant-numeric: tabular-nums; }
+.lat-ticks span:first-child { transform: translateX(-2px); }
+.lat-axis-title { font-size: 12px; color: var(--muted); text-align: center; }
+
+/* ---------- agent fix: one compact bar per setup, value column on the right ---------- */
+.lat-fix { --lat-name: 300px; --lat-val: 150px; }
+.lat-fix .lat-row { grid-template-columns: var(--lat-name) minmax(0, 1fr) var(--lat-val); padding: 4px 0; }
+.lat-fix .lat-grid { right: calc(var(--lat-val) + var(--lat-gap)); }
+.lat-fix .lat-axis { grid-template-columns: var(--lat-name) minmax(0, 1fr) var(--lat-val); }
+.lat-fix .lat-track { height: 14px; }
+.lat-fix .lat-name-txt { flex: 1; flex-direction: row; align-items: baseline; gap: 7px; }
+.lat-fix .lat-name-top { flex: none; max-width: 70%; }
+.lat-fix .lat-name-txt b { font-size: 13.5px; }
+.lat-fixbar { position: absolute; left: 0; top: 0; bottom: 0; min-width: 3px; border-radius: 4px; }
+.lat-fixval { justify-self: end; white-space: nowrap; font-size: 13.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.lat-fixval b { font-weight: 650; }
+.lat-fixval small { margin-left: 2px; font-size: 11.5px; color: var(--muted); }
+.lat-solved { font-size: 12.5px; color: var(--muted); }
+.lat-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.lat-link:hover { color: var(--ink); }
+
+/* ---------- memory: one lane per device, each track runs from 0 to that device's capacity ---------- */
+.lat-mrow { display: grid; grid-template-columns: var(--lat-name) repeat(var(--lat-lanes, 3), minmax(0, 1fr)) 84px;
+  column-gap: var(--lat-gap); align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line-2); }
+.lat-mlist .lat-mrow:last-child { border-bottom: 0; }
+.lat-mhead { align-items: end; padding: 2px 0 10px; border-bottom: 1px solid var(--line); }
+.lat-mh-name, .lat-mhead .lat-sum { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.lat-cell { display: grid; grid-template-columns: minmax(0, 1fr) 40px; column-gap: 10px; align-items: center; min-width: 0; }
+.lat-hdev { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; min-width: 0; }
+.lat-hdev b { font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lat-hdev small { margin-left: auto; font-size: 11.5px; color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lat-short { display: none; }
+.lat-gauge { position: relative; height: 10px; border-radius: 5px; background: var(--track); }
+.lat-gauge > i { position: absolute; inset: 0 auto 0 0; border-radius: 5px; }
+.lat-gauge::after { content: ""; position: absolute; right: -1px; top: -5px; bottom: -5px; width: 2px; border-radius: 1px; background: #a3abb7; }
+.lat-gauge.nocap::after { display: none; }
+.lat-gauge.over::after { background: var(--bad); }
+.lat-cell.unused .lat-gauge { opacity: .4; }
+.lat-v { font-size: 13px; font-weight: 600; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.lat-v.na { color: var(--faint); font-weight: 500; }
+.lat-sum { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lat-sum b { font-size: 15px; font-weight: 650; color: var(--ink); }
+.lat-sum small { margin-left: 3px; font-size: 11.5px; color: var(--muted); }
+
+/* tooltip colour keys (inside the shared dark #lb-tip) */
+.lat-tip-key { display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 2px; vertical-align: -1px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .5); }
+
+@media (max-width: 980px) {
+  .lat-plot { --lat-name: 200px; }
+  /* memory: name and total on top, the device lanes in a row underneath */
+  .lat-mrow { grid-template-columns: repeat(var(--lat-lanes, 3), minmax(0, 1fr)); column-gap: 14px; row-gap: 8px; padding: 11px 0; }
+  .lat-mrow > .lat-name { grid-column: 1 / -1; grid-row: 1; padding-right: 88px; }
+  .lat-mrow > .lat-sum { grid-column: 1 / -1; grid-row: 1; justify-self: end; }
+  .lat-mrow > .lat-cell { grid-row: 2; }
+  .lat-mhead > .lat-mh-name, .lat-mhead > .lat-sum { display: none; }
+  .lat-mhead > .lat-cell { grid-row: 1; }
+  .lat-mhead { align-items: start; padding-top: 0; }
+  .lat-full { display: none; }
+  .lat-short { display: inline; }
+  .lat-cell { grid-template-columns: minmax(0, 1fr); row-gap: 5px; }
+  .lat-cell .lat-v { order: -1; text-align: left; font-size: 12.5px; }
+  .lat-hpad { display: none; }
+  /* agent fix: name over its setup, narrower name column */
+  .lat-plot.lat-fix { --lat-name: 210px; --lat-val: 140px; }
+  .lat-fix .lat-row .lat-name-txt { flex-direction: column; align-items: stretch; gap: 0; }
+  .lat-fix .lat-row .lat-name-top { flex: initial; max-width: 100%; }
+}
+@media (max-width: 640px) {
+  .lat-card { padding: 20px 18px 18px; }
+  .lat-head h3 { font-size: 18px; }
+  /* latency: name above its bar, no gridlines (the axis ticks stay) */
+  .lat-plot { --lat-name: 0px; --lat-gap: 0px; }
+  .lat-row { grid-template-columns: minmax(0, 1fr); row-gap: 6px; padding: 8px 0; }
+  .lat-row .lat-name-txt { flex: 1; flex-direction: row; align-items: baseline; gap: 7px; }
+  .lat-row .lat-name-top { flex: none; max-width: 72%; }
+  .lat-grid { display: none; }
+  .lat-axis { grid-template-columns: minmax(0, 1fr); }
+  .lat-axis > span { display: none; }
+  .lat-fix .lat-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name val" "track track"; column-gap: 10px;
+    row-gap: 5px; padding: 7px 0; }
+  .lat-fix .lat-row > .lat-name { grid-area: name; }
+  .lat-fix .lat-row > .lat-track { grid-area: track; }
+  .lat-fix .lat-row > .lat-fixval { grid-area: val; }
+  .lat-fix .lat-axis { grid-template-columns: minmax(0, 1fr); }
+  .lat-hdev b, .lat-hdev small { font-size: 11.5px; }
+  .lat-hdev { flex-direction: column; align-items: stretch; }
+  .lat-hdev small { align-self: flex-end; margin-left: 0; }
+  .lat-mrow > .lat-name { padding-right: 76px; }
+  .lat-name-txt small { white-space: normal; }
+  /* agent fix on phones: name and setup stacked, value on the right, bar underneath */
+  .lat-plot.lat-fix { --lat-name: 0px; --lat-val: 0px; }
+  .lat-fix .lat-row .lat-name-txt { flex-direction: column; align-items: stretch; gap: 0; }
+  .lat-fix .lat-row .lat-name-top { flex: initial; max-width: 100%; }
+  .lat-fix .lat-name-txt small { white-space: nowrap; }
+}
+

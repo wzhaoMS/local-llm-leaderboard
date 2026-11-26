@@ -104,6 +104,9 @@ button { font: inherit; color: inherit; }
 .lb-pick-stats span { font-size: 11.5px; color: var(--muted); }
 .lb-pick p { font-size: 13.5px; color: var(--ink-2); margin: 0; line-height: 1.55; }
 .lb-pick p.zh { color: var(--muted); margin-top: 8px; }
+.lb-pick-why { display: inline-flex; align-items: center; gap: 4px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--lime-2, #b7e53a); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.lb-pick-why:hover { text-decoration-color: var(--ink); }
 .lb-pick-ref { display: flex; align-items: center; gap: 8px; margin: -2px 0 14px; padding: 8px 10px; border: 1px dashed #cfd4da;
   border-radius: 10px; font-size: 12.5px; color: var(--muted); }
 .lb-pick-ref b { color: var(--ink); font-weight: 600; }
