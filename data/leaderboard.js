@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T10:25Z",
+ "generated": "2026-11-26T10:26Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 3452,
+  "gradedRuns": 3476,
   "notes": [
    "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, minimax31flash-hybrid, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
    "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)",
@@ -10775,6 +10775,146 @@ window.LB_DATA = {
    "coreRows": 53
   },
   {
+   "id": "minimax31flash-hybrid",
+   "name": "MiniMax-M3.1-Flash",
+   "short": "MiniMax-M3.1-Flash",
+   "variant": "Q2 · GPUs + RAM",
+   "vendor": "minimax",
+   "params": "428B-A23B",
+   "quant": "UD-Q2_K_XL",
+   "placement": "hybrid",
+   "where": "2 GPUs + 128 GB RAM",
+   "recommended": false,
+   "reference": false,
+   "partial": true,
+   "effort": "high",
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "Experts that don't fit in VRAM are memory-mapped from RAM, so it decodes about 22 tok/s. At that speed it ran the first 3 tasks of each core suite (no vision).",
+   "vramGiB": [
+    89.9,
+    31.1
+   ],
+   "ramGiB": 5.7,
+   "scores": {
+    "textCore": 78.3,
+    "textCoreCI": [
+     65.0,
+     90.8
+    ],
+    "allSuites": 78.3,
+    "suites": {
+     "tool_calling": 33.3,
+     "zh_intent": 93.3,
+     "finance_extract": 100.0,
+     "ts_coding": 66.7,
+     "reasoning": 66.7,
+     "vision": null,
+     "browser_agent": 100.0,
+     "agent_e2e": 66.7,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 7.4,
+    "zh_intent": 52.2,
+    "finance_extract": 29.1,
+    "ts_coding": 263.1,
+    "reasoning": 63.4,
+    "vision": null,
+    "browser_agent": 54.1,
+    "agent_e2e": 506.4,
+    "repo_qa": 2.8
+   },
+   "agentFixS": 77.6,
+   "fullSuites": {
+    "score": 78.3,
+    "tasks": 24,
+    "rows": 24,
+    "suites": {
+     "tool_calling": {
+      "score": 33.3,
+      "tasks": 3,
+      "rows": 3
+     },
+     "zh_intent": {
+      "score": 93.3,
+      "tasks": 3,
+      "rows": 3
+     },
+     "finance_extract": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     },
+     "ts_coding": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "reasoning": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "browser_agent": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     },
+     "agent_e2e": {
+      "score": 66.7,
+      "tasks": 3,
+      "rows": 3
+     },
+     "repo_qa": {
+      "score": 100.0,
+      "tasks": 3,
+      "rows": 3
+     }
+    }
+   },
+   "agentic": null,
+   "speed": {
+    "decode": 22.0,
+    "decodeSource": "speed test, MTP on",
+    "inTaskDecode": 24.3,
+    "ttft": 1.9,
+    "firstOutput": 12.08,
+    "taskTime": 49.4,
+    "prefill": {
+     "8k": 349.0,
+     "32k": 312.0
+    },
+    "ttftAt": {
+     "8k": 38.1,
+     "32k": 122.8
+    },
+    "decodeAt": {
+     "8k": 20.0,
+     "32k": 22.0
+    },
+    "ctx": 65536,
+    "mtp": {
+     "on": 22.0,
+     "off": null,
+     "acceptance": 62.0,
+     "draft": 1
+    },
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 24,
+   "coreTasks": 24,
+   "coreRows": 24
+  },
+  {
    "id": "qwen36-35b-a3b",
    "name": "Qwen3.6-35B-A3B",
    "short": "Qwen3.6-35B",
@@ -12014,46 +12154,6 @@ window.LB_DATA = {
    "rows": 74,
    "coreTasks": 53,
    "coreRows": 53
-  },
-  {
-   "id": "minimax31flash-hybrid",
-   "name": "MiniMax-M3.1-Flash",
-   "short": "MiniMax-M3.1-Flash",
-   "variant": "Q2 · GPUs + RAM",
-   "vendor": "minimax",
-   "params": "428B-A23B",
-   "quant": "UD-Q2_K_XL",
-   "placement": "hybrid",
-   "where": "2 GPUs + 128 GB RAM",
-   "recommended": false,
-   "reference": false,
-   "partial": true,
-   "effort": "high",
-   "engineOf": null,
-   "maxEffort": false,
-   "speedOnly": true,
-   "status": "running",
-   "notes": "Experts that don't fit in VRAM are memory-mapped from RAM, so it decodes about 22 tok/s. At that speed it ran the first 3 tasks of each core suite (no vision).",
-   "vramGiB": null,
-   "ramGiB": null,
-   "scores": {
-    "textCore": null,
-    "textCoreCI": null,
-    "allSuites": null,
-    "suites": null,
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
-   },
-   "suiteTimeS": null,
-   "agentFixS": null,
-   "fullSuites": null,
-   "agentic": null,
-   "speed": null,
-   "endurance": null,
-   "rows": 0,
-   "coreTasks": null,
-   "coreRows": null
   },
   {
    "id": "deepseek41-rco-hybrid",
