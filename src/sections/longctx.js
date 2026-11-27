@@ -164,5 +164,5 @@
         "setup's context.")), h("span", { class: "lc-count" }, count))));
   }
 
-  LB.register({ id: "long-context", order: 66, nav: "Long context", render });
+  LB.register({ id: "long-context", order: 58, nav: "Long context", render });
 })();

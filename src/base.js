@@ -217,21 +217,30 @@
     const pick = byId((D.verdict || {}).pick);
     const newest = D.models.filter((m) => !m.speedOnly && !m.reference).length;
     const refs = references();
+    const nText = ((D.core && D.core.textSuites) || []).length;
     const ann = document.getElementById("lb-announce");
     if (ann) {
       const inProg = D.models.filter((m) => m.status && m.status !== "done").length;
       ann.className = "lb-announce";
-      if (refs.length) {
+      // the newest content is also the first section: the public hard benchmarks
+      const fg = D.frontierGap && Array.isArray(D.frontierGap.runs) && D.frontierGap.runs.length &&
+        sections.some((x) => x.id === "frontier-gap") ? D.frontierGap : null;
+      const fgNames = fg ? (fg.benchmarks || []).map((b) => b && b.name).filter(Boolean) : [];
+      if (fg) {
+        ann.append(h("b", {}, "New: "), (fgNames.length ? `${fgNames.join(" and ")}, ` : "") +
+          "public hard benchmarks where the cloud models still lead local ones.",
+          h("a", { href: "#frontier-gap" }, "See the frontier gap ↓"));
+      } else if (refs.length) {
         const names = refs.map((m) => m.name);
         const shown = names.length > 3 ? names.slice(0, 3) : names;
         const more = names.length - shown.length;
         const list = more ? `${shown.join(", ")} and ${more} more` :
           (shown.length > 1 ? shown.slice(0, -1).join(", ") + " and " + shown[shown.length - 1] : shown[0]);
         ann.append(h("b", {}, "New: "), `${list} took the same tasks as cloud references.`,
-          h("a", { href: "#overall" }, "See how local compares ↗"));
+          h("a", { href: "#overall" }, "See how local compares ↓"));
       } else {
         ann.append(h("b", {}, "New: "), `${newest} models benchmarked on one workstation; ${inProg} giant-model runs in progress.`,
-          h("a", { href: "#in-progress" }, "See what's running ↗"));
+          h("a", { href: "#in-progress" }, "See what's running ↓"));
       }
     }
     const head = document.getElementById("lb-header");
@@ -276,7 +285,8 @@
         h("h1", {}, "Local LLM leaderboard", h("br"), h("span", {}, "for one workstation")),
         h("p", {}, `Every model here ran on the same PC — an RTX PRO 6000 (96 GB) plus an RTX 5090 (32 GB), a Ryzen 9 9950X3D2 and ` +
           `128 GB of RAM — through the same ${D.core ? D.core.tasks : ""} tasks built from real daily work: tool calls, Chinese requests, ` +
-          `statement extraction, TypeScript, finance math, vision, browser agents, repo QA, plus real-repo bug fixes, debugging, long sessions and prompts of up to 1M tokens.`),
+          `statement extraction, TypeScript, finance math, vision, browser agents, repo QA, plus real-repo bug fixes, debugging, long sessions and prompts of up to 1M tokens. ` +
+          `The main score, text core, is the mean of the ${nText ? nText + " " : ""}text suites (0–100).`),
         h("div", { class: "lb-meta" },
           h("span", {}, "Updated: ", h("b", {}, new Date(D.generated || Date.now()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))),
           h("span", {}, h("b", {}, String(newest)), " models scored"),
@@ -297,7 +307,9 @@
             ...best.flatMap((m, i) => [i ? (i === best.length - 1 ? " and " : ", ") : null, h("b", {}, m.name)]).filter(Boolean),
             ` · ${fmt.pct(refs[0].scores.textCore)} text core`));
         })() : null,
-        h("a", { class: "lb-pick-why", href: "#verdict" }, "Why this pick ↓")) : null);
+        h("div", { class: "lb-pick-links" },
+          h("a", { class: "lb-pick-why", href: "#overall" }, "Full ranking ↓"),
+          h("a", { class: "lb-pick-why", href: "#verdict" }, "Why this pick ↓"))) : null);
     const main = document.getElementById("lb-main");
     main.before(hero);
     const foot = document.getElementById("lb-footer");
@@ -308,7 +320,7 @@
         h("div", { class: "lb-foot-grid" },
           h("div", {}, logo(), h("p", {}, "An independent, reproducible benchmark of open-weight LLMs on one workstation. " +
             "Scores are graded by code (tests, exact answers, JSON matching), not by a judge model.")),
-          h("div", {}, h("h4", {}, "Leaderboard"), navSecs.slice(0, 5).map((x) => h("a", { href: "#" + x.id }, x.nav))),
+          h("div", {}, h("h4", {}, "Highlights & rankings"), navSecs.slice(0, 5).map((x) => h("a", { href: "#" + x.id }, x.nav))),
           h("div", {}, h("h4", {}, "Explore"), navSecs.slice(5).map((x) => h("a", { href: "#" + x.id }, x.nav))),
           h("div", {}, h("h4", {}, "Data"),
             h("a", { href: "data/leaderboard.json" }, "Rankings as JSON ↗"),

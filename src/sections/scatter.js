@@ -9,6 +9,9 @@
   const FONT = '"Geist", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif';
   const DOT = 7, RING = 12.5;           // point radius; ring around our pick
   const Q_MIN = 90;                     // "Most attractive": text core at least this ...
+  // explained again here (the hero explains it first): readers jump straight to this section from the nav
+  const NTEXT = ((D.core && D.core.textSuites) || []).length;
+  const TC = `Text core (the mean score of our ${NTEXT ? NTEXT + " " : ""}text suites)`;
   const MODES = {
     time: {
       label: "Time per task", thr: 6.5, lowerBetter: true,
@@ -16,7 +19,7 @@
       ticks: [0.25, 0.5, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 45, 60, 90, 120, 180, 300, 600],
       tick: (v) => v + " s",
       axis: "Median time per task (s) · log scale · lower is better",
-      sub: "Text core against the median time per task (thinking included). Up and to the left is better.",
+      sub: `${TC} against the median time per task (thinking included). Up and to the left is better.`,
       zone: `Text core ≥ ${Q_MIN} · ≤ 6.5 s per task`,
     },
     decode: {
@@ -25,7 +28,7 @@
       ticks: [5, 10, 20, 30, 50, 75, 100, 150, 200, 300, 400, 600, 1000, 2000],
       tick: (v) => String(v),
       axis: "Decode speed (tok/s, single stream) · log scale · higher is better",
-      sub: "Text core against single-stream decode speed (tokens per second). Up and to the right is better.",
+      sub: `${TC} against single-stream decode speed (tokens per second). Up and to the right is better.`,
       zone: `Text core ≥ ${Q_MIN} · ≥ 120 tok/s`,
     },
   };
@@ -555,5 +558,5 @@
     whenFontLoads(update);
   }
 
-  LB.register({ id: "quality-vs-speed", order: 30, nav: "Quality vs speed", render });
+  LB.register({ id: "quality-vs-speed", order: 12, nav: "Quality vs speed", render });
 })();

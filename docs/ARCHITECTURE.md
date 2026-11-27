@@ -31,9 +31,33 @@ LB.register({
 
 `index.html?only=<id>` renders just that section (used by `tools/shot.ps1 -Only <id>`).
 
-Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, frontier gap `fg-`, quality-vs-speed `sc-`, pelican `pel-`,
-heatmap `hm-`, per-task `pt-`, agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`,
-hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
+Sections in page order, with their prefixes: frontier gap `fg-`, quality-vs-speed `sc-`, pelican `pel-`, overall `ov-`,
+max-vs-max `mx-`, heatmap `hm-`, per-task `pt-`, agentic `ag-`, long context `lc-`, speed `sp-`, latency & memory `lat-`,
+endurance `en-`, hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
+
+### Reading order
+
+The `order` values follow one story (owner's call on 27 Nov, then researched and reviewed):
+
+| order | sections | role |
+|---|---|---|
+| 10-14 | frontier gap, quality vs speed, pelican | highlights the owner put first, in this order |
+| 20-25 | overall (ranking + verdict), max vs max | the answer on our own tasks, then best local vs best cloud |
+| 40-58 | heatmap, per task, agentic, long context | where models win: overview first, then detail and the hard capabilities |
+| 60-70 | speed, latency & memory, endurance, hardware | how they run on this PC |
+| 80-98 | models table, compare, in progress, methodology | reference, tools and status; methodology last |
+
+Rules that keep it readable when sections move:
+- Every section opens with its own `LB.sectionHead` (none may rely on sitting right under the hero).
+- A term is explained where the page first uses it (e.g. "text core" in quality vs speed, the first section with that
+  score), not only in a later section or in the methodology.
+- Text that points at another section says which one by name and link; "above"/"below" only within a section. In-page
+  links end in ↓ or ↑ (the direction of the target), external links in ↗. The verdict's "Details ↓" links must go to
+  sections placed after overall; a finding about a section above it uses `see` ("Frontier gap ↑").
+- The hero's pick card links to the ranking ("Full ranking ↓") and the verdict ("Why this pick ↓"), since three sections
+  now sit between them; the hero paragraph explains "text core", the first score on the page.
+- The announcement bar's "New:" links to the newest section (now the frontier gap); the footer lists the first five nav
+  sections under "Highlights & rankings" and the rest under "Explore", so keep the five most important first.
 
 ## LB API (src/base.js)
 
@@ -158,11 +182,12 @@ hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me
   panel uses the same rule); every cloud reference tied for the best score is named with its effort
 - `verdict.headline {en, zh}`: the verdict panel's short lead (the pick, then the recommended upgrade); the panel falls back
   to `verdict.en/zh` without it. `verdict.findings [{key, tone: recommended|works|avoid|note, value, unit, title {en, zh},
-  text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href?}]`: key findings, every number computed from the
-  results; one is left out when its runs are missing. `unit` may be a plain string. The panel shows `engine` (the pick's
-  weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick", and the first three others
-  (`max-vs-max`, `long-context`, `effort`, then `giants`) as one "Other findings" row; `href` is the section with the
-  details, `model` a model id the panel offers to compare
+  text {en, zh}, about? {en, zh}, link? {url, label {en, zh}}, model?, href?, see? {href, label {en, zh}}}]`: key findings,
+  every number computed from the results; one is left out when its runs are missing. `unit` may be a plain string. The panel
+  shows `engine` (the pick's weights on a faster engine) and `second-gpu` (a model for the free GPU) inside "Why this pick",
+  and the first three others (`max-vs-max`, `long-context`, `effort`, then `giants`) as one "Other findings" row; `href` is
+  the section with the details ("Details ↓"), `see` a second in-page link next to it, e.g. "Frontier gap ↑" to a section
+  above the verdict, `model` a model id the panel offers to compare
 
 Any value can be `null` (not measured yet); every section must render "—" or skip the model rather than fail.
 

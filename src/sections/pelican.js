@@ -338,5 +338,5 @@
     el.append(...blocks);
   }
 
-  LB.register({ id: "pelican", order: 35, nav: "Pelican", render });
+  LB.register({ id: "pelican", order: 14, nav: "Pelican", render });
 })();

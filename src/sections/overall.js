@@ -331,7 +331,7 @@
     chart.append(h("div", { class: "ov-empty" },
       h("b", {}, `No model ${where}has a ${mt.label} score yet.`),
       pending ? h("span", {}, `${pending} run${pending === 1 ? " is" : "s are"} queued or in progress. `,
-        h("a", { href: "#in-progress" }, "See what's running ↗")) : null));
+        h("a", { href: "#in-progress" }, "See what's running ↓")) : null));
   }
 
   /** refsOn: references are part of this chart (toggle on, "Compare all"). */
@@ -695,6 +695,9 @@
         ] : h("p", { class: "ov-v-none" }, T.noEndurance));
 
       // the other key findings: one row in the same grid rhythm as "Why this pick"
+      /** A second in-page link (e.g. "Frontier gap ↑" to a section above), next to "Details ↓". */
+      const seeOf = (f) => (f.see && typeof f.see.href === "string" && f.see.href.charAt(0) === "#"
+        ? secLink(f.see.href.slice(1), loc(f.see.label, lang)) : null);
       const keyItem = (f) => h("div", { class: "ov-v-key", role: "listitem" },
         h("div", { class: "ov-v-keytop" },
           h("span", { class: "ov-v-keyval" }, h("b", {}, String(f.value == null ? "" : f.value)),
@@ -702,7 +705,7 @@
           toneChip(f.tone, T)),
         h("b", { class: "ov-v-keytitle" }, loc(f.title, lang)),
         h("p", {}, loc(f.text, lang)),
-        detailsOf(f));
+        seeOf(f) ? h("span", { class: "ov-v-keylinks" }, detailsOf(f), seeOf(f)) : detailsOf(f));
       const keys = fRow.length ? h("div", { class: ["ov-v-col", "ov-v-keys"] }, h("h4", {}, T.keys),
         h("div", { class: "ov-v-keygrid", role: "list" }, fRow.map(keyItem))) : null;
 
@@ -732,7 +735,9 @@
     const toggle = anyRefs ? h("button", { class: "ov-reftoggle", type: "button", role: "switch", "aria-checked": "true",
       onclick: () => { st.refs = !st.refs; toggle.setAttribute("aria-checked", String(st.refs)); update("none"); } },
       h("span", { class: "ov-switch", "aria-hidden": "true" }), "Cloud references") : null;
-    el.append(...[highlightTiles(), LB.card("ov-card",
+    el.append(...[LB.sectionHead({ title: "Overall ranking and our pick",
+      sub: "Every setup on the same questions from real daily work: the leaders, the full ranking, and which model to run " +
+        "every day and why." }), highlightTiles(), LB.card("ov-card",
       h("div", { class: ["lb-card-head", "ov-head"] },
         h("div", { class: "ov-title" }, h("h3", {}, "Best Overall"), sub),
         h("div", { class: "ov-controls" }, h("div", { class: "ov-ctl-row" }, seg, sel), toggle)),

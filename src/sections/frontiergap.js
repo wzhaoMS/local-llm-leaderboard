@@ -122,9 +122,10 @@
       const ids = new Set(strs(cloud ? ME.cloud : ME.local));
       const maxed = side.filter((m) => ids.has(m.id));
       const pool = maxed.length && !strs(cloud ? pend.cloud : pend.local).length ? maxed : side;
-      return pool.length ? Math.max(...pool.map((m) => m.scores.textCore)) : null;
+      return { v: pool.length ? Math.max(...pool.map((m) => m.scores.textCore)) : null, maxed: pool === maxed };
     };
-    return { local: best(false), cloud: best(true) };
+    const l = best(false), c = best(true);
+    return { local: l.v, cloud: c.v, maxed: l.maxed && c.maxed };
   }
 
   // ---------- atoms ----------
@@ -309,11 +310,18 @@
   function render(el) {
     const FG = obj(D.frontierGap);
     const S = saturation();
+    // the page's first section: open from what the private tasks show (Max vs max, further down), then why these benchmarks
+    const mx = h("a", { class: "fg-link", href: "#max-vs-max" }, "Max vs max ↓");
+    const both = S.local !== null && S.cloud !== null;
+    const eff = S.maxed ? ", each at its highest reasoning effort" : "";
+    const own = !both ? ["Our own tasks from daily work are compared in ", mx, "."]
+      : Math.abs(S.local - S.cloud) <= 2
+        ? [`On our own tasks from daily work the best local and cloud models are nearly tied: ${fmt.pct(S.local)} vs ` +
+           `${fmt.pct(S.cloud)} text core${eff} (`, mx, ")."]
+        : [`On our own tasks from daily work the best local model scores ${fmt.pct(S.local)} text core and the best cloud ` +
+           `model ${fmt.pct(S.cloud)}${eff} (`, mx, ")."];
     el.append(LB.sectionHead({ title: "Frontier gap: public hard benchmarks",
-      sub: ["Our private tasks are saturated (",
-        S.local !== null && S.cloud !== null ? `${fmt.pct(S.local)} local vs ${fmt.pct(S.cloud)} cloud in ` : "see ",
-        h("a", { class: "fg-link", href: "#max-vs-max" }, "Max vs max"),
-        "); these public hard benchmarks, run on the same harness, are where the cloud models pull ahead."] }));
+      sub: [...own, " These two public hard benchmarks, run on the same harness, show where the cloud models still pull ahead."] }));
     const runs = FG ? objs(FG.runs).map(runOf) : [];
     const queued = FG ? objs(FG.queued).map((q) => queuedOf(q, runs)) : [];
     const benches = FG ? benchList(FG, runs, queued) : [];
@@ -332,5 +340,5 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
   }
 
-  LB.register({ id: "frontier-gap", order: 26, nav: "Frontier gap", render });
+  LB.register({ id: "frontier-gap", order: 10, nav: "Frontier gap", render });
 })();

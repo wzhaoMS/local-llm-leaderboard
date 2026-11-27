@@ -94,6 +94,8 @@
 .ov-v-keytitle { display: block; margin-bottom: 3px; font-size: 13px; font-weight: 620; }
 .ov-v-key p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 .ov-v-key .ov-v-link { margin-top: auto; align-self: flex-start; }
+.ov-v-keylinks { margin-top: auto; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ov-v-keylinks .ov-v-link { margin-top: 0; }
 .ov-card { padding: 26px 28px 18px; }
 .ov-head { margin-bottom: 14px; align-items: flex-start; }
 .ov-title { min-width: 0; flex: 1 1 300px; }
