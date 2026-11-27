@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T03:43Z",
+ "generated": "2026-11-27T04:12Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15806,14 +15806,14 @@
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 194.2,
-      "medianTokens": 52121.5,
-      "n": 14,
-      "solved": 1,
-      "score": 10.7,
+      "medianSeconds": 198.8,
+      "medianTokens": 52064.0,
+      "n": 23,
+      "solved": 3,
+      "score": 17.4,
       "ci": [
-       2.5,
-       35.8
+       7.0,
+       37.1
       ],
       "complete": false
      },
