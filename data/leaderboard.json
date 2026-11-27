@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T01:28Z",
+ "generated": "2026-11-27T02:55Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14955,6 +14955,31 @@
     ]
    },
    {
+    "id": "glm53slim-hybrid-low-pelican",
+    "model": "glm53slim-hybrid-low",
+    "onBoard": false,
+    "name": "GLM-5.3",
+    "variant": "SLIM IQ2_M · GPUs + RAM",
+    "vendor": "zai",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "effort": "low",
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "ran out of tokens before the SVG was complete",
+      "seconds": 4865.5,
+      "tokens": 49152,
+      "tps": 10.2
+     }
+    ]
+   },
+   {
     "id": "glm53slim-hybrid-pelican",
     "model": "glm53slim-hybrid",
     "onBoard": true,
@@ -15587,17 +15612,6 @@
   ],
   "queued": [
    {
-    "id": "glm53slim-hybrid-low-pelican",
-    "model": "glm53slim-hybrid-low",
-    "name": "GLM-5.3",
-    "variant": "SLIM IQ2_M · GPUs + RAM",
-    "vendor": "zai",
-    "local": true,
-    "where": "2 GPUs + RAM",
-    "effort": "low",
-    "status": "running"
-   },
-   {
     "id": "ling31flash-hybrid-pelican",
     "model": "ling31flash-hybrid",
     "name": "Ling-3.1-flash",
@@ -15609,6 +15623,226 @@
     "status": "queued"
    }
   ]
+ },
+ "frontierGap": {
+  "benchmarks": [
+   {
+    "key": "arc_agi2",
+    "name": "ARC-AGI-2",
+    "items": 40,
+    "unit": "tasks solved",
+    "about": "Abstract visual puzzles: infer the rule from a few example grids, then produce the output grid exactly (two tries per test grid). 40 of the 120 public evaluation tasks, the same for every model.",
+    "url": "https://github.com/arcprize/ARC-AGI-2",
+    "source": "ARC Prize, Apache-2.0"
+   },
+   {
+    "key": "omniscience",
+    "name": "AA-Omniscience",
+    "items": 100,
+    "unit": "answered correctly",
+    "about": "Hard factual questions across science, software, finance, health, humanities and law. 100 questions of the public set whose answers are a number or a short name, graded by code; \"I don't know\" is allowed, and the index counts a wrong answer as -1.",
+    "url": "https://huggingface.co/datasets/ArtificialAnalysis/AA-Omniscience-Public-v1.1",
+    "source": "Artificial Analysis, Apache-2.0"
+   }
+  ],
+  "runs": [
+   {
+    "id": "cloud-gemini-4-argon-gap",
+    "model": "cloud-gemini-4-argon",
+    "onBoard": false,
+    "name": "Gemini 4 Argon",
+    "variant": null,
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "running": false,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 196.0,
+      "medianTokens": 16035.0,
+      "n": 17,
+      "solved": 17,
+      "score": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "complete": false
+     },
+     "omniscience": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 52.4,
+      "medianTokens": 2567.0,
+      "n": 100,
+      "correct": 33,
+      "incorrect": 7,
+      "idk": 60,
+      "score": 33.0,
+      "ci": [
+       24.0,
+       42.0
+      ],
+      "index": 26.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "cloud-gpt-6-astra-gap",
+    "model": "cloud-gpt-6-astra",
+    "onBoard": false,
+    "name": "GPT-6 Astra",
+    "variant": null,
+    "vendor": "openai",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "running": false,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 74.8,
+      "medianTokens": 5121.5,
+      "n": 40,
+      "solved": 39,
+      "score": 98.8,
+      "ci": [
+       96.2,
+       100.0
+      ],
+      "complete": true
+     },
+     "omniscience": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 40.8,
+      "medianTokens": 1539.0,
+      "n": 100,
+      "correct": 51,
+      "incorrect": 9,
+      "idk": 40,
+      "score": 51.0,
+      "ci": [
+       42.0,
+       60.0
+      ],
+      "index": 42.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "cloud-claude-opus-55-gap",
+    "model": "cloud-claude-opus-55",
+    "onBoard": false,
+    "name": "Claude Opus 5.5",
+    "variant": null,
+    "vendor": "anthropic",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "running": false,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 60.9,
+      "medianTokens": 7651.0,
+      "n": 40,
+      "solved": 38,
+      "score": 95.8,
+      "ci": [
+       89.2,
+       100.0
+      ],
+      "complete": true
+     },
+     "omniscience": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 14.3,
+      "medianTokens": 1109.0,
+      "n": 100,
+      "correct": 55,
+      "incorrect": 18,
+      "idk": 27,
+      "score": 55.0,
+      "ci": [
+       45.0,
+       65.0
+      ],
+      "index": 37.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "flashnext-q4-basalt-gap",
+    "model": "flashnext-q4-basalt",
+    "onBoard": true,
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · Basalt engine",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "running": true,
+    "results": {
+     "omniscience": {
+      "effort": "medium",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 8.8,
+      "medianTokens": 2841.0,
+      "n": 20,
+      "correct": 6,
+      "incorrect": 10,
+      "idk": 4,
+      "score": 30.0,
+      "ci": [
+       10.0,
+       50.0
+      ],
+      "index": -20.0,
+      "complete": false
+     }
+    }
+   }
+  ],
+  "queued": [
+   {
+    "id": "qwen38-27b-gap",
+    "model": "qwen38-27b-max",
+    "name": "Qwen3.8-27B",
+    "status": "queued"
+   }
+  ],
+  "reference": {
+   "arc_agi2": {
+    "label": "ARC Prize leaderboard (semi-private set)",
+    "url": "https://arcprize.org/leaderboard",
+    "scores": {
+     "Claude Opus 5.5": 93.3,
+     "GPT-6 Astra": 95.0,
+     "Gemini 4 Argon": 91.3,
+     "Qwen3.8-27B": 42.4
+    }
+   }
+  }
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
@@ -15774,6 +16008,10 @@
   {
    "title": "Our max vs their max",
    "body": "The comparison pits the best local result at the highest reasoning effort our models accept (Qwen3.8: xhigh) against the best cloud reference at its highest effort, suite by suite, on the same questions and graders. Local max runs get a 65,536-token output budget per reply (32,768 for the other local runs) so long xhigh reasoning isn't cut off; the cloud CLI sets its own."
+  },
+  {
+   "title": "Frontier gap: public hard benchmarks",
+   "body": "Our own tasks are saturated (the best local and cloud models both score about 96), so two public benchmarks that the closed frontier models still lead run on the same harness. ARC-AGI-2: 40 of the 120 public evaluation puzzles (fixed seed), exact grid match, two attempts per test as in the official pass@2. AA-Omniscience: 100 of the 300 public questions whose answer is a number or a short name, 5 per request, \"I don't know\" allowed; graded by code (numbers within 1%, names by normalized match), and a wrong answer costs a point in the index, so this is not the official judge-graded score. Cloud models run at effort high (the CLI drops replies after about 10 minutes); local models at xhigh with a 65,536-token budget for ARC and at medium for Omniscience. Errors, time-outs and cut-off replies count as wrong. The sets are public, so training contamination is possible. Gemini 4 Argon reviewed the plan."
   }
  ]
 }
