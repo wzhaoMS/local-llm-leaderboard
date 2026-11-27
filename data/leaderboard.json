@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T02:55Z",
+ "generated": "2026-11-27T03:05Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15655,20 +15655,20 @@
     "vendor": "google",
     "local": false,
     "where": "Cloud (GitHub Copilot)",
-    "running": false,
+    "running": true,
     "results": {
      "arc_agi2": {
       "effort": "high",
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 196.0,
-      "medianTokens": 16035.0,
-      "n": 17,
-      "solved": 17,
+      "medianSeconds": 186.3,
+      "medianTokens": 14932.0,
+      "n": 28,
+      "solved": 28,
       "score": 100.0,
       "ci": [
-       100.0,
+       87.9,
        100.0
       ],
       "complete": false
@@ -15686,8 +15686,8 @@
       "idk": 60,
       "score": 33.0,
       "ci": [
-       24.0,
-       42.0
+       24.6,
+       42.7
       ],
       "index": 26.0,
       "complete": true
@@ -15716,8 +15716,8 @@
       "solved": 39,
       "score": 98.8,
       "ci": [
-       96.2,
-       100.0
+       89.1,
+       99.9
       ],
       "complete": true
      },
@@ -15734,8 +15734,8 @@
       "idk": 40,
       "score": 51.0,
       "ci": [
-       42.0,
-       60.0
+       41.3,
+       60.6
       ],
       "index": 42.0,
       "complete": true
@@ -15764,8 +15764,8 @@
       "solved": 38,
       "score": 95.8,
       "ci": [
-       89.2,
-       100.0
+       84.7,
+       99.0
       ],
       "complete": true
      },
@@ -15782,8 +15782,8 @@
       "idk": 27,
       "score": 55.0,
       "ci": [
-       45.0,
-       65.0
+       45.2,
+       64.4
       ],
       "index": 37.0,
       "complete": true
@@ -15801,24 +15801,40 @@
     "where": "RTX PRO 6000",
     "running": true,
     "results": {
+     "arc_agi2": {
+      "effort": "xhigh",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 173.5,
+      "medianTokens": 51877.0,
+      "n": 2,
+      "solved": 0,
+      "score": 0.0,
+      "ci": [
+       0.0,
+       65.8
+      ],
+      "complete": false
+     },
      "omniscience": {
       "effort": "medium",
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 8.8,
-      "medianTokens": 2841.0,
-      "n": 20,
-      "correct": 6,
-      "incorrect": 10,
-      "idk": 4,
-      "score": 30.0,
+      "medianSeconds": 7.8,
+      "medianTokens": 2556.0,
+      "n": 100,
+      "correct": 29,
+      "incorrect": 55,
+      "idk": 16,
+      "score": 29.0,
       "ci": [
-       10.0,
-       50.0
+       21.0,
+       38.5
       ],
-      "index": -20.0,
-      "complete": false
+      "index": -26.0,
+      "complete": true
      }
     }
    }
@@ -15827,7 +15843,19 @@
    {
     "id": "qwen38-27b-gap",
     "model": "qwen38-27b-max",
+    "benchmark": "arc_agi2",
+    "local": true,
     "name": "Qwen3.8-27B",
+    "vendor": "qwen",
+    "status": "queued"
+   },
+   {
+    "id": "qwen38-27b-gap",
+    "model": "qwen38-27b-max",
+    "benchmark": "omniscience",
+    "local": true,
+    "name": "Qwen3.8-27B",
+    "vendor": "qwen",
     "status": "queued"
    }
   ],
@@ -15910,8 +15938,8 @@
      "zh": "本地最强对云端最强"
     },
     "text": {
-     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20).",
-     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。"
+     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20); on public hard benchmarks the cloud leads: AA-Omniscience 55% vs 29% (see Frontier gap).",
+     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。公开难题上云端领先：AA-Omniscience 55% 对 29%（见 Frontier gap 一节）。"
     },
     "href": "#max-vs-max"
    },
