@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T01:00Z",
+ "generated": "2026-11-27T01:20Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14685,6 +14685,31 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "flashnext-q4-basalt-pelican",
+    "model": "flashnext-q4-basalt",
+    "onBoard": true,
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · Basalt engine",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": "medium",
+    "complete": false,
+    "running": true,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/flashnext-q4-basalt-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 19.0,
+      "tokens": 6895,
+      "tps": 372.8
+     }
+    ]
+   },
+   {
     "id": "glm53flash-q2-2gpu-pelican",
     "model": "glm53flash-q2-2gpu",
     "onBoard": true,
@@ -14829,8 +14854,8 @@ window.LB_DATA = {
     "local": true,
     "where": "2 GPUs + RAM",
     "effort": "high",
-    "complete": false,
-    "running": true,
+    "complete": true,
+    "running": false,
     "attempts": [
      {
       "n": 1,
@@ -14851,6 +14876,16 @@ window.LB_DATA = {
       "seconds": 3089.7,
       "tokens": 32768,
       "tps": 10.6
+     },
+     {
+      "n": 3,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "ran out of tokens before the SVG was complete",
+      "seconds": 3238.6,
+      "tokens": 32768,
+      "tps": 10.1
      }
     ]
    },
@@ -15441,17 +15476,6 @@ window.LB_DATA = {
    }
   ],
   "queued": [
-   {
-    "id": "flashnext-q4-basalt-pelican",
-    "model": "flashnext-q4-basalt",
-    "name": "Qwen3.8-Flash-Next",
-    "variant": "Q4 · Basalt engine",
-    "vendor": "qwen",
-    "local": true,
-    "where": "RTX PRO 6000",
-    "effort": "medium",
-    "status": "queued"
-   },
    {
     "id": "qwen38-27b-basalt-pelican",
     "model": "qwen38-27b-basalt",
