@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB" />
+      <stop offset="100%" stop-color="#E0F6FF" />
+    </linearGradient>
+  </defs>
+
+  
+  <rect width="400" height="300" fill="url(#sky)" />
+  
+  
+  <path d="M60,70 Q80,50 100,70 Q120,60 140,80 Q160,90 130,100 L60,100 Z" fill="#FFFFFF" opacity="0.85" />
+  <path d="M240,90 Q260,70 280,90 Q300,80 320,100 Q340,110 310,120 L240,120 Z" fill="#FFFFFF" opacity="0.7" />
+  <path d="M140,50 Q155,35 170,50 Q185,42 200,60 Q215,68 190,75 L140,75 Z" fill="#FFFFFF" opacity="0.6" />
+
+  
+  <rect y="250" width="400" height="50" fill="#8B4513" />
+  <line y1="252" y2="252" x1="0" x2="400" stroke="#FFD700" stroke-width="2" />
+
+  
+  <ellipse cx="200" cy="265" rx="95" ry="9" fill="#000000" opacity="0.25">
+    <animate attributeName="rx" values="95;88;95" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.25;0.15;0.25" dur="2s" repeatCount="indefinite" />
+  </ellipse>
+
+  
+  <g stroke="#FFFFFF" stroke-width="4" stroke-dasharray="30,30">
+    <line x1="0" y1="272" x2="400" y2="272">
+      <animateTransform attributeName="transform" type="translate" from="0,0" to="-60,0" dur="1.2s" repeatCount="indefinite" />
+    </line>
+  </g>
+
+  
+  <g id="bicycle">
+    
+    <g transform="translate(120,220)">
+      <circle r="42" fill="none" stroke="#222" stroke-width="4" />
+      <circle r="38" fill="none" stroke="#555" stroke-width="2" />
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2s" repeatCount="indefinite" />
+        <line x1="-38" y1="0" x2="38" y2="0" stroke="#888" stroke-width="2" />
+        <line x1="0" y1="-38" x2="0" y2="38" stroke="#888" stroke-width="2" />
+        <line x1="-27" y1="-27" x2="27" y2="27" stroke="#888" stroke-width="2" />
+        <line x1="-27" y1="27" x2="27" y2="-27" stroke="#888" stroke-width="2" />
+        <line x1="-19" y1="-33" x2="19" y2="33" stroke="#888" stroke-width="2" />
+        <line x1="-19" y1="33" x2="19" y2="-33" stroke="#888" stroke-width="2" />
+        <line x1="-33" y1="-19" x2="33" y2="19" stroke="#888" stroke-width="2" />
+        <line x1="-33" y1="19" x2="33" y2="-19" stroke="#888" stroke-width="2" />
+      </g>
+    </g>
+
+    
+    <g transform="translate(280,220)">
+      <circle r="42" fill="none" stroke="#222" stroke-width="4" />
+      <circle r="38" fill="none" stroke="#555" stroke-width="2" />
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2s" repeatCount="indefinite" />
+        <line x1="-38" y1="0" x2="38" y2="0" stroke="#888" stroke-width="2" />
+        <line x1="0" y1="-38" x2="0" y2="38" stroke="#888" stroke-width="2" />
+        <line x1="-27" y1="-27" x2="27" y2="27" stroke="#888" stroke-width="2" />
+        <line x1="-27" y1="27" x2="27" y2="-27" stroke="#888" stroke-width="2" />
+        <line x1="-19" y1="-33" x2="19" y2="33" stroke="#888" stroke-width="2" />
+        <line x1="-19" y1="33" x2="19" y2="-33" stroke="#888" stroke-width="2" />
+        <line x1="-33" y1="-19" x2="33" y2="19" stroke="#888" stroke-width="2" />
+        <line x1="-33" y1="19" x2="33" y2="-19" stroke="#888" stroke-width="2" />
+      </g>
+    </g>
+
+    
+    <path d="M120,220 L200,150 L280,220 M200,150 L188,142 M200,150 L262,135" fill="none" stroke="#D32F2F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    
+    <circle cx="200" cy="220" r="14" fill="none" stroke="#888" stroke-width="3" />
+    <circle cx="200" cy="220" r="6" fill="#666" />
+    
+    
+    <path d="M173,142 Q188,138 203,142 L200,146 Q188,144 176,146 Z" fill="#222" />
+    
+    
+    <path d="M258,135 L265,125 L272,130" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="272" cy="130" r="3.5" fill="#444" />
+  </g>
+
+  
+  <g id="pelican">
+    
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-3; 0,0" dur="2s" repeatCount="indefinite" />
+
+    
+    <g transform="translate(200,220)">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2s" repeatCount="indefinite" />
+      
+      
+      <line x1="0" y1="0" x2="0" y2="48" stroke="#FF8C00" stroke-width="5" stroke-linecap="round" />
+      <rect x="-7" y="46" width="14" height="7" rx="3" fill="#333" />
+      
+      
+      <g transform="rotate(180)">
+        <line x1="0" y1="0" x2="0" y2="48" stroke="#FF8C00" stroke-width="5" stroke-linecap="round" />
+        <rect x="-7" y="46" width="14" height="7" rx="3" fill="#333" />
+      </g>
+    </g>
+
+    
+    <ellipse cx="188" cy="135" rx="38" ry="26" fill="#FFFFFF" stroke="#DDD" stroke-width="2" />
+    
+    
+    <path d="M155,135 L133,128 L138,138 L132,148 L156,142 Z" fill="#E8E8E8" stroke="#DDD" stroke-width="1" />
+    
+    
+    <path d="M158,132 Q190,100 228,128 Q205,155 158,145 Z" fill="#F8F8F8" stroke="#DDD" stroke-width="1.5" />
+    <path d="M168,128 Q192,112 218,126" fill="none" stroke="#CCC" stroke-width="1.5" />
+    <path d="M163,138 Q188,125 208,136" fill="none" stroke="#CCC" stroke-width="1.5" />
+    
+    
+    <circle cx="200" cy="105" r="22" fill="#FFFFFF" stroke="#DDD" stroke-width="2" />
+    
+    
+    <path d="M218,98 L278,103 L272,125 L222,119 Z" fill="#FFD700" stroke="#DAA520" stroke-width="1.5" />
+    <path d="M222,114 Q250,145 270,120 Z" fill="#FFE4B5" stroke="#DAA520" stroke-width="1" />
+    <path d="M278,103 L284,105 L272,125" fill="#DAA520" />
+    
+    
+    <circle cx="208" cy="100" r="4.5" fill="#FFF" />
+    <circle cx="209.5" cy="100" r="2.8" fill="#111" />
+    <path d="M203,94 Q209,90 215,96" fill="none" stroke="#333" stroke-width="1.5" />
+    
+    
+    <path d="M195,128 Q215,125 235,125 L260,125" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" />
+    <circle cx="260" cy="125" r="3" fill="#FFD700" />
+  </g>
+</svg>

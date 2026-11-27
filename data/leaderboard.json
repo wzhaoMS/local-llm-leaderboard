@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T01:20Z",
+ "generated": "2026-11-27T01:28Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14694,8 +14694,8 @@
     "local": true,
     "where": "RTX PRO 6000",
     "effort": "medium",
-    "complete": false,
-    "running": true,
+    "complete": true,
+    "running": false,
     "attempts": [
      {
       "n": 1,
@@ -14706,6 +14706,71 @@
       "seconds": 19.0,
       "tokens": 6895,
       "tps": 372.8
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/flashnext-q4-basalt-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 13.4,
+      "tokens": 5526,
+      "tps": 414.3
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/flashnext-q4-basalt-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 18.4,
+      "tokens": 6721,
+      "tps": 366.2
+     }
+    ]
+   },
+   {
+    "id": "qwen38-27b-basalt-pelican",
+    "model": "qwen38-27b-basalt",
+    "onBoard": true,
+    "name": "Qwen3.8-27B",
+    "variant": "NVFP4 · Basalt engine",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX 5090",
+    "effort": "medium",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/qwen38-27b-basalt-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 23.6,
+      "tokens": 6866,
+      "tps": 291.3
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/qwen38-27b-basalt-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 22.1,
+      "tokens": 6155,
+      "tps": 279.4
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/qwen38-27b-basalt-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 52.0,
+      "tokens": 13564,
+      "tps": 260.9
      }
     ]
    },
@@ -14841,6 +14906,51 @@
       "seconds": 277.2,
       "tokens": 32768,
       "tps": 118.3
+     }
+    ]
+   },
+   {
+    "id": "qwen36-35b-a3b-mtp-pelican",
+    "model": "qwen36-35b-a3b-mtp",
+    "onBoard": true,
+    "name": "Qwen3.6-35B-A3B",
+    "variant": "thinking + MTP",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": null,
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/qwen36-35b-a3b-mtp-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 17.6,
+      "tokens": 6067,
+      "tps": 347.9
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/qwen36-35b-a3b-mtp-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 34.4,
+      "tokens": 10852,
+      "tps": 316.1
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/qwen36-35b-a3b-mtp-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 33.5,
+      "tokens": 10191,
+      "tps": 305.2
      }
     ]
    },
@@ -15477,28 +15587,6 @@
   ],
   "queued": [
    {
-    "id": "qwen38-27b-basalt-pelican",
-    "model": "qwen38-27b-basalt",
-    "name": "Qwen3.8-27B",
-    "variant": "NVFP4 · Basalt engine",
-    "vendor": "qwen",
-    "local": true,
-    "where": "RTX 5090",
-    "effort": "medium",
-    "status": "queued"
-   },
-   {
-    "id": "qwen36-35b-a3b-mtp-pelican",
-    "model": "qwen36-35b-a3b-mtp",
-    "name": "Qwen3.6-35B-A3B",
-    "variant": "thinking + MTP",
-    "vendor": "qwen",
-    "local": true,
-    "where": "RTX PRO 6000",
-    "effort": null,
-    "status": "queued"
-   },
-   {
     "id": "glm53slim-hybrid-low-pelican",
     "model": "glm53slim-hybrid-low",
     "name": "GLM-5.3",
@@ -15507,7 +15595,7 @@
     "local": true,
     "where": "2 GPUs + RAM",
     "effort": "low",
-    "status": "queued"
+    "status": "running"
    },
    {
     "id": "ling31flash-hybrid-pelican",
