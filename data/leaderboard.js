@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T03:37Z",
+ "generated": "2026-11-27T03:43Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15647,6 +15647,54 @@ window.LB_DATA = {
   ],
   "runs": [
    {
+    "id": "cloud-gemini-4-argon-gap",
+    "model": "cloud-gemini-4-argon",
+    "onBoard": false,
+    "name": "Gemini 4 Argon",
+    "variant": null,
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "running": false,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 1,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 195.5,
+      "medianTokens": 16037.5,
+      "n": 40,
+      "solved": 40,
+      "score": 100.0,
+      "ci": [
+       91.2,
+       100.0
+      ],
+      "complete": true
+     },
+     "omniscience": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 52.4,
+      "medianTokens": 2567.0,
+      "n": 100,
+      "correct": 33,
+      "incorrect": 7,
+      "idk": 60,
+      "score": 33.0,
+      "ci": [
+       24.6,
+       42.7
+      ],
+      "index": 26.0,
+      "complete": true
+     }
+    }
+   },
+   {
     "id": "cloud-gpt-6-astra-gap",
     "model": "cloud-gpt-6-astra",
     "onBoard": false,
@@ -15690,54 +15738,6 @@ window.LB_DATA = {
        60.6
       ],
       "index": 42.0,
-      "complete": true
-     }
-    }
-   },
-   {
-    "id": "cloud-gemini-4-argon-gap",
-    "model": "cloud-gemini-4-argon",
-    "onBoard": false,
-    "name": "Gemini 4 Argon",
-    "variant": null,
-    "vendor": "google",
-    "local": false,
-    "where": "Cloud (GitHub Copilot)",
-    "running": true,
-    "results": {
-     "arc_agi2": {
-      "effort": "high",
-      "otherEffort": 0,
-      "errors": 1,
-      "truncated": 0,
-      "medianSeconds": 195.5,
-      "medianTokens": 16035.0,
-      "n": 40,
-      "solved": 39,
-      "score": 97.5,
-      "ci": [
-       87.1,
-       99.6
-      ],
-      "complete": true
-     },
-     "omniscience": {
-      "effort": "high",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 52.4,
-      "medianTokens": 2567.0,
-      "n": 100,
-      "correct": 33,
-      "incorrect": 7,
-      "idk": 60,
-      "score": 33.0,
-      "ci": [
-       24.6,
-       42.7
-      ],
-      "index": 26.0,
       "complete": true
      }
     }
@@ -15806,14 +15806,14 @@ window.LB_DATA = {
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 186.6,
-      "medianTokens": 53211.5,
-      "n": 12,
+      "medianSeconds": 194.2,
+      "medianTokens": 52121.5,
+      "n": 14,
       "solved": 1,
-      "score": 12.5,
+      "score": 10.7,
       "ci": [
-       2.9,
-       40.2
+       2.5,
+       35.8
       ],
       "complete": false
      },
