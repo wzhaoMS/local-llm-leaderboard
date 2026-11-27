@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T10:26Z",
+ "generated": "2026-11-27T11:49Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15025,6 +15025,31 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "ling31flash-hybrid-pelican",
+    "model": "ling31flash-hybrid",
+    "onBoard": true,
+    "name": "Ling-3.1-flash",
+    "variant": "IQ2_M · GPUs + RAM",
+    "vendor": "ant",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "effort": null,
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "ran out of tokens before the SVG was complete",
+      "seconds": 4332.5,
+      "tokens": 32768,
+      "tps": 7.6
+     }
+    ]
+   },
+   {
     "id": "cloud-gpt-6-astra-max-pelican",
     "model": "cloud-gpt-6-astra-max",
     "onBoard": true,
@@ -15610,19 +15635,7 @@ window.LB_DATA = {
     ]
    }
   ],
-  "queued": [
-   {
-    "id": "ling31flash-hybrid-pelican",
-    "model": "ling31flash-hybrid",
-    "name": "Ling-3.1-flash",
-    "variant": "IQ2_M · GPUs + RAM",
-    "vendor": "ant",
-    "local": true,
-    "where": "2 GPUs + RAM",
-    "effort": null,
-    "status": "running"
-   }
-  ]
+  "queued": []
  },
  "frontierGap": {
   "benchmarks": [
@@ -15791,6 +15804,56 @@ window.LB_DATA = {
     }
    },
    {
+    "id": "qwen38-27b-gap",
+    "model": "qwen38-27b-max",
+    "onBoard": true,
+    "name": "Qwen3.8-27B",
+    "variant": "dense · effort xhigh",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "running": true,
+    "results": {
+     "arc_agi2": {
+      "effort": "xhigh",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 373.7,
+      "medianTokens": 48888.0,
+      "budget": 65536,
+      "n": 18,
+      "solved": 6,
+      "score": 36.1,
+      "ci": [
+       18.3,
+       58.8
+      ],
+      "complete": false
+     },
+     "omniscience": {
+      "effort": "medium",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 17.5,
+      "medianTokens": 2469.5,
+      "budget": 32768,
+      "n": 100,
+      "correct": 15,
+      "incorrect": 36,
+      "idk": 49,
+      "score": 15.0,
+      "ci": [
+       9.3,
+       23.3
+      ],
+      "index": -21.0,
+      "complete": true
+     }
+    }
+   },
+   {
     "id": "flashnext-q4-basalt-gap",
     "model": "flashnext-q4-basalt",
     "onBoard": true,
@@ -15808,6 +15871,7 @@ window.LB_DATA = {
       "truncated": 0,
       "medianSeconds": 193.7,
       "medianTokens": 52183.0,
+      "budget": 65536,
       "n": 40,
       "solved": 9,
       "score": 25.8,
@@ -15824,6 +15888,7 @@ window.LB_DATA = {
       "truncated": 0,
       "medianSeconds": 7.8,
       "medianTokens": 2556.0,
+      "budget": 32768,
       "n": 100,
       "correct": 29,
       "incorrect": 55,
@@ -15834,54 +15899,6 @@ window.LB_DATA = {
        38.5
       ],
       "index": -26.0,
-      "complete": true
-     }
-    }
-   },
-   {
-    "id": "qwen38-27b-gap",
-    "model": "qwen38-27b-max",
-    "onBoard": true,
-    "name": "Qwen3.8-27B",
-    "variant": "dense · effort xhigh",
-    "vendor": "qwen",
-    "local": true,
-    "where": "RTX PRO 6000",
-    "running": false,
-    "results": {
-     "arc_agi2": {
-      "effort": "xhigh",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 22,
-      "medianSeconds": 503.8,
-      "medianTokens": 65536.0,
-      "n": 40,
-      "solved": 6,
-      "score": 16.2,
-      "ci": [
-       7.9,
-       30.5
-      ],
-      "complete": true
-     },
-     "omniscience": {
-      "effort": "medium",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 17.5,
-      "medianTokens": 2469.5,
-      "n": 100,
-      "correct": 15,
-      "incorrect": 36,
-      "idk": 49,
-      "score": 15.0,
-      "ci": [
-       9.3,
-       23.3
-      ],
-      "index": -21.0,
       "complete": true
      }
     }
@@ -16075,7 +16092,7 @@ window.LB_DATA = {
   },
   {
    "title": "Frontier gap: public hard benchmarks",
-   "body": "Our own tasks are saturated (the best local and cloud models both score about 96), so two public benchmarks that the closed frontier models still lead run on the same harness. ARC-AGI-2: 40 of the 120 public evaluation puzzles (fixed seed), exact grid match, two attempts per test as in the official pass@2. AA-Omniscience: 100 of the 300 public questions whose answer is a number or a short name, 5 per request, \"I don't know\" allowed; graded by code (numbers within 1%, names by normalized match), and a wrong answer costs a point in the index, so this is not the official judge-graded score. Cloud models run at effort high (the CLI drops replies after about 10 minutes); local models at xhigh with a 65,536-token budget for ARC and at medium for Omniscience. Errors, time-outs and cut-off replies count as wrong. The sets are public, so training contamination is possible. Gemini 4 Argon reviewed the plan."
+   "body": "Our own tasks are saturated (the best local and cloud models both score about 96), so two public benchmarks that the closed frontier models still lead run on the same harness. ARC-AGI-2: 40 of the 120 public evaluation puzzles (fixed seed), exact grid match, two attempts per test as in the official pass@2. AA-Omniscience: 100 of the 300 public questions whose answer is a number or a short name, 5 per request, \"I don't know\" allowed; graded by code (numbers within 1%, names by normalized match), and a wrong answer costs a point in the index, so this is not the official judge-graded score. Cloud models run at effort high (the CLI drops replies after about 10 minutes); local models at xhigh with a 65,536-token budget for ARC (a model's tasks that hit it may be rerun with a larger budget, listed under its bar) and at medium for Omniscience. Errors, time-outs and cut-off replies count as wrong. The sets are public, so training contamination is possible. Gemini 4 Argon reviewed the plan."
   }
  ]
 };
