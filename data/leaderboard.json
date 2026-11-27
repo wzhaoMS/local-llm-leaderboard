@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T08:12Z",
+ "generated": "2026-11-27T10:26Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15620,7 +15620,7 @@
     "local": true,
     "where": "2 GPUs + RAM",
     "effort": null,
-    "status": "queued"
+    "status": "running"
    }
   ]
  },
@@ -15847,23 +15847,23 @@
     "vendor": "qwen",
     "local": true,
     "where": "RTX PRO 6000",
-    "running": true,
+    "running": false,
     "results": {
      "arc_agi2": {
       "effort": "xhigh",
       "otherEffort": 0,
       "errors": 0,
-      "truncated": 13,
-      "medianSeconds": 502.7,
+      "truncated": 22,
+      "medianSeconds": 503.8,
       "medianTokens": 65536.0,
-      "n": 22,
-      "solved": 3,
-      "score": 15.9,
+      "n": 40,
+      "solved": 6,
+      "score": 16.2,
       "ci": [
-       6.0,
-       36.0
+       7.9,
+       30.5
       ],
-      "complete": false
+      "complete": true
      },
      "omniscience": {
       "effort": "medium",
