@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T03:05Z",
+ "generated": "2026-11-27T03:37Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15647,54 +15647,6 @@
   ],
   "runs": [
    {
-    "id": "cloud-gemini-4-argon-gap",
-    "model": "cloud-gemini-4-argon",
-    "onBoard": false,
-    "name": "Gemini 4 Argon",
-    "variant": null,
-    "vendor": "google",
-    "local": false,
-    "where": "Cloud (GitHub Copilot)",
-    "running": true,
-    "results": {
-     "arc_agi2": {
-      "effort": "high",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 186.3,
-      "medianTokens": 14932.0,
-      "n": 28,
-      "solved": 28,
-      "score": 100.0,
-      "ci": [
-       87.9,
-       100.0
-      ],
-      "complete": false
-     },
-     "omniscience": {
-      "effort": "high",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 52.4,
-      "medianTokens": 2567.0,
-      "n": 100,
-      "correct": 33,
-      "incorrect": 7,
-      "idk": 60,
-      "score": 33.0,
-      "ci": [
-       24.6,
-       42.7
-      ],
-      "index": 26.0,
-      "complete": true
-     }
-    }
-   },
-   {
     "id": "cloud-gpt-6-astra-gap",
     "model": "cloud-gpt-6-astra",
     "onBoard": false,
@@ -15738,6 +15690,54 @@
        60.6
       ],
       "index": 42.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "cloud-gemini-4-argon-gap",
+    "model": "cloud-gemini-4-argon",
+    "onBoard": false,
+    "name": "Gemini 4 Argon",
+    "variant": null,
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "running": true,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 1,
+      "truncated": 0,
+      "medianSeconds": 195.5,
+      "medianTokens": 16035.0,
+      "n": 40,
+      "solved": 39,
+      "score": 97.5,
+      "ci": [
+       87.1,
+       99.6
+      ],
+      "complete": true
+     },
+     "omniscience": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 52.4,
+      "medianTokens": 2567.0,
+      "n": 100,
+      "correct": 33,
+      "incorrect": 7,
+      "idk": 60,
+      "score": 33.0,
+      "ci": [
+       24.6,
+       42.7
+      ],
+      "index": 26.0,
       "complete": true
      }
     }
@@ -15806,14 +15806,14 @@
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 173.5,
-      "medianTokens": 51877.0,
-      "n": 2,
-      "solved": 0,
-      "score": 0.0,
+      "medianSeconds": 186.6,
+      "medianTokens": 53211.5,
+      "n": 12,
+      "solved": 1,
+      "score": 12.5,
       "ci": [
-       0.0,
-       65.8
+       2.9,
+       40.2
       ],
       "complete": false
      },
@@ -15938,10 +15938,17 @@
      "zh": "本地最强对云端最强"
     },
     "text": {
-     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20); on public hard benchmarks the cloud leads: AA-Omniscience 55% vs 29% (see Frontier gap).",
-     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。公开难题上云端领先：AA-Omniscience 55% 对 29%（见 Frontier gap 一节）。"
+     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20); on public hard benchmarks the cloud leads: AA-Omniscience 55% vs 29%.",
+     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。公开难题上云端领先：AA-Omniscience 55% 对 29%。"
     },
-    "href": "#max-vs-max"
+    "href": "#max-vs-max",
+    "see": {
+     "href": "#frontier-gap",
+     "label": {
+      "en": "Frontier gap ↑",
+      "zh": "Frontier gap ↑"
+     }
+    }
    },
    {
     "key": "long-context",
