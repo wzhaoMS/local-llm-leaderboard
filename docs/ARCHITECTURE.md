@@ -31,9 +31,9 @@ LB.register({
 
 `index.html?only=<id>` renders just that section (used by `tools/shot.ps1 -Only <id>`).
 
-Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, quality-vs-speed `sc-`, pelican `pel-`, heatmap `hm-`,
-per-task `pt-`, agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`, hardware `hw-`,
-models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
+Sections and their prefixes: overall `ov-`, max-vs-max `mx-`, frontier gap `fg-`, quality-vs-speed `sc-`, pelican `pel-`,
+heatmap `hm-`, per-task `pt-`, agentic `ag-`, speed `sp-`, latency & memory `lat-`, endurance `en-`, long context `lc-`,
+hardware `hw-`, models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
 
 ## LB API (src/base.js)
 
@@ -133,6 +133,25 @@ models `mt-`, compare `cmp-`, in-progress `pg-`, methodology `me-`.
   on its first `ok` try and its pills switch between all of them. The drawings go on the page only through `<img src>`
   (never inline SVG, `<object>` or `<iframe>`), so a model's SVG can't run scripts or load anything, and only
   site-relative `.svg` paths are accepted
+- `frontierGap {benchmarks [...], runs [...], queued [...], reference {...}}` or `null`: the frontier-gap test. The private
+  suites are saturated, so the cloud references and the local setups also take two public hard benchmarks on the same
+  harness: ARC-AGI-2 (`arc_agi2`: 40 of the 120 public evaluation tasks, exact grid match, pass@2) and AA-Omniscience
+  (`omniscience`: 100 short-answer questions of the public set, graded by code, "I don't know" allowed). `benchmarks [{key,
+  name, items, unit, about, url, source}]`: `items` = questions in a complete run, `unit` = what the score counts ("tasks
+  solved"), `source` = credit and license. Each run: `{id, model (a model id on the board when `onBoard`, else a stand-in
+  id), onBoard, name, variant, vendor, local (false = cloud via GitHub Copilot), where, running (true while the run is still
+  going, cloud runs included), results {arc_agi2 {n, solved, score, ci [lo, hi], complete, effort, otherEffort, errors,
+  truncated, medianSeconds, medianTokens}, omniscience {n, correct, incorrect, idk, score (accuracy), ci, index, complete,
+  effort, otherEffort, errors, truncated, medianSeconds, medianTokens}}}`. `score` is 0-100 and `ci` its Wilson 95%
+  interval (never zero-width once `n` > 0); `index` = 100 × (correct − incorrect) / n; `effort` = the effort most rows
+  used, `otherEffort` = rows retried at another effort (e.g. after a CLI timeout); errors, timeouts and cut-off replies
+  (`truncated`) count as wrong. A benchmark key is absent until the run has rows for it, and `complete` is false while `n`
+  is below `items`. `queued [{id, model, benchmark, local, name, vendor, status: queued|running}]` = one entry per
+  benchmark a run still has to do, cloud or local; `id` is the run's `id`, so a run can have results in one card and a
+  placeholder in the other (an entry without `benchmark` goes in every card). `reference {<key>: {label, url, scores {model
+  name: %}}}` = published numbers (the ARC Prize leaderboard, on its semi-private set), drawn as hollow ticks on the bar of
+  the run with the same name. Each card lists complete runs first, then partial runs, each best score first; its "best
+  cloud vs best local" gap uses complete runs only
 - `hardwareFindings [{title, verdict: recommended|works|avoid, metric, body}]`
 - `pairs [[idA, idB]]`, `verdict {pick, en, zh, headline, findings}`, `methodology [{title, body}]`. `verdict.en/zh` are
   generated from the data: top tier = local setups whose text core is at least the leader's `textCoreCI[0]` (the verdict

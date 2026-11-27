@@ -5,9 +5,10 @@
 """Smoke test for the leaderboard page in headless Chrome (via the DevTools protocol).
 
 Serves the repo over http on 127.0.0.1 (like GitHub Pages), loads the page at desktop and phone widths, clicks every
-segmented control, tab, sortable column header, treemap tile and pelican attempt, types into the search box, opens the
-pelican viewer and closes it, opens the compare dialog and closes it with a real Escape key press, and fails on any
-uncaught exception, console error, sideways page scroll or section that rendered its "failed to render" card.
+segmented control, tab, sortable column header, treemap tile, pelican attempt and frontier-gap description toggle, types
+into the search box, opens the pelican viewer and closes it, opens the compare dialog and closes it with a real Escape key
+press, and fails on any uncaught exception, console error, sideways page scroll or section that rendered its "failed to
+render" card.
 
     uv run tools/smoke.py [--url https://.../index.html]
 """
@@ -61,6 +62,7 @@ EXERCISE = r"""
   }
   for (const t of document.querySelectorAll("#heatmap button[class*='hm-tile']")) { await click(t); out.tiles++; }
   for (const b of document.querySelectorAll("#pelican .pel-try")) await click(b);
+  for (const b of document.querySelectorAll("#frontier-gap .fg-more")) { await click(b); await click(b); }
   const pelFrame = document.querySelector("#pelican button.pel-frame");
   if (pelFrame) {
     await click(pelFrame); await sleep(100);
