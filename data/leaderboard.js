@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T00:27Z",
+ "generated": "2026-11-27T00:44Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15080,6 +15080,51 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "cloud-claude-haiku-55-pelican",
+    "model": "cloud-claude-haiku-55",
+    "onBoard": false,
+    "name": "Claude Haiku 5.5",
+    "variant": "cloud · effort high",
+    "vendor": "anthropic",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-claude-haiku-55-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 56.5,
+      "tokens": 9351,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-claude-haiku-55-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 26.9,
+      "tokens": 5267,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-claude-haiku-55-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 41.6,
+      "tokens": 9045,
+      "tps": null
+     }
+    ]
+   },
+   {
     "id": "cloud-claude-opus-55-pelican",
     "model": "cloud-claude-opus-55",
     "onBoard": false,
@@ -15120,6 +15165,76 @@ window.LB_DATA = {
       "problem": null,
       "seconds": 81.3,
       "tokens": 8845,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-claude-sonnet-55-pelican",
+    "model": "cloud-claude-sonnet-55",
+    "onBoard": false,
+    "name": "Claude Sonnet 5.5",
+    "variant": "cloud · effort high",
+    "vendor": "anthropic",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-claude-sonnet-55-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 25.5,
+      "tokens": 3161,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-claude-sonnet-55-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 23.0,
+      "tokens": 3382,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-claude-sonnet-55-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 23.3,
+      "tokens": 3398,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gpt-62-astra-pelican",
+    "model": "cloud-gpt-62-astra",
+    "onBoard": false,
+    "name": "GPT-6.2 Astra",
+    "variant": "cloud · effort high",
+    "vendor": "openai",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gpt-62-astra-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 94.4,
+      "tokens": 5747,
       "tps": null
      }
     ]
@@ -15216,6 +15331,39 @@ window.LB_DATA = {
    }
   ],
   "queued": [
+   {
+    "id": "flashnext-q4-basalt-pelican",
+    "model": "flashnext-q4-basalt",
+    "name": "Qwen3.8-Flash-Next",
+    "variant": "Q4 · Basalt engine",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": "medium",
+    "status": "queued"
+   },
+   {
+    "id": "qwen38-27b-basalt-pelican",
+    "model": "qwen38-27b-basalt",
+    "name": "Qwen3.8-27B",
+    "variant": "NVFP4 · Basalt engine",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX 5090",
+    "effort": "medium",
+    "status": "queued"
+   },
+   {
+    "id": "qwen36-35b-a3b-mtp-pelican",
+    "model": "qwen36-35b-a3b-mtp",
+    "name": "Qwen3.6-35B-A3B",
+    "variant": "thinking + MTP",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "effort": null,
+    "status": "queued"
+   },
    {
     "id": "glm53slim-hybrid-low-pelican",
     "model": "glm53slim-hybrid-low",
