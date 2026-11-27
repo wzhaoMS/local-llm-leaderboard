@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-26T23:35Z",
+ "generated": "2026-11-27T00:10Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14828,7 +14828,7 @@
     "vendor": "zai",
     "local": true,
     "where": "2 GPUs + RAM",
-    "effort": null,
+    "effort": "high",
     "complete": false,
     "running": true,
     "attempts": [
@@ -15207,6 +15207,17 @@
   ],
   "queued": [
    {
+    "id": "glm53slim-hybrid-low-pelican",
+    "model": "glm53slim-hybrid-low",
+    "name": "GLM-5.3",
+    "variant": "SLIM IQ2_M · GPUs + RAM",
+    "vendor": "zai",
+    "local": true,
+    "where": "2 GPUs + RAM",
+    "effort": "low",
+    "status": "queued"
+   },
+   {
     "id": "ling31flash-hybrid-pelican",
     "model": "ling31flash-hybrid",
     "name": "Ling-3.1-flash",
@@ -15214,6 +15225,7 @@
     "vendor": "ant",
     "local": true,
     "where": "2 GPUs + RAM",
+    "effort": null,
     "status": "queued"
    }
   ]
