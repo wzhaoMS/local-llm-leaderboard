@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T14:15Z",
+ "generated": "2026-11-27T16:26Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15035,7 +15035,7 @@
     "where": "2 GPUs + RAM",
     "effort": null,
     "complete": false,
-    "running": false,
+    "running": true,
     "attempts": [
      {
       "n": 1,
@@ -15804,60 +15804,6 @@
     }
    },
    {
-    "id": "qwen38-27b-gap",
-    "model": "qwen38-27b-max",
-    "onBoard": true,
-    "name": "Qwen3.8-27B",
-    "variant": "dense · effort xhigh",
-    "vendor": "qwen",
-    "local": true,
-    "where": "RTX PRO 6000",
-    "running": true,
-    "results": {
-     "arc_agi2": {
-      "effort": "xhigh",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 4,
-      "medianSeconds": 472.2,
-      "medianTokens": 56604.0,
-      "budget": 65536,
-      "rerunBudget": {
-       "tokens": 98304,
-       "n": 12
-      },
-      "n": 30,
-      "solved": 8,
-      "score": 30.0,
-      "ci": [
-       16.7,
-       47.9
-      ],
-      "complete": false
-     },
-     "omniscience": {
-      "effort": "medium",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 17.5,
-      "medianTokens": 2469.5,
-      "budget": 32768,
-      "n": 100,
-      "correct": 15,
-      "incorrect": 36,
-      "idk": 49,
-      "score": 15.0,
-      "ci": [
-       9.3,
-       23.3
-      ],
-      "index": -21.0,
-      "complete": true
-     }
-    }
-   },
-   {
     "id": "flashnext-q4-basalt-gap",
     "model": "flashnext-q4-basalt",
     "onBoard": true,
@@ -15903,6 +15849,60 @@
        38.5
       ],
       "index": -26.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "qwen38-27b-gap",
+    "model": "qwen38-27b-max",
+    "onBoard": true,
+    "name": "Qwen3.8-27B",
+    "variant": "dense · effort xhigh",
+    "vendor": "qwen",
+    "local": true,
+    "where": "RTX PRO 6000",
+    "running": false,
+    "results": {
+     "arc_agi2": {
+      "effort": "xhigh",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 6,
+      "medianSeconds": 573.9,
+      "medianTokens": 68129.0,
+      "budget": 65536,
+      "rerunBudget": {
+       "tokens": 98304,
+       "n": 22
+      },
+      "n": 40,
+      "solved": 8,
+      "score": 23.8,
+      "ci": [
+       13.2,
+       38.9
+      ],
+      "complete": true
+     },
+     "omniscience": {
+      "effort": "medium",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 17.5,
+      "medianTokens": 2469.5,
+      "budget": 32768,
+      "n": 100,
+      "correct": 15,
+      "incorrect": 36,
+      "idk": 49,
+      "score": 15.0,
+      "ci": [
+       9.3,
+       23.3
+      ],
+      "index": -21.0,
       "complete": true
      }
     }
