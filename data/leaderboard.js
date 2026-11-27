@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T12:14Z",
+ "generated": "2026-11-27T14:15Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15818,20 +15818,20 @@ window.LB_DATA = {
       "effort": "xhigh",
       "otherEffort": 0,
       "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 382.7,
-      "medianTokens": 49715.5,
+      "truncated": 4,
+      "medianSeconds": 472.2,
+      "medianTokens": 56604.0,
       "budget": 65536,
       "rerunBudget": {
        "tokens": 98304,
-       "n": 2
+       "n": 12
       },
-      "n": 20,
-      "solved": 7,
-      "score": 37.5,
+      "n": 30,
+      "solved": 8,
+      "score": 30.0,
       "ci": [
-       20.0,
-       59.1
+       16.7,
+       47.9
       ],
       "complete": false
      },
