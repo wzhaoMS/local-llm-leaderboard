@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T00:52Z",
+ "generated": "2026-11-27T01:00Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15269,7 +15269,7 @@ window.LB_DATA = {
     "local": false,
     "where": "Cloud (GitHub Copilot)",
     "effort": "high",
-    "complete": false,
+    "complete": true,
     "running": false,
     "attempts": [
      {
@@ -15291,6 +15291,16 @@ window.LB_DATA = {
       "seconds": 247.9,
       "tokens": 31492,
       "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gemini-38-flash-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 253.1,
+      "tokens": 37976,
+      "tps": null
      }
     ]
    },
@@ -15304,7 +15314,7 @@ window.LB_DATA = {
     "local": false,
     "where": "Cloud (GitHub Copilot)",
     "effort": "high",
-    "complete": false,
+    "complete": true,
     "running": false,
     "attempts": [
      {
@@ -15325,6 +15335,16 @@ window.LB_DATA = {
       "problem": null,
       "seconds": 206.5,
       "tokens": 16378,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gemini-4-argon-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 263.1,
+      "tokens": 21214,
       "tps": null
      }
     ]
