@@ -165,10 +165,13 @@ Rules that keep it readable when sections move:
   solved"), `source` = credit and license. Each run: `{id, model (a model id on the board when `onBoard`, else a stand-in
   id), onBoard, name, variant, vendor, local (false = cloud via GitHub Copilot), where, running (true while the run is still
   going, cloud runs included), results {arc_agi2 {n, solved, score, ci [lo, hi], complete, effort, otherEffort, errors,
-  truncated, medianSeconds, medianTokens}, omniscience {n, correct, incorrect, idk, score (accuracy), ci, index, complete,
-  effort, otherEffort, errors, truncated, medianSeconds, medianTokens}}}`. `score` is 0-100 and `ci` its Wilson 95%
+  truncated, medianSeconds, medianTokens, budget?, rerunBudget?}, omniscience {n, correct, incorrect, idk, score
+  (accuracy), ci, index, complete, effort, otherEffort, errors, truncated, medianSeconds, medianTokens, budget?,
+  rerunBudget?}}}`. `score` is 0-100 and `ci` its Wilson 95%
   interval (never zero-width once `n` > 0); `index` = 100 × (correct − incorrect) / n; `effort` = the effort most rows
-  used, `otherEffort` = rows retried at another effort (e.g. after a CLI timeout); errors, timeouts and cut-off replies
+  used, `otherEffort` = rows retried at another effort (e.g. after a CLI timeout); `budget` = the output-token budget
+  (max_tokens) of a local run's rows, the smallest one if they differ, and `rerunBudget {tokens, n}` = the n tasks rerun
+  with the larger budget `tokens` after they hit the first one (cloud rows record no budget); errors, timeouts and cut-off replies
   (`truncated`) count as wrong. A benchmark key is absent until the run has rows for it, and `complete` is false while `n`
   is below `items`. `queued [{id, model, benchmark, local, name, vendor, status: queued|running}]` = one entry per
   benchmark a run still has to do, cloud or local; `id` is the run's `id`, so a run can have results in one card and a

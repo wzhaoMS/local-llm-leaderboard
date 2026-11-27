@@ -16,7 +16,8 @@
     "AA-Omniscience here is a code-graded short-answer subset (100 questions, 5 per prompt), not the official " +
       "300-question run graded by an LLM judge.",
     "Cloud models ran at effort high (the Copilot CLI drops replies after about 10 minutes); local models at xhigh on " +
-      "ARC-AGI-2 (65,536-token budget) and medium on AA-Omniscience.",
+      "ARC-AGI-2 (65,536-token budget; tasks that hit it may be rerun with a larger one, listed under the model's bar) " +
+      "and medium on AA-Omniscience.",
     "Timeouts, errors and cut-off replies count as wrong, and each model lists its own under its bar.",
   ];
 
@@ -100,6 +101,8 @@
       complete: typeof r.complete === "boolean" ? r.complete : n !== null && b.items !== null && n >= b.items,
       solved: num(r.solved), correct: num(r.correct), incorrect: num(r.incorrect), idk: num(r.idk), index: num(r.index),
       effort: str(r.effort), other: num(r.otherEffort), errors: num(r.errors), truncated: num(r.truncated),
+      rerun: obj(r.rerunBudget) && num(r.rerunBudget.n) && num(r.rerunBudget.tokens)
+        ? { n: num(r.rerunBudget.n), tokens: num(r.rerunBudget.tokens) } : null,
       seconds: num(r.medianSeconds), tokens: num(r.medianTokens),
     };
   }
@@ -156,7 +159,8 @@
   }
   function issuesOf(r) {
     return [r.errors ? plural(r.errors, "error") : null, r.truncated ? amount(r.truncated) + " cut off" : null,
-      r.other ? amount(r.other) + " retried at another effort" : null].filter(Boolean);
+      r.other ? amount(r.other) + " retried at another effort" : null,
+      r.rerun ? `${amount(r.rerun.n)} rerun at ${amount(r.rerun.tokens)} tokens` : null].filter(Boolean);
   }
   function rowTip(b, x, r, ref, refV) {
     const ci = r.ci ? ` <span class="muted">[95% CI ${Math.round(r.ci[0])}–${Math.round(r.ci[1])}]</span>` : "";
