@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T04:12Z",
+ "generated": "2026-11-27T06:12Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15799,23 +15799,23 @@ window.LB_DATA = {
     "vendor": "qwen",
     "local": true,
     "where": "RTX PRO 6000",
-    "running": true,
+    "running": false,
     "results": {
      "arc_agi2": {
       "effort": "xhigh",
       "otherEffort": 0,
       "errors": 0,
       "truncated": 0,
-      "medianSeconds": 198.8,
-      "medianTokens": 52064.0,
-      "n": 23,
-      "solved": 3,
-      "score": 17.4,
+      "medianSeconds": 193.7,
+      "medianTokens": 52183.0,
+      "n": 40,
+      "solved": 9,
+      "score": 25.8,
       "ci": [
-       7.0,
-       37.1
+       14.8,
+       41.1
       ],
-      "complete": false
+      "complete": true
      },
      "omniscience": {
       "effort": "medium",
@@ -15837,28 +15837,57 @@ window.LB_DATA = {
       "complete": true
      }
     }
-   }
-  ],
-  "queued": [
-   {
-    "id": "qwen38-27b-gap",
-    "model": "qwen38-27b-max",
-    "benchmark": "arc_agi2",
-    "local": true,
-    "name": "Qwen3.8-27B",
-    "vendor": "qwen",
-    "status": "queued"
    },
    {
     "id": "qwen38-27b-gap",
     "model": "qwen38-27b-max",
-    "benchmark": "omniscience",
-    "local": true,
+    "onBoard": true,
     "name": "Qwen3.8-27B",
+    "variant": "dense · effort xhigh",
     "vendor": "qwen",
-    "status": "queued"
+    "local": true,
+    "where": "RTX PRO 6000",
+    "running": true,
+    "results": {
+     "arc_agi2": {
+      "effort": "xhigh",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 4,
+      "medianSeconds": 490.7,
+      "medianTokens": 65536.0,
+      "n": 7,
+      "solved": 1,
+      "score": 14.3,
+      "ci": [
+       2.6,
+       51.3
+      ],
+      "complete": false
+     },
+     "omniscience": {
+      "effort": "medium",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 17.5,
+      "medianTokens": 2469.5,
+      "n": 100,
+      "correct": 15,
+      "incorrect": 36,
+      "idk": 49,
+      "score": 15.0,
+      "ci": [
+       9.3,
+       23.3
+      ],
+      "index": -21.0,
+      "complete": true
+     }
+    }
    }
   ],
+  "queued": [],
   "reference": {
    "arc_agi2": {
     "label": "ARC Prize leaderboard (semi-private set)",
@@ -15938,8 +15967,8 @@ window.LB_DATA = {
      "zh": "本地最强对云端最强"
     },
     "text": {
-     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20); on public hard benchmarks the cloud leads: AA-Omniscience 55% vs 29%.",
-     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。公开难题上云端领先：AA-Omniscience 55% 对 29%。"
+     "en": "Qwen3.8-27B xhigh 96.3 vs GPT-6 Astra max 96.7 (tied with Gemini 4 Neon xhigh): within noise. Behind on tool calling (−17), debugging (−10) and Chinese intent (−6); ahead on browser agent (+20); on public hard benchmarks the cloud leads: ARC-AGI-2 100% vs 26% and AA-Omniscience 55% vs 29%.",
+     "zh": "Qwen3.8-27B xhigh 96.3 对 GPT-6 Astra max 96.7（和 Gemini 4 Neon xhigh 并列），差距在误差内。落后：工具调用（−17）、调试（−10）、中文意图（−6）；领先：浏览器（+20）。公开难题上云端领先：ARC-AGI-2 100% 对 26%，AA-Omniscience 55% 对 29%。"
     },
     "href": "#max-vs-max",
     "see": {
