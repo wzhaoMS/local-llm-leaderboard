@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T00:44Z",
+ "generated": "2026-11-27T00:52Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -15224,7 +15224,7 @@ window.LB_DATA = {
     "local": false,
     "where": "Cloud (GitHub Copilot)",
     "effort": "high",
-    "complete": false,
+    "complete": true,
     "running": false,
     "attempts": [
      {
@@ -15235,6 +15235,96 @@ window.LB_DATA = {
       "problem": null,
       "seconds": 94.4,
       "tokens": 5747,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gpt-62-astra-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 87.1,
+      "tokens": 5616,
+      "tps": null
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/cloud-gpt-62-astra-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 91.6,
+      "tokens": 5327,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gemini-38-flash-pelican",
+    "model": "cloud-gemini-38-flash",
+    "onBoard": false,
+    "name": "Gemini 3.8 Flash",
+    "variant": "cloud · effort high",
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gemini-38-flash-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 242.1,
+      "tokens": 33870,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gemini-38-flash-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 247.9,
+      "tokens": 31492,
+      "tps": null
+     }
+    ]
+   },
+   {
+    "id": "cloud-gemini-4-argon-pelican",
+    "model": "cloud-gemini-4-argon",
+    "onBoard": false,
+    "name": "Gemini 4 Argon",
+    "variant": "cloud · effort high",
+    "vendor": "google",
+    "local": false,
+    "where": "Cloud (GitHub Copilot)",
+    "effort": "high",
+    "complete": false,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/cloud-gemini-4-argon-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 228.2,
+      "tokens": 18315,
+      "tps": null
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/cloud-gemini-4-argon-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 206.5,
+      "tokens": 16378,
       "tps": null
      }
     ]
