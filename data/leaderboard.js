@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-28T05:09Z",
+ "generated": "2026-11-28T06:05Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 3556,
+  "gradedRuns": 3578,
   "notes": [
    "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, minimax31flash-hybrid, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
    "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)",
@@ -1162,9 +1162,9 @@ window.LB_DATA = {
      "agent_e2e": 100.0,
      "repo_qa": 100.0
     },
-    "repo_replay": null,
-    "debug": null,
-    "long_horizon": null
+    "repo_replay": 100.0,
+    "debug": 100.0,
+    "long_horizon": 100.0
    },
    "suiteTimeS": {
     "tool_calling": 5.7,
@@ -1230,7 +1230,48 @@ window.LB_DATA = {
      }
     }
    },
-   "agentic": null,
+   "agentic": {
+    "repo_replay": {
+     "rate": 100.0,
+     "runs": 9,
+     "tasks": 9,
+     "meanScore": 1.0,
+     "medianWallS": 71.0,
+     "medianTimeToCorrectS": 66.0,
+     "medianSteps": 13.0,
+     "regressions": 0,
+     "timeouts": 0,
+     "minFreeCommitGiB": 21.4
+    },
+    "debug": {
+     "rate": 100.0,
+     "runs": 10,
+     "tasks": 10,
+     "meanScore": 1.0,
+     "medianWallS": 77.0,
+     "medianTimeToFixS": 46.0,
+     "reproducedFirst": 80.0,
+     "rootCauseNamed": 100.0,
+     "medianSteps": 19.0
+    },
+    "long_horizon": {
+     "rate": 100.0,
+     "score": 100.0,
+     "meanScore": 1.0,
+     "sessions": 3,
+     "runs": 3,
+     "stagesPassed": 19,
+     "stagesTotal": 19,
+     "recall": 100.0,
+     "violations": 0,
+     "medianWallMin": 5.3,
+     "maxPromptTokens": 67568,
+     "medianSteps": 51.0,
+     "regressions": 0,
+     "stuckEvents": 0,
+     "lateEarlyDecode": 1.16
+    }
+   },
    "speed": {
     "decode": 59.4,
     "decodeSource": "speed test, MTP on",
@@ -1267,7 +1308,7 @@ window.LB_DATA = {
    },
    "endurance": null,
    "cloudTaskTime": null,
-   "rows": 80,
+   "rows": 102,
    "coreTasks": 59,
    "coreRows": 59
   },
@@ -14980,6 +15021,51 @@ window.LB_DATA = {
     ]
    },
    {
+    "id": "deepseek41-basalt-pelican",
+    "model": "deepseek41-basalt",
+    "onBoard": true,
+    "name": "DeepSeek-V4.1-Flash",
+    "variant": "IQ1_M · Basalt engine",
+    "vendor": "deepseek",
+    "local": true,
+    "where": "2 GPUs + RAM + NVMe",
+    "effort": "low",
+    "complete": true,
+    "running": false,
+    "attempts": [
+     {
+      "n": 1,
+      "file": "data/pelican/deepseek41-basalt-1.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 183.7,
+      "tokens": 21006,
+      "tps": 115.3
+     },
+     {
+      "n": 2,
+      "file": "data/pelican/deepseek41-basalt-2.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 71.5,
+      "tokens": 10720,
+      "tps": 150.0
+     },
+     {
+      "n": 3,
+      "file": "data/pelican/deepseek41-basalt-3.svg",
+      "ok": true,
+      "animated": true,
+      "problem": null,
+      "seconds": 51.9,
+      "tokens": 7863,
+      "tps": 151.5
+     }
+    ]
+   },
+   {
     "id": "deepseek41-coder-6000-pelican",
     "model": "deepseek41-coder-6000",
     "onBoard": true,
@@ -15805,19 +15891,7 @@ window.LB_DATA = {
     ]
    }
   ],
-  "queued": [
-   {
-    "id": "deepseek41-basalt-pelican",
-    "model": "deepseek41-basalt",
-    "name": "DeepSeek-V4.1-Flash",
-    "variant": "IQ1_M · Basalt engine",
-    "vendor": "deepseek",
-    "local": true,
-    "where": "2 GPUs + RAM + NVMe",
-    "effort": "low",
-    "status": "running"
-   }
-  ]
+  "queued": []
  },
  "frontierGap": {
   "benchmarks": [
@@ -16107,7 +16181,7 @@ window.LB_DATA = {
     "local": true,
     "name": "DeepSeek-V4.1-Flash",
     "vendor": "deepseek",
-    "status": "queued"
+    "status": "running"
    }
   ],
   "reference": {

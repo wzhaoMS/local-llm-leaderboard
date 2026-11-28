@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    
+    <g id="wheel">
+      <circle r="45" fill="none" stroke="#222" stroke-width="8" />
+      <circle r="38" fill="none" stroke="#666" stroke-width="2" />
+      <g stroke="#AAA" stroke-width="2">
+        <line x1="0" y1="-38" x2="0" y2="38" />
+        <line x1="-38" y1="0" x2="38" y2="0" />
+        <line x1="-27" y1="-27" x2="27" y2="27" />
+        <line x1="27" y1="-27" x2="-27" y2="27" />
+      </g>
+      <circle r="8" fill="#333" />
+    </g>
+
+    
+    <g id="scenery-piece">
+      
+      <path d="M 0 220 Q 50 180 100 220 L 100 300 L 0 300 Z" fill="#2E8B57" />
+      <path d="M 100 220 Q 150 190 200 220 L 200 300 L 100 300 Z" fill="#3CB371" />
+      <path d="M 200 220 Q 250 170 300 220 L 300 300 L 200 300 Z" fill="#2E8B57" />
+      <path d="M 300 220 Q 350 190 400 220 L 400 300 L 300 300 Z" fill="#3CB371" />
+      
+      <rect x="50" y="160" width="8" height="60" fill="#8B4513" />
+      <circle cx="54" cy="140" r="25" fill="#228B22" />
+      <rect x="280" y="150" width="10" height="70" fill="#8B4513" />
+      <circle cx="285" cy="130" r="30" fill="#228B22" />
+      
+      <circle cx="120" cy="80" r="20" fill="#FFF" opacity="0.8" />
+      <circle cx="140" cy="75" r="25" fill="#FFF" opacity="0.8" />
+      <circle cx="160" cy="85" r="15" fill="#FFF" opacity="0.8" />
+      <circle cx="320" cy="60" r="15" fill="#FFF" opacity="0.8" />
+      <circle cx="335" cy="55" r="20" fill="#FFF" opacity="0.8" />
+      <circle cx="350" cy="65" r="12" fill="#FFF" opacity="0.8" />
+    </g>
+  </defs>
+
+  
+  <rect width="400" height="300" fill="#87CEEB" />
+  
+  
+  <circle cx="50" cy="50" r="30" fill="#FFD700">
+    <animate attributeName="r" values="30; 32; 30" dur="2s" repeatCount="indefinite" />
+  </circle>
+
+  
+  <g>
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="4s" repeatCount="indefinite" />
+    <use href="#scenery-piece" x="0" y="0" />
+    <use href="#scenery-piece" x="400" y="0" />
+  </g>
+
+  
+  <rect y="240" width="400" height="60" fill="#696969" />
+  
+  <line x1="0" y1="270" x2="400" y2="270" stroke="#FFF" stroke-width="4" stroke-dasharray="20 20">
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="-40 0" dur="0.5s" repeatCount="indefinite" />
+  </line>
+
+  
+  <ellipse cx="200" cy="265" rx="100" ry="10" fill="rgba(0,0,0,0.2)" />
+
+  
+  <g transform="translate(100, 220)">
+    <use href="#wheel" />
+    <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="1.5s" repeatCount="indefinite" additive="sum" />
+  </g>
+
+  
+  <g transform="translate(300, 220)">
+    <use href="#wheel" />
+    <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="1.5s" repeatCount="indefinite" additive="sum" />
+  </g>
+
+  
+  <g stroke="#FF4500" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 100 220 L 140 140 L 160 220" />
+    
+    <path d="M 140 140 L 260 130" />
+    
+    <path d="M 160 220 L 260 130" />
+    
+    <path d="M 100 220 L 160 220" />
+    
+    <path d="M 260 130 L 300 220" />
+  </g>
+
+  
+  <path d="M 100 220 L 160 220" stroke="#444" stroke-width="4" stroke-dasharray="6 4">
+    <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1.5s" repeatCount="indefinite" />
+  </path>
+
+  
+  <circle cx="160" cy="220" r="18" fill="none" stroke="#333" stroke-width="4" />
+
+  
+  <g>
+    <animateTransform attributeName="transform" type="rotate" from="0 160 220" to="360 160 220" dur="1.5s" repeatCount="indefinite" />
+    <line x1="160" y1="220" x2="160" y2="260" stroke="#333" stroke-width="6" stroke-linecap="round" />
+    <rect x="150" y="255" width="20" height="10" rx="3" fill="#333" />
+  </g>
+
+  
+  <path d="M 125 140 Q 140 130 155 140 Q 145 145 125 140 Z" fill="#333" stroke="#222" stroke-width="2" />
+
+  
+  <path d="M 260 130 L 280 110 Q 290 110 285 120" stroke="#333" stroke-width="6" fill="none" stroke-linecap="round" />
+  <circle cx="285" cy="120" r="5" fill="#222" />
+
+  
+  <rect x="90" y="210" width="8" height="15" fill="#FF0" transform="rotate(-20 100 220)" />
+  <rect x="302" y="210" width="8" height="15" fill="#FF0" transform="rotate(20 300 220)" />
+
+  
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -4; 0 0" dur="0.75s" repeatCount="indefinite" />
+
+    
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-8 145 145; 8 145 145; -8 145 145" dur="0.75s" repeatCount="indefinite" />
+      
+      <line x1="145" y1="145" x2="155" y2="190" stroke="#FFA500" stroke-width="7" stroke-linecap="round" />
+      
+      <line x1="155" y1="190" x2="160" y2="255" stroke="#FFA500" stroke-width="6" stroke-linecap="round" />
+      
+      <path d="M 155 255 L 170 262 L 160 268 Z" fill="#FFA500" />
+    </g>
+
+    
+    <ellipse cx="140" cy="95" rx="45" ry="55" fill="#FFF" stroke="#333" stroke-width="2" />
+    
+    
+    <path d="M 100 90 Q 75 80 85 115 Z" fill="#FFF" stroke="#333" stroke-width="2" />
+
+    
+    <path d="M 130 80 Q 90 100 105 150 Q 140 120 160 90 Z" fill="#E8E8E8" stroke="#333" stroke-width="2" />
+    
+    <path d="M 110 115 Q 120 120 130 110" stroke="#999" stroke-width="2" fill="none" />
+    <path d="M 120 130 Q 130 135 140 125" stroke="#999" stroke-width="2" fill="none" />
+
+    
+    <path d="M 160 70 Q 180 40 195 50 Q 175 80 165 100 Z" fill="#FFF" stroke="#333" stroke-width="2" />
+
+    
+    <circle cx="195" cy="50" r="20" fill="#FFF" stroke="#333" stroke-width="2" />
+
+    
+    <path d="M 205 45 Q 260 45 290 60 Q 260 50 205 55 Z" fill="#FFA500" stroke="#333" stroke-width="2" />
+    
+    <path d="M 205 55 Q 250 85 280 65 Q 230 55 205 50 Z" fill="#FF8C00" stroke="#333" stroke-width="2" />
+
+    
+    <circle cx="200" cy="45" r="5" fill="#000" />
+    <circle cx="201" cy="44" r="2" fill="#FFF" />
+
+    
+    <path d="M 178 35 Q 195 15 212 35 Q 200 42 178 35 Z" fill="#FF0000" stroke="#B22222" stroke-width="2" />
+    
+    <path d="M 212 35 L 222 42 L 212 48 Z" fill="#000" />
+
+    
+    <path d="M 160 75 Q 130 65 95 55" stroke="#00BFFF" stroke-width="6" fill="none" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="-5 160 75; 5 160 75; -5 160 75" dur="0.25s" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>
