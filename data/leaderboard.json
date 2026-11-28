@@ -1,6 +1,6 @@
 {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-28T08:05Z",
+ "generated": "2026-11-28T09:06Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -16060,56 +16060,6 @@
     }
    },
    {
-    "id": "deepseek41-basalt-gap",
-    "model": "deepseek41-basalt",
-    "onBoard": true,
-    "name": "DeepSeek-V4.1-Flash",
-    "variant": "IQ1_M · Basalt engine",
-    "vendor": "deepseek",
-    "local": true,
-    "where": "2 GPUs + RAM + NVMe",
-    "running": true,
-    "results": {
-     "arc_agi2": {
-      "effort": "high",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 325.8,
-      "medianTokens": 49228.0,
-      "budget": 65536,
-      "n": 20,
-      "solved": 5,
-      "score": 30.0,
-      "ci": [
-       14.5,
-       51.9
-      ],
-      "complete": false
-     },
-     "omniscience": {
-      "effort": "low",
-      "otherEffort": 0,
-      "errors": 0,
-      "truncated": 0,
-      "medianSeconds": 51.7,
-      "medianTokens": 6345.5,
-      "budget": 32768,
-      "n": 100,
-      "correct": 34,
-      "incorrect": 54,
-      "idk": 12,
-      "score": 34.0,
-      "ci": [
-       25.5,
-       43.7
-      ],
-      "index": -20.0,
-      "complete": true
-     }
-    }
-   },
-   {
     "id": "flashnext-q4-basalt-gap",
     "model": "flashnext-q4-basalt",
     "onBoard": true,
@@ -16209,6 +16159,56 @@
        23.3
       ],
       "index": -21.0,
+      "complete": true
+     }
+    }
+   },
+   {
+    "id": "deepseek41-basalt-gap",
+    "model": "deepseek41-basalt",
+    "onBoard": true,
+    "name": "DeepSeek-V4.1-Flash",
+    "variant": "IQ1_M · Basalt engine",
+    "vendor": "deepseek",
+    "local": true,
+    "where": "2 GPUs + RAM + NVMe",
+    "running": true,
+    "results": {
+     "arc_agi2": {
+      "effort": "high",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 1,
+      "medianSeconds": 323.8,
+      "medianTokens": 50077.0,
+      "budget": 65536,
+      "n": 31,
+      "solved": 6,
+      "score": 22.6,
+      "ci": [
+       11.4,
+       39.8
+      ],
+      "complete": false
+     },
+     "omniscience": {
+      "effort": "low",
+      "otherEffort": 0,
+      "errors": 0,
+      "truncated": 0,
+      "medianSeconds": 51.7,
+      "medianTokens": 6345.5,
+      "budget": 32768,
+      "n": 100,
+      "correct": 34,
+      "incorrect": 54,
+      "idk": 12,
+      "score": 34.0,
+      "ci": [
+       25.5,
+       43.7
+      ],
+      "index": -20.0,
       "complete": true
      }
     }
