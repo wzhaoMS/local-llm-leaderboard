@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-27T16:26Z",
+ "generated": "2026-11-28T05:09Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -51,7 +51,7 @@ window.LB_DATA = {
    "agent_e2e",
    "repo_qa"
   ],
-  "gradedRuns": 3476,
+  "gradedRuns": 3556,
   "notes": [
    "vision: not run by glm47flash-5090, glm53flash-q2-2gpu, mimo26flash-2gpu, minimax31flash-hybrid, qwen38-27b-max, step37flash-2gpu (their scores cover the other suites)",
    "repo_qa: core uses 12/18 tasks (incomplete: glm47flash-5090, inkling2mini-5090, ling32air-6000, qwen38-27b-max)",
@@ -1119,6 +1119,157 @@ window.LB_DATA = {
    "rows": 0,
    "coreTasks": null,
    "coreRows": null
+  },
+  {
+   "id": "deepseek41-basalt",
+   "name": "DeepSeek-V4.1-Flash",
+   "short": "DeepSeek-V4.1 Basalt",
+   "variant": "IQ1_M · Basalt engine",
+   "vendor": "deepseek",
+   "params": "763B-A16B",
+   "quant": "UD-IQ1_M (.basalt pack)",
+   "placement": "hybrid",
+   "where": "2 GPUs + RAM + NVMe",
+   "recommended": false,
+   "reference": false,
+   "partial": false,
+   "effort": "low",
+   "engineOf": null,
+   "maxEffort": false,
+   "speedOnly": false,
+   "status": "done",
+   "notes": "All 384 experts unpruned on the Basalt engine (DSpark drafting, peer mode: 243/384 experts on PRO 6000, 49 on 5090, 56 in 18 GiB RAM, 66 on NVMe; 103 GiB Engram table read from NVMe; dynamic vision; 14 GiB of the RTX 5090 kept free for the dictation app). Code decode hits 84–119 tok/s and 96 tok/s at 117K context; overall median is lower because DSpark accepts fewer drafts on prose.",
+   "vramGiB": [
+    87.7,
+    16.4
+   ],
+   "ramGiB": 22.6,
+   "scores": {
+    "textCore": 92.6,
+    "textCoreCI": [
+     86.3,
+     98.5
+    ],
+    "allSuites": 93.4,
+    "suites": {
+     "tool_calling": 66.7,
+     "zh_intent": 90.6,
+     "finance_extract": 100.0,
+     "ts_coding": 100.0,
+     "reasoning": 83.3,
+     "vision": 100.0,
+     "browser_agent": 100.0,
+     "agent_e2e": 100.0,
+     "repo_qa": 100.0
+    },
+    "repo_replay": null,
+    "debug": null,
+    "long_horizon": null
+   },
+   "suiteTimeS": {
+    "tool_calling": 5.7,
+    "zh_intent": 13.6,
+    "finance_extract": 11.9,
+    "ts_coding": 112.9,
+    "reasoning": 18.4,
+    "vision": 6.8,
+    "browser_agent": 14.3,
+    "agent_e2e": 64.0,
+    "repo_qa": 22.5
+   },
+   "agentFixS": 31.0,
+   "fullSuites": {
+    "score": 93.4,
+    "tasks": 65,
+    "rows": 65,
+    "suites": {
+     "tool_calling": {
+      "score": 66.7,
+      "tasks": 6,
+      "rows": 6
+     },
+     "zh_intent": {
+      "score": 90.6,
+      "tasks": 6,
+      "rows": 6
+     },
+     "finance_extract": {
+      "score": 100.0,
+      "tasks": 6,
+      "rows": 6
+     },
+     "ts_coding": {
+      "score": 100.0,
+      "tasks": 6,
+      "rows": 6
+     },
+     "reasoning": {
+      "score": 83.3,
+      "tasks": 6,
+      "rows": 6
+     },
+     "vision": {
+      "score": 100.0,
+      "tasks": 6,
+      "rows": 6
+     },
+     "browser_agent": {
+      "score": 100.0,
+      "tasks": 5,
+      "rows": 5
+     },
+     "agent_e2e": {
+      "score": 100.0,
+      "tasks": 6,
+      "rows": 6
+     },
+     "repo_qa": {
+      "score": 100.0,
+      "tasks": 18,
+      "rows": 18
+     }
+    }
+   },
+   "agentic": null,
+   "speed": {
+    "decode": 59.4,
+    "decodeSource": "speed test, MTP on",
+    "inTaskDecode": 65.7,
+    "ttft": 2.27,
+    "firstOutput": 9.0,
+    "taskTime": 14.3,
+    "prefill": {
+     "8k": 1160.0,
+     "32k": 1750.0,
+     "64k": 1807.0,
+     "117k": 1941.0
+    },
+    "ttftAt": {
+     "8k": 7.3,
+     "32k": 19.0,
+     "64k": 37.1,
+     "117k": 64.3
+    },
+    "decodeAt": {
+     "8k": 96.0,
+     "32k": 90.0,
+     "64k": 93.0,
+     "117k": 96.0
+    },
+    "ctx": 131072,
+    "mtp": {
+     "on": 59.4,
+     "off": null,
+     "acceptance": 54.0,
+     "draft": 6
+    },
+    "concurrency": null
+   },
+   "endurance": null,
+   "cloudTaskTime": null,
+   "rows": 80,
+   "coreTasks": 59,
+   "coreRows": 59
   },
   {
    "id": "deepseek41-coder-6000",
@@ -12536,7 +12687,7 @@ window.LB_DATA = {
    "title": "Both GPUs + system RAM",
    "verdict": "avoid",
    "metric": "3–22 tok/s",
-   "body": "Bigger models whose experts spill into RAM run, but slowly: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s, GLM-5.3 753B SLIM IQ2_M 12 tok/s and GLM-5.3 753B IQ1_S 3 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks."
+   "body": "Bigger models whose experts spill into RAM run, but slowly on llama.cpp: MiniMax-M3.1-Flash 428B 22 tok/s, DeepSeek-V4.1-Flash 748B 17 tok/s, GLM-5.3 753B SLIM IQ2_M 12 tok/s and GLM-5.3 753B IQ1_S 3 tok/s, at best about 1/7 of the single-GPU Q4. MiniMax-M3.1-Flash scored 78.3 on its 24 core tasks. Exception: on Basalt (peer mode + DSpark), DeepSeek-V4.1-Flash 763B reached 59 tok/s (92.6 text core)."
   },
   {
    "title": "Tensor parallel (-sm tensor)",
@@ -14538,7 +14689,16 @@ window.LB_DATA = {
     "largest": "128k"
    }
   ],
-  "queued": []
+  "queued": [
+   {
+    "id": "deepseek41-basalt-longctx",
+    "model": "deepseek41-basalt",
+    "setup": {
+     "en": "Basalt · both GPUs + RAM + NVMe · native 1M context · fp8 KV",
+     "zh": "Basalt · 双卡 + 内存 + NVMe · 原生 1M 上下文 · fp8 KV"
+    }
+   }
+  ]
  },
  "pelican": {
   "prompt": "Generate an animated SVG of a pelican riding a bicycle.",
@@ -15035,7 +15195,7 @@ window.LB_DATA = {
     "where": "2 GPUs + RAM",
     "effort": null,
     "complete": false,
-    "running": true,
+    "running": false,
     "attempts": [
      {
       "n": 1,
@@ -15046,6 +15206,16 @@ window.LB_DATA = {
       "seconds": 4332.5,
       "tokens": 32768,
       "tps": 7.6
+     },
+     {
+      "n": 2,
+      "file": null,
+      "ok": false,
+      "animated": false,
+      "problem": "the request timed out",
+      "seconds": 5400.2,
+      "tokens": null,
+      "tps": null
      }
     ]
    },
@@ -15635,7 +15805,19 @@ window.LB_DATA = {
     ]
    }
   ],
-  "queued": []
+  "queued": [
+   {
+    "id": "deepseek41-basalt-pelican",
+    "model": "deepseek41-basalt",
+    "name": "DeepSeek-V4.1-Flash",
+    "variant": "IQ1_M · Basalt engine",
+    "vendor": "deepseek",
+    "local": true,
+    "where": "2 GPUs + RAM + NVMe",
+    "effort": "low",
+    "status": "running"
+   }
+  ]
  },
  "frontierGap": {
   "benchmarks": [
@@ -15908,7 +16090,26 @@ window.LB_DATA = {
     }
    }
   ],
-  "queued": [],
+  "queued": [
+   {
+    "id": "deepseek41-basalt-gap",
+    "model": "deepseek41-basalt",
+    "benchmark": "arc_agi2",
+    "local": true,
+    "name": "DeepSeek-V4.1-Flash",
+    "vendor": "deepseek",
+    "status": "queued"
+   },
+   {
+    "id": "deepseek41-basalt-gap",
+    "model": "deepseek41-basalt",
+    "benchmark": "omniscience",
+    "local": true,
+    "name": "DeepSeek-V4.1-Flash",
+    "vendor": "deepseek",
+    "status": "queued"
+   }
+  ],
   "reference": {
    "arc_agi2": {
     "label": "ARC Prize leaderboard (semi-private set)",
@@ -15924,8 +16125,8 @@ window.LB_DATA = {
  },
  "verdict": {
   "pick": "flashnext-q4-1gpu-medium",
-  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 7 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2 and Qwen3.8-27B), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good); this workstation has run it on Basalt since 26 Nov. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
-  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 7 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），11 月 26 日起这台机器日常改用 Basalt。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。",
+  "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core; 8 local setups score inside the leader's 95% interval, with Flash-Next Q5, Qwen3.8-27B max, Flash-Next Q4 Basalt, Qwen3.8-27B Basalt, GLM-5.3-Flash Q2, Qwen3.8-27B and DeepSeek-V4.1 Basalt), fast (163 tok/s, 5.2 s per task; the only faster model in the top tier is Qwen3.8-27B Basalt), and it leaves the other GPU free for a second model. The same weights on the Basalt engine decode 1.7x faster at the same quality (text core 96.0, inside the pick's 95% interval; real-repo fixes, debugging and long sessions at least as good); this workstation has run it on Basalt since 26 Nov. Cloud references on the same tasks: Gemini 4 Neon (xhigh) and GPT-6 Astra (max) score 96.7 (inside the local pick's 95% interval); the local pick is ahead of Claude Opus 5.5 (max), GPT-6.2 Sol (max) and Gemini 4 Hydrogen (xhigh).",
+  "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000。质量第一梯队（文本核心 96.1；有 8 个本地配置落在第一名的 95% 置信区间内，另外几个是 Flash-Next Q5、Qwen3.8-27B max、Flash-Next Q4 Basalt、Qwen3.8-27B Basalt、GLM-5.3-Flash Q2、Qwen3.8-27B、DeepSeek-V4.1 Basalt），速度快（163 tok/s，单题 5.2 秒；第一梯队里比它快的其他模型只有 Qwen3.8-27B Basalt），另一张卡空出来跑第二个模型。同一套权重换 Basalt 引擎，解码快 1.7 倍，质量一样（文本核心 96.0，在主力的 95% 置信区间内；真实仓库修 bug、调试、长程都不比原来差），11 月 26 日起这台机器日常改用 Basalt。云端参照（同一套题）：Gemini 4 Neon (xhigh)、GPT-6 Astra (max) 96.7 分（在本地主力的 95% 置信区间内），本地主力高于 Claude Opus 5.5 (max)、GPT-6.2 Sol (max)、Gemini 4 Hydrogen (xhigh)。",
   "headline": {
    "en": "Qwen3.8-Flash-Next Q4 on the RTX PRO 6000 is the daily driver: top-tier quality (96.1 text core) and fast (163 tok/s). Since 26 Nov it runs on the Basalt engine: the same weights at 282 tok/s, 1.7× llama.cpp.",
    "zh": "主力：Qwen3.8-Flash-Next Q4，单卡 RTX PRO 6000，质量第一梯队（文本核心 96.1），速度快（163 tok/s）。11 月 26 日起改用 Basalt 引擎：同一套权重 282 tok/s，是 llama.cpp 的 1.7 倍。"
@@ -16042,12 +16243,12 @@ window.LB_DATA = {
     "value": "3–22",
     "unit": "tok/s",
     "title": {
-     "en": "Giant models in system RAM: too slow",
-     "zh": "放进内存的超大模型：太慢"
+     "en": "Giant models in system RAM: too slow on llama.cpp",
+     "zh": "放进内存的超大模型：llama.cpp 太慢"
     },
     "text": {
-     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B, GLM-5.3 753B SLIM IQ2_M and GLM-5.3 753B IQ1_S decode 3–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks.",
-     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B SLIM IQ2_M、GLM-5.3 753B IQ1_S 放在两张卡加内存上只有 3–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。"
+     "en": "MiniMax-M3.1-Flash 428B, DeepSeek-V4.1-Flash 748B, GLM-5.3 753B SLIM IQ2_M and GLM-5.3 753B IQ1_S decode 3–22 tok/s on both GPUs plus system RAM, at best about 1/7 of the Q4; the best score was MiniMax-M3.1-Flash's 78.3 on 24 tasks. Exception: on Basalt (peer mode + DSpark), DeepSeek-V4.1-Flash 763B reached 59 tok/s (92.6 text core).",
+     "zh": "MiniMax-M3.1-Flash 428B、DeepSeek-V4.1-Flash 748B、GLM-5.3 753B SLIM IQ2_M、GLM-5.3 753B IQ1_S 放在两张卡加内存上只有 3–22 tok/s，最快也只有 Q4 的 1/7 左右；分数最高的 MiniMax-M3.1-Flash 是 78.3（24 题）。例外：换 Basalt（peer 模式 + DSpark）后，DeepSeek-V4.1-Flash 763B 跑到了 59 tok/s（文本核心 92.6）。"
     },
     "href": "#hardware"
    }
