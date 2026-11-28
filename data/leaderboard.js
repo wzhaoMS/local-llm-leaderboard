@@ -1,6 +1,6 @@
 window.LB_DATA = {
  "schema": "local-llm-leaderboard@1",
- "generated": "2026-11-28T10:09Z",
+ "generated": "2026-11-28T11:10Z",
  "site": {
   "title": "Local LLM leaderboard",
   "subtitle": "RTX PRO 6000 + RTX 5090 workstation",
@@ -14623,6 +14623,142 @@ window.LB_DATA = {
     "largest": "512k"
    },
    {
+    "id": "deepseek41-basalt-longctx",
+    "model": "deepseek41-basalt",
+    "name": "DeepSeek-V4.1-Flash",
+    "variant": "IQ1_M · Basalt engine",
+    "vendor": "deepseek",
+    "engine": "Basalt",
+    "setup": {
+     "en": "Basalt · both GPUs + RAM + NVMe · native 1M context · fp8 KV",
+     "zh": "Basalt · 双卡 + 内存 + NVMe · 原生 1M 上下文 · fp8 KV"
+    },
+    "running": true,
+    "closedBook": {
+     "acc": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "single": 0.0,
+     "chain": 0.0,
+     "list": 0.0,
+     "n": 20,
+     "solved": 0,
+     "complete": true,
+     "lost": null,
+     "gained": null,
+     "promptTokens": 191.5,
+     "coldTtft": 0.8,
+     "prefill": 250.0,
+     "warmTtft": null,
+     "decode": 110.4,
+     "taskTime": 2.5,
+     "errors": 0,
+     "truncated": 0,
+     "formatMisses": 0
+    },
+    "bySize": {
+     "32k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": null,
+      "gained": null,
+      "promptTokens": 29468.5,
+      "coldTtft": 12.8,
+      "prefill": 2321.0,
+      "warmTtft": null,
+      "decode": 127.1,
+      "taskTime": 13.4,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "128k": {
+      "acc": 100.0,
+      "ci": [
+       100.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 100.0,
+      "n": 20,
+      "solved": 20,
+      "complete": true,
+      "lost": 0,
+      "gained": 0,
+      "promptTokens": 119679.5,
+      "coldTtft": 51.6,
+      "prefill": 2326.0,
+      "warmTtft": null,
+      "decode": 127.0,
+      "taskTime": 52.3,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     },
+     "256k": {
+      "acc": 98.3,
+      "ci": [
+       95.0,
+       100.0
+      ],
+      "single": 100.0,
+      "chain": 100.0,
+      "list": 83.3,
+      "n": 20,
+      "solved": 19,
+      "complete": true,
+      "lost": 1,
+      "gained": 0,
+      "promptTokens": 245309.5,
+      "coldTtft": 107.3,
+      "prefill": 2290.0,
+      "warmTtft": null,
+      "decode": 125.8,
+      "taskTime": 108.2,
+      "errors": 0,
+      "truncated": 0,
+      "formatMisses": 0
+     }
+    },
+    "skipped": null,
+    "depth": {
+     "32k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "128k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ],
+     "256k": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+     ]
+    },
+    "largest": "256k"
+   },
+   {
     "id": "flashnext-q4-longctx-native",
     "model": "flashnext-q4-1gpu-medium",
     "name": "Qwen3.8-Flash-Next",
@@ -14728,80 +14864,6 @@ window.LB_DATA = {
      ]
     },
     "largest": "128k"
-   },
-   {
-    "id": "deepseek41-basalt-longctx",
-    "model": "deepseek41-basalt",
-    "name": "DeepSeek-V4.1-Flash",
-    "variant": "IQ1_M · Basalt engine",
-    "vendor": "deepseek",
-    "engine": "Basalt",
-    "setup": {
-     "en": "Basalt · both GPUs + RAM + NVMe · native 1M context · fp8 KV",
-     "zh": "Basalt · 双卡 + 内存 + NVMe · 原生 1M 上下文 · fp8 KV"
-    },
-    "running": true,
-    "closedBook": {
-     "acc": 0.0,
-     "ci": [
-      0.0,
-      0.0
-     ],
-     "single": 0.0,
-     "chain": 0.0,
-     "list": 0.0,
-     "n": 20,
-     "solved": 0,
-     "complete": true,
-     "lost": null,
-     "gained": null,
-     "promptTokens": 191.5,
-     "coldTtft": 0.8,
-     "prefill": 250.0,
-     "warmTtft": null,
-     "decode": 110.4,
-     "taskTime": 2.5,
-     "errors": 0,
-     "truncated": 0,
-     "formatMisses": 0
-    },
-    "bySize": {
-     "32k": {
-      "acc": 100.0,
-      "ci": [
-       100.0,
-       100.0
-      ],
-      "single": 100.0,
-      "chain": 100.0,
-      "list": 100.0,
-      "n": 20,
-      "solved": 20,
-      "complete": true,
-      "lost": null,
-      "gained": null,
-      "promptTokens": 29468.5,
-      "coldTtft": 12.8,
-      "prefill": 2321.0,
-      "warmTtft": null,
-      "decode": 127.1,
-      "taskTime": 13.4,
-      "errors": 0,
-      "truncated": 0,
-      "formatMisses": 0
-     }
-    },
-    "skipped": null,
-    "depth": {
-     "32k": [
-      100.0,
-      100.0,
-      100.0,
-      100.0,
-      100.0
-     ]
-    },
-    "largest": "32k"
    }
   ],
   "queued": []
